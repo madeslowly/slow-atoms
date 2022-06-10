@@ -1,0 +1,90 @@
+.sa__footer
+	display: block
+	background-color: $soft-grey
+	color: $pure-black
+
+	.footer__naviagtion
+		display: flex
+		flex-direction: row
+		justify-content: space-between
+		flex-wrap: wrap
+		padding: 2rem 5vw
+
+		& > h1,h2,h3,h4
+			font-weight: 600
+
+		ul
+			list-style: none
+			padding: 0
+			margin: 0
+
+		li
+			margin: .6rem 0
+
+	#menu-useful-links
+		li
+
+			&::before
+				display: inline-block
+				font-style: normal
+				font-variant: normal
+				text-rendering: auto
+				-webkit-font-smoothing: antialiased
+				font-family: "Font Awesome 5 Free"
+				font-weight: 600
+				content: "\f101"
+				color: $perfect-grey
+				font-size: 1rem
+				transform: translateY(-.2rem)
+				padding-right: .6rem
+
+
+	.site-info
+		display: flex
+		flex-direction: row
+		justify-content: space-between
+		align-items: center
+		margin: 0 5vw
+		padding: 1rem 0
+		font-size: 1rem
+		color: $royal-blue
+		border-top: solid 1px $perfect-grey
+
+		& > *
+			margin: 0
+
+
+.footer-header
+	color: $pure-white
+	padding: 2rem 5vw
+	background-color: rgb(36, 39, 54)
+	//border-top: 1px solid $royal-blue
+
+.sib_signup_form
+
+	div
+		display: flex
+
+	input
+		border-top-right-radius: 0
+		border-bottom-right-radius: 0
+		border-color: $royal-blue
+
+	button
+		font-size: 1rem
+		padding: 3px
+		border-top-left-radius: 0
+		border-bottom-left-radius: 0
+
+		&::after
+			font-family: "Font Awesome 5 Free"
+			//font-weight: 400
+			content: '\f1d8'
+
+@media screen and (max-width: 768px)
+
+	.sa__footer .site-info
+		flex-direction: column
+
+		p
+			padding: .4rem 0

@@ -1,0 +1,353 @@
+$nav-height: 15vh
+
+$nav-scrolled-height: 10vh
+
+.site-header
+	@include default-trans
+	display: flex
+	flex-direction: row
+	align-items: center
+	justify-content: space-between
+	padding: 0 2rem
+	background-color: rgba($pure-white,0)
+	height: $nav-height
+	position: fixed
+	width: 100vw
+	margin: 0
+	top: 0
+	//border-bottom: solid 2px rgba($royal-blue, 1)
+	z-index: 99999
+
+	a
+		&:link,
+		&:visited,
+		&:focus,
+		&:active
+			color: $pure-white
+
+	.custom-logo-link
+		max-width: $nav-height *.7
+		width: $nav-height *.7
+		transition: all 0.6s ease
+
+		img
+			@include default-trans
+			-webkit-filter: drop-shadow(0 2px 2px rgba($royal-blue, 0.3))
+			//filter: drop-shadow(5px 5px 5px #222)
+
+	.main-navigation
+		display: block
+
+		.menu-item:hover > .sub-menu-wrap,
+		.menu-item:focus > .sub-menu-wrap
+			visibility: visible
+			opacity: 1
+			transform: translateY(0px) scale(1) rotateX(0)
+			transform-origin: top
+
+	.sub-menu
+		list-style: none
+		margin: 0
+		padding: 25px
+		box-shadow: 2px 2px 5px 2px rgba($pure-black, .2)
+
+		//border: solid 1px $soft-grey
+		border-radius: 6px
+		background-color: $soft-white
+
+
+
+		a
+			white-space: nowrap
+			color: $soft-black
+			line-height: $font-size * 2.5
+			&::after
+				margin: 10px 0 0
+			//color: $pure-black
+
+	.sub-menu-wrap
+		visibility: hidden
+		opacity: 0
+		float: left
+		position: absolute
+		top: 100%
+		z-index: 99999
+		transform: translateY(20px) scale(1.05) rotateX(-30deg)
+		transform-origin: top
+		@include default-sub-link-trans
+		display: flex
+		flex-direction: column
+		background-color: rgba(0,0,0,0)
+		padding-top: 10px
+
+		&:before
+			background: $pure-white
+			content: ""
+			display: block
+			height: 16px
+			width: 16px
+			left: 5px
+			top: 4px
+			position: absolute
+			bottom: 100%
+			border-radius: 2px
+			transform: rotate(-45deg) translateY(4px)
+			z-index: -1
+
+
+@keyframes gradient
+	0%
+		background-position: 0% 50%
+
+	100%
+		background-position: 100% 50%
+
+
+.nav-scrolled
+	@include default-link-trans
+	height: $nav-scrolled-height
+	background-color: $soft-grey
+	border-bottom: solid 1px rgba(black,.2)
+	animation: gradient 2s ease forwards
+
+
+	.menu-item:hover > .sub-menu-wrap,
+	.menu-item:focus > .sub-menu-wrap
+
+		transform: translateY(10px)!important
+
+	.sub-menu-wrap
+		background-color: lighten($royal-blue, 30)
+		transform: translateY(200px)
+
+	.custom-logo-link
+		max-width: $nav-scrolled-height * .8
+		width: $nav-scrolled-height * .8
+
+		img
+			-webkit-filter: none
+
+.navbar--list
+	list-style: none
+	margin: 0
+	padding-left: 0
+	flex-direction: row
+	display: flex
+
+
+	li
+		position: relative
+
+	a
+		@include default-link-trans
+		display: inline-block
+		position: relative
+		text-decoration: none
+		padding: 4px
+		margin-right: 15px
+		font-weight: 400
+		border: 0 dotted $red
+		border-radius: 2px
+
+		&::after
+			content: ''
+			position: absolute
+			width: 100%
+			transform: scaleX(0)
+			height: 2px
+			bottom: 0
+			left: 0
+			transform-origin: bottom right
+			transition: transform 0.25s ease-out
+			background-color: $pure-white
+
+		&:hover,
+		&:active,
+		&:focus
+			&::after
+				transform: scaleX(1)
+				transform-origin: bottom left
+
+#primary-menu
+	.current_page_item > a,
+	.current-menu-item > a,
+	.current_page_ancestor > a,
+	.current-menu-ancestor > a
+		&::after
+			content: ""
+			display: flex
+			justify-content: center
+			border-bottom: solid 1px $red
+			width: 30px
+			margin: 10px auto 0
+
+	.sub-menu-wrap > .current-menu-item > a
+		&::after
+			margin: 10px 0
+
+
+.breadcrumb
+	margin-top: -6vh
+	//transform: translateY(-1rem)
+	//z-index: 2
+
+	ul
+		list-style-type: none
+		margin: 0
+		padding: 0
+		padding-bottom: 11px
+		overflow: hidden
+
+	li
+		float: left
+		background-color: lighten($racing-green, 10)
+		//border: 1px solid lighten($royal-blue, 10)
+		margin-left: 0px
+		@include default-link-trans
+
+		& > a
+			display: block
+			border: none
+			text-decoration: none
+			padding: 1rem
+			color: $pure-white
+	.current_page_item
+		background-color: $racing-green
+
+	li:first-child
+
+		border-bottom-left-radius: 6px
+		& > a
+			color: $pure-white
+
+	li:last-child
+		border-bottom-right-radius: 6px
+
+	li:hover
+		transform: translateY(2px)
+
+/* Small menu.
+.menu-toggle,
+.main-navigation.toggled ul
+	//sdisplay: block
+
+@media screen and (min-width: 37.5em)
+	.menu-toggle
+		display: none
+
+@media screen and (max-width: 768px)
+
+	.main-navigation ul
+		display: flex
+
+	.sub-menu-wrap
+		display: none!important
+		visibility: hidden!important
+
+	nav, .menu-primary-menu-container
+		background-color: inherit
+
+	.nav-scrolled .navbar--list
+		background-color: $royal-blue
+
+	.navbar--list
+		align-self: baseline
+		background-color: inherit
+		clip-path: circle(2vh at 50vw -2vh)
+		color: $white
+		flex-direction: column
+		height: 100vh
+		margin: 0
+		padding: 20vh 0 0 5vw
+		position: absolute
+		right: 0
+		top: 0
+		transition: .5s ease-in-out
+		width: 100vw
+		z-index: -1
+
+		li
+			display: none
+			margin: 0 auto
+			opacity: 0
+
+		a
+			border-radius: 0
+			margin: 0 auto
+			text-align: center
+			vertical-align: top
+
+	.nav-active
+		// we toggle this class in mobile-nav-slider.js on burger click
+		clip-path: circle(60vh at 50vw 40vh)
+
+		li
+			display: inherit
+
+	.burger
+		cursor: pointer
+		display: block
+
+		& > *
+			background-color: $royal-blue
+
+	.nav-scrolled > .main-navigation
+		& > .burger
+			& > *
+				background-color: $pure-white
+
+	.burger-line-1,
+	.burger-line-2,
+	.burger-line-3
+		height: 1px
+		margin: 7px
+		width: 25px
+
+	.burger-line-1
+		transition: all .6s ease-in-out
+
+	.burger-line-2
+		transition: all .3s ease-in-out
+		transition-delay: .3s
+
+	.toggle
+		.burger-line-1
+			width: 8px
+
+		.burger-line-2
+			transition-delay: 0s
+			width: 17px
+
+	@keyframes navLinksFade
+		// the timings for this are set in mobile-nav-slider.js
+		from
+			opacity: 0
+			transform: translateY(-40px)
+
+		to
+			opacity: 1
+			transform: translateY(0)
+
+	.hidden-on-mobile
+		display: none
+
+	.breadcrumb
+		li
+			font-size: .7rem
+			line-height: 1
+
+.comment-navigation,
+.posts-navigation,
+.post-navigation
+	.sw__page &
+		margin: 0 0 1.5em
+
+	.nav-links
+		display: flex
+
+	.nav-previous
+		flex: 1 0 50%
+
+	.nav-next
+		text-align: end
+		flex: 1 0 50%
