@@ -190,6 +190,10 @@ if ( defined( 'JETPACK__VERSION' ) ) {
 
 function slow_atoms_customize_register( $wp_customize ) {
 
+	/**************************** PANELS ****************************/
+
+
+	// Theme Settings Panel
 	$wp_customize 		-> add_panel( 'slow_atoms_theme_panel' , array(
 		'title'					=> __('Theme Settings', 'slow-atoms'),
 		'priority' 			=> 1,
@@ -197,35 +201,60 @@ function slow_atoms_customize_register( $wp_customize ) {
 		'description'   => __('Several settings pertaining my theme', 'slow-atoms'),
 	));
 
+	/**************************** SECTIONS ****************************/
+
+	// Theme wide colors
 	$wp_customize 		-> add_section( 'slow_atoms_theme_colors', array(
 		'title' 				=> __('Theme Colors', 'slow-atoms'),
 		'priority' 			=> 2,
 		'panel' 				=> 'slow_atoms_theme_panel',
 	));
-
-	$wp_customize 		-> add_setting( 'slow_atoms_primary_theme_color' , array(
-		'default' 			=> '#730E04',
-		'transport' 		=> 'refresh',
-	));
-
-	$wp_customize 		-> add_control( new WP_Customize_Color_Control( $wp_customize, 'slow_atoms_link_color_control',array(
-		'label' 				=> __('Primary Theme Color' , 'slow-atoms'),
-		'section' 			=> 'slow_atoms_theme_colors',
-		'settings' 			=> 'slow_atoms_primary_theme_color',
-	)));
-
+	// Homepage strapline
 	$wp_customize 		-> add_section('slow_atoms_theme_front_page', array(
 		'title' 				=> __('Homepage Settings', 'slow-atoms'),
 		'priority' 			=> 1,
 		'panel' 				=> 'slow_atoms_theme_panel',
 	) ) ;
+	// Archive featured images
+	$wp_customize 		-> add_section('slow_atoms_theme_archive_page_heros', array(
+		'title' 				=> __('Featured Images', 'slow-atoms'),
+		'priority' 			=> 3,
+		'panel' 				=> 'slow_atoms_theme_panel',
+	) ) ;
+	/**************************** SETTINGS ****************************/
 
+	// Primary color
+	$wp_customize 		-> add_setting( 'slow_atoms_primary_theme_color' , array(
+		'default' 			=> '#730E04',
+		'transport' 		=> 'refresh',
+	));
+	// Homepage strapline
 	$wp_customize 		-> add_setting( 'slow_atoms_front_page_title', array(
-		'default'       => __( 'Default Text', 'slow-atoms' ),
+		'default'       => __( 'Snappy strapline saying how awesome everything is', 'slow-atoms' ),
 		'sanitize_callback' => 'sanitize_text',
 		'transport' 		=> 'refresh',
 	) ) ;
+	// Research featured images
+	$wp_customize			-> add_setting( 'slow_atoms_theme_research_heros', array(
+		'default'				=> get_theme_file_uri('assets/image/logo.jpg'), // Add Default Image URL
+    'sanitize_callback' => 'esc_url_raw',
+		'transport' 		=> 'refresh',
+	));
+	// People featured images
+	$wp_customize			-> add_setting( 'slow_atoms_theme_people_heros', array(
+		'default'				=> get_theme_file_uri('assets/image/logo.jpg'), // Add Default Image URL
+    'sanitize_callback' => 'esc_url_raw',
+		'transport' 		=> 'refresh',
+	));
+	/**************************** CONTROLS ****************************/
 
+	// Primary color
+	$wp_customize 		-> add_control( new WP_Customize_Color_Control( $wp_customize, 'slow_atoms_link_color_control',array(
+		'label' 				=> __('Primary Theme Color' , 'slow-atoms'),
+		'section' 			=> 'slow_atoms_theme_colors',
+		'settings' 			=> 'slow_atoms_primary_theme_color',
+	)));
+	// Homepage strapline
 	$wp_customize 		-> add_control( new WP_Customize_Control( $wp_customize , 'slow_atoms_front_page_title_control', array(
 		'label'    			=> __( 'Homepage Title', 'slow-atoms' ),
 		'description' 	=> __( 'Title above the homepage content. Site title and strapline are found under "Site Identity"' ),
@@ -234,14 +263,33 @@ function slow_atoms_customize_register( $wp_customize ) {
 		'settings' 			=> 'slow_atoms_front_page_title',
 		'type'     			=> 'text'
 	) ) );
-
+	// Research archive hero image
+  $wp_customize			-> add_control( new WP_Customize_Image_Control( $wp_customize, 'slow_atoms_featured_image_research_control', array(
+		'label' 				=> 'Research Page Image',
+    'priority' 			=> 4,
+    'section' 			=> 'slow_atoms_theme_archive_page_heros',
+    'settings' 			=> 'slow_atoms_theme_research_heros',
+    'button_labels' => array(// All These labels are optional
+			'select' => 'Select Image',
+      'remove' => 'Remove Image',
+      'change' => 'Change Image',
+    ) ) ) );
+	// People archive hero image
+	$wp_customize			-> add_control( new WP_Customize_Image_Control( $wp_customize, 'slow_atoms_featured_image_people_control', array(
+		'label' 				=> 'People Page Image',
+    'priority' 			=> 4,
+    'section' 			=> 'slow_atoms_theme_archive_page_heros',
+    'settings' 			=> 'slow_atoms_theme_people_heros',
+    'button_labels' => array(// All These labels are optional
+			'select' => 'Select Image',
+      'remove' => 'Remove Image',
+      'change' => 'Change Image',
+    ) ) ) );
 
 	// Sanitize text
 	function sanitize_text( $text ) {
 			return sanitize_text_field( $text );
 	}
-
-
 }
 
 add_action('customize_register', 'slow_atoms_customize_register');
@@ -382,7 +430,6 @@ function hex2rgba( $color, $opacity = false ) {
 
 // Create section for research pages
 function slow_atoms_research_post_type() {
-
 	$args = array(
 		'hierarchical'	=>	true,
 		'labels'				=>	array('name' => 'Research', 'singular_name' => 'Page'),
@@ -391,71 +438,74 @@ function slow_atoms_research_post_type() {
 		'has_archive'		=>	true,
 		'supports'			=>	array('title' , 'editor', 'revisions', 'trackbacks', 'author', 'excerpt', 'page-attributes', 'thumbnail', 'custom-fields', 'post-formats'),
 		'show_in_rest' => true,
-
 	);
-
 	register_post_type('Research', $args );
 }
-
 add_action( 'init' , 'slow_atoms_research_post_type');
 
-
 function slow_atoms_research_taxonomy() {
-
 	$args	=	array(
 		'labels'				=>	array('name' => 'Projects', 'singular_name' => 'Project'),
 		'public'				=>	true,
 		'hierarchical'	=>	true,
 	);
-
 	register_taxonomy('Projects', array('research'), $args);
 }
-
 add_action( 'init' , 'slow_atoms_research_taxonomy');
 
 // Create section for people pages
 function slow_atoms_people_post_type() {
-
 	$args = array(
 		'hierarchical'	=>	true,
-		'labels'				=>	array('name' => 'People', 'singular_name' => 'Person'),
+		'labels'				=>	array('name' => 'People', 'singular_name' => 'People'),
 		'menu_icon'			=>	'dashicons-groups',
 		'public'				=>	true,
 		'has_archive'		=>	true,
 		'supports'			=>	array('title' , 'editor', 'revisions', 'trackbacks', 'author', 'excerpt', 'page-attributes', 'thumbnail', 'custom-fields', 'post-formats'),
-		'show_in_rest' => true,
-
+		'show_in_rest'	=> true,
+		'description'		=> 'Past and present team members.',
 	);
-
 	register_post_type('People', $args );
 }
-
 add_action( 'init' , 'slow_atoms_people_post_type');
 
-
 function slow_atoms_people_taxonomy() {
-
 	$args	=	array(
-		'labels'				=>	array('name' => 'Roles', 'singular_name' => 'Role'),
+		'labels'				=>	array('name' => 'Roles', 'singular_name' => 'Roles'),
 		'public'				=>	true,
 		'hierarchical'	=>	true,
 	);
-
 	register_taxonomy('Roles', array('people'), $args);
 }
-
-
 add_action( 'init' , 'slow_atoms_people_taxonomy');
 
+// Create section for wiki pages
+function slow_atoms_wiki_post_type() {
+	$args = array(
+		'hierarchical'	=>	true,
+		'labels'				=>	array('name' => 'Wiki', 'singular_name' => 'Wiki'),
+		'menu_icon'			=>	'dashicons-book',
+		'public'				=>	true,
+		'has_archive'		=>	true,
+		'supports'			=>	array('title' , 'editor', 'revisions', 'trackbacks', 'author', 'excerpt', 'page-attributes', 'thumbnail', 'custom-fields', 'post-formats'),
+		'show_in_rest' => true,
+	);
+	register_post_type('Wiki', $args );
+}
+add_action( 'init' , 'slow_atoms_wiki_post_type');
+
+function slow_atoms_wiki_taxonomy() {
+	$args	=	array(
+		'labels'				=>	array('name' => 'Subject', 'singular_name' => 'Subject'),
+		'public'				=>	true,
+		'hierarchical'	=>	true,
+	);
+	register_taxonomy('Subject', array('wiki'), $args);
+}
+add_action( 'init' , 'slow_atoms_wiki_taxonomy');
 
 
-
-
-
-
-
-
-
+// Wrap a container round sub menus for css reasons
 
 class submenu_wrap extends Walker_Nav_Menu {
     function start_lvl( &$output, $depth = 0, $args = array() ) {
@@ -490,13 +540,6 @@ add_filter( 'get_the_archive_title', 'slow_atoms_archive_title' );
 
 
 
-
-
-
-
-
-
-
 add_filter( 'wp', 'f040925b_redirect', 0 );
 
 function f040925b_redirect( $content ) {
@@ -518,45 +561,6 @@ function f040925b_redirect( $content ) {
     return $content;
 }
 
-
-
-
-
-
-
-// Create section for people pages
-function slow_atoms_wiki_post_type() {
-
-	$args = array(
-		'hierarchical'	=>	true,
-		'labels'				=>	array('name' => 'Wiki', 'singular_name' => 'Wiki'),
-		'menu_icon'			=>	'dashicons-book',
-		'public'				=>	true,
-		'has_archive'		=>	true,
-		'supports'			=>	array('title' , 'editor', 'revisions', 'trackbacks', 'author', 'excerpt', 'page-attributes', 'thumbnail', 'custom-fields', 'post-formats'),
-		'show_in_rest' => true,
-
-	);
-
-	register_post_type('Wiki', $args );
-}
-
-add_action( 'init' , 'slow_atoms_wiki_post_type');
-
-
-function slow_atoms_wiki_taxonomy() {
-
-	$args	=	array(
-		'labels'				=>	array('name' => 'Category', 'singular_name' => 'Category'),
-		'public'				=>	true,
-		'hierarchical'	=>	true,
-	);
-
-	register_taxonomy('Category', array('wiki'), $args);
-}
-
-
-add_action( 'init' , 'slow_atoms_wiki_taxonomy');
 
 
 // Allow Registration Only from @warrenchandler.com email addresses
