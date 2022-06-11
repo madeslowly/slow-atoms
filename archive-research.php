@@ -21,6 +21,10 @@ get_header();
 				?>
 			</header><!-- .page-header -->
 
+			<div class="post-thumbnail">
+				<img class="attachment-post-thumbnail size-post-thumbnail wp-post-image" src="<?php echo get_theme_mod('slow_atoms_theme_research_heros'); ?>">
+			</div><!-- .post-thumbnail -->
+
 			<?php
 			/* Start the Loop */
 			while ( have_posts() ) :

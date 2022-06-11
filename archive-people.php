@@ -8,8 +8,7 @@
  */
 
 get_header();
-
-if ( current_user_can( 'read' )) : ?>
+?>
 
 	<main id="primary" class="site-main">
 
@@ -21,6 +20,10 @@ if ( current_user_can( 'read' )) : ?>
 				the_archive_description( '<div class="archive-description">', '</div>' );
 				?>
 			</header><!-- .page-header -->
+
+			<div class="post-thumbnail">
+				<img class="attachment-post-thumbnail size-post-thumbnail wp-post-image" src="<?php echo get_theme_mod('slow_atoms_theme_people_heros'); ?>">
+			</div><!-- .post-thumbnail -->
 
 			<?php
 			/* Start the Loop */
@@ -47,8 +50,6 @@ if ( current_user_can( 'read' )) : ?>
 
 	</main><!-- #main -->
 
-	
-<?php else : ; endif; ?>
 <?php
 get_sidebar();
 get_footer();
