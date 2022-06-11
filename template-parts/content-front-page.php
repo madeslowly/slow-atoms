@@ -9,9 +9,9 @@
 
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+<article id="post-<?php the_ID(); ?>" <?php post_class('is__front-page'); ?>>
 
-	<header class="entry-header is__front-page is__theme-background-transparent">
+	<header class="entry-header is__theme-background-transparent">
 
 		<h1 class="entry-title"><?php bloginfo( 'name' ); ?></h1>
 		<h2 class="entry-description">
@@ -21,13 +21,13 @@
 	</header><!-- .entry-header -->
 
 
-	<div class="post-thumbnail is__front-page">
+	<div class="post-thumbnail">
 		<?php $rand_img = 'image_' . rand(1,5); ?>
 		<img class="attachment-post-thumbnail size-post-thumbnail wp-post-image" src="<?php the_field($rand_img); ?>" />
 	</div><!-- .post-thumbnail -->
 
 
-	<div class="entry-content is__front-page">
+	<div class="entry-content">
 
 		<h2 class="front__page-title"><?php	echo get_theme_mod( 'slow_atoms_front_page_title'); ?></h2>
 
