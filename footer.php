@@ -31,7 +31,7 @@
 	<div class="site-info">
 		<p>&copy; <?php echo get_bloginfo( 'name' ); ?> <?php echo date("Y"); ?> </p>
 
-		<p><?php printf( esc_html__( '%1$s by %2$s.', 'slow-atoms' ), '<a href="https://github.com/madeslowly/slow-atoms">Slow Atoms Theme</a>', '<a href="http://madeslowly.co.uk">Me</a>' ); ?>	
+		<p><?php printf( esc_html__( '%1$s by %2$s.', 'slow-atoms' ), '<a href="https://github.com/madeslowly/slow-atoms">Slow Atoms Theme</a>', '<a href="http://madeslowly.co.uk">Me</a>' ); ?>
 		</p>
 
 	</div><!-- .site-info -->
