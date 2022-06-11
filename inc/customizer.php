@@ -10,7 +10,7 @@
  *
  * @param WP_Customize_Manager $wp_customize Theme Customizer object.
  */
-function slow_atoms_customize_register( $wp_customize ) {
+function slow_atoms_blog_customize_register( $wp_customize ) {
 	$wp_customize->get_setting( 'blogname' )->transport         = 'postMessage';
 	$wp_customize->get_setting( 'blogdescription' )->transport  = 'postMessage';
 	$wp_customize->get_setting( 'header_textcolor' )->transport = 'postMessage';
@@ -32,7 +32,7 @@ function slow_atoms_customize_register( $wp_customize ) {
 		);
 	}
 }
-add_action( 'customize_register', 'slow_atoms_customize_register' );
+add_action( 'customize_register', 'slow_atoms_blog_customize_register' );
 
 /**
  * Render the site title for the selective refresh partial.
