@@ -25,7 +25,14 @@
 <div id="page" class="site">
 	<a class="skip-link screen-reader-text" href="#primary"><?php esc_html_e( 'Skip to content', 'slow-atoms' ); ?></a>
 
-	<header id="masthead" class="site-header">
+	<header id="masthead" class="site-header"
+	<?php
+		if( is_user_logged_in() ) : ?>
+			style="top:32px;"
+		<?php
+			endif
+		?>
+		>
 		<div class="site-branding">
 			<?php
 			the_custom_logo();
