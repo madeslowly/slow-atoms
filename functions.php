@@ -203,18 +203,18 @@ function slow_atoms_customize_register( $wp_customize ) {
 		'panel' 				=> 'slow_atoms_theme_panel',
 	));
 
-	$wp_customize 		-> add_setting( 'slow_atoms_nav_link_color' , array(
+	$wp_customize 		-> add_setting( 'slow_atoms_primary_theme_color' , array(
 		'default' 			=> '#730E04',
 		'transport' 		=> 'refresh',
 	));
 
 	$wp_customize 		-> add_control( new WP_Customize_Color_Control( $wp_customize, 'slow_atoms_link_color_control',array(
-		'label' 				=> __('Menu Link Color' , 'slow-atoms'),
+		'label' 				=> __('Primary Theme Color' , 'slow-atoms'),
 		'section' 			=> 'slow_atoms_theme_colors',
-		'settings' 			=> 'slow_atoms_nav_link_color',
+		'settings' 			=> 'slow_atoms_primary_theme_color',
 	)));
 
-	$wp_customize 		-> add_section( 'slow_atoms_theme_front_page', array(
+	$wp_customize 		-> add_section('slow_atoms_theme_front_page', array(
 		'title' 				=> __('Homepage Settings', 'slow-atoms'),
 		'priority' 			=> 1,
 		'panel' 				=> 'slow_atoms_theme_panel',
@@ -225,8 +225,6 @@ function slow_atoms_customize_register( $wp_customize ) {
 		'sanitize_callback' => 'sanitize_text',
 		'transport' 		=> 'refresh',
 	) ) ;
-
-
 
 	$wp_customize 		-> add_control( new WP_Customize_Control( $wp_customize , 'slow_atoms_front_page_title_control', array(
 		'label'    			=> __( 'Homepage Title', 'slow-atoms' ),
@@ -249,8 +247,9 @@ function slow_atoms_customize_register( $wp_customize ) {
 add_action('customize_register', 'slow_atoms_customize_register');
 
 
+// Style overrides with selected theme color
 function slow_atoms_customise_css() {
-	$slow_atoms_theme_color = get_theme_mod('slow_atoms_nav_link_color');
+	$slow_atoms_theme_color = get_theme_mod('slow_atoms_primary_theme_color');
 	$slow_atoms_theme_color_lighter = colourBrightness( $slow_atoms_theme_color, .1);
 	?>
 

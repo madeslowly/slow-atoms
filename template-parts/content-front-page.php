@@ -29,7 +29,7 @@
 
 	<div class="entry-content is__front-page">
 
-		<h2 class="front__page-title"><?php	echo get_theme_mod( 'sa_front_page_title'); ?></h2>
+		<h2 class="front__page-title"><?php	echo get_theme_mod( 'slow_atoms_front_page_title'); ?></h2>
 
 		<?php
 		the_content();
