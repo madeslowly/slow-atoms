@@ -29,10 +29,14 @@
 	</div>
 
 	<div class="site-info">
-		<p>&copy; <?php echo get_bloginfo( 'name' ); ?> <?php echo date("Y"); ?> </p>
-
-		<p><?php printf( esc_html__( '%1$s by %2$s.', 'slow-atoms' ), '<a href="https://github.com/madeslowly/slow-atoms">Slow Atoms Theme</a>', '<a href="http://madeslowly.co.uk">Me</a>' ); ?>
+		<p>&copy; <?php echo get_bloginfo( 'name' ); ?> <?php echo date("Y"); ?>
 		</p>
+		<?php
+			$recaptcha = WPCF7_RECAPTCHA::get_instance();
+			if ($recaptcha->is_active()) :
+				echo '<p>Protected by reCAPTCHA.</p>';
+			endif ; ?>
+
 
 	</div><!-- .site-info -->
 </footer><!-- .sa__footer -->
