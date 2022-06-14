@@ -12,6 +12,19 @@ if ( ! defined( '_S_VERSION' ) ) {
 	define( '_S_VERSION', '1.0.0' );
 }
 
+$roots_includes = array(
+  '/functions/custom-posts.php',
+);
+
+foreach($roots_includes as $file){
+  if(!$filepath = locate_template($file)) {
+    trigger_error("Error locating `$file` for inclusion!", E_USER_ERROR);
+  }
+
+  require_once $filepath;
+}
+unset($file, $filepath);
+
 /**
  * Sets up theme defaults and registers support for various WordPress features.
  *
@@ -428,83 +441,6 @@ function hex2rgba( $color, $opacity = false ) {
      return $hash . $hex;
  }
 
-// Create section for research pages
-function slow_atoms_research_post_type() {
-	$args = array(
-		'hierarchical'	=>	true,
-		'labels'				=>	array('name' => 'Research', 'singular_name' => 'Page'),
-		'menu_icon'			=>	'dashicons-chart-bar',
-		'public'				=>	true,
-		'has_archive'		=>	true,
-		'supports'			=>	array('title' , 'editor', 'revisions', 'trackbacks', 'author', 'excerpt', 'page-attributes', 'thumbnail', 'custom-fields', 'post-formats'),
-		'show_in_rest' => true,
-	);
-	register_post_type('Research', $args );
-}
-add_action( 'init' , 'slow_atoms_research_post_type');
-
-function slow_atoms_research_taxonomy() {
-	$args	=	array(
-		'labels'				=>	array('name' => 'Projects', 'singular_name' => 'Project'),
-		'public'				=>	true,
-		'hierarchical'	=>	true,
-	);
-	register_taxonomy('Projects', array('research'), $args);
-}
-add_action( 'init' , 'slow_atoms_research_taxonomy');
-
-// Create section for people pages
-function slow_atoms_people_post_type() {
-	$args = array(
-		'hierarchical'	=>	true,
-		'labels'				=>	array('name' => 'People', 'singular_name' => 'People'),
-		'menu_icon'			=>	'dashicons-groups',
-		'public'				=>	true,
-		'has_archive'		=>	true,
-		'supports'			=>	array('title' , 'editor', 'revisions', 'trackbacks', 'author', 'excerpt', 'page-attributes', 'thumbnail', 'custom-fields', 'post-formats'),
-		'show_in_rest'	=> true,
-		'description'		=> 'Past and present team members.',
-	);
-	register_post_type('People', $args );
-}
-add_action( 'init' , 'slow_atoms_people_post_type');
-
-function slow_atoms_people_taxonomy() {
-	$args	=	array(
-		'labels'				=>	array('name' => 'Roles', 'singular_name' => 'Roles'),
-		'public'				=>	true,
-		'hierarchical'	=>	true,
-	);
-	register_taxonomy('Roles', array('people'), $args);
-}
-add_action( 'init' , 'slow_atoms_people_taxonomy');
-
-// Create section for wiki pages
-function slow_atoms_wiki_post_type() {
-	$args = array(
-		'hierarchical'	=>	true,
-		'labels'				=>	array('name' => 'Wiki', 'singular_name' => 'Wiki'),
-		'menu_icon'			=>	'dashicons-book',
-		'public'				=>	true,
-		'has_archive'		=>	true,
-		'supports'			=>	array('title' , 'editor', 'revisions', 'trackbacks', 'author', 'excerpt', 'page-attributes', 'thumbnail', 'custom-fields', 'post-formats'),
-		'show_in_rest' => true,
-	);
-	register_post_type('Wiki', $args );
-}
-add_action( 'init' , 'slow_atoms_wiki_post_type');
-
-function slow_atoms_wiki_taxonomy() {
-	$args	=	array(
-		'labels'				=>	array('name' => 'Subject', 'singular_name' => 'Subject'),
-		'public'				=>	true,
-		'hierarchical'	=>	true,
-	);
-	register_taxonomy('Subject', array('wiki'), $args);
-}
-add_action( 'init' , 'slow_atoms_wiki_taxonomy');
-
-
 // Wrap a container round sub menus for css reasons
 
 class submenu_wrap extends Walker_Nav_Menu {
@@ -518,7 +454,21 @@ class submenu_wrap extends Walker_Nav_Menu {
     }
 }
 
+/*
+ *
+ * Change 'Posts' to 'News'
+ *
+ */
+function change_post_menu_label() {
+	global $menu;
+	global $submenu;
+	$menu[5][0] = 'News';
+	$submenu['edit.php'][5][0] = 'All news';
+	$submenu['edit.php'][10][0] = 'Add news item';
+	echo '';
+}
 
+add_action( 'admin_menu', 'change_post_menu_label' );
 
 function slow_atoms_archive_title( $title ) {
     if ( is_category() ) {
@@ -539,27 +489,6 @@ function slow_atoms_archive_title( $title ) {
 add_filter( 'get_the_archive_title', 'slow_atoms_archive_title' );
 
 
-
-add_filter( 'wp', 'f040925b_redirect', 0 );
-
-function f040925b_redirect( $content ) {
-    global $post;
-    if(
-        (
-            $post->post_type == '[People]'
-            ||
-            is_post_type_archive( '[People]' )
-            ||
-            is_tax( '[People]' )
-        )
-        &&
-        !is_user_logged_in()
-    ) {
-        wp_redirect( get_home_url() );
-        exit;
-    }
-    return $content;
-}
 
 
 
