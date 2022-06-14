@@ -1,6 +1,7 @@
-.is__front-page
-	
-	.entry-header
+.is__front-page,
+.is__people-archive
+
+	.page-header
 		position: absolute
 		bottom: 30vh
 		width: 100%
@@ -9,11 +10,11 @@
 		padding: 5vh 0
 		z-index: 1
 
-	.entry-title
+	.page-title
 		font-weight: 200
 		text-transform: uppercase
 
-	.entry-description
+	.page-description
 		display: none
 		visibility: hidden
 
@@ -38,7 +39,7 @@
 			height: 100%
 			object-fit: cover
 
-	.entry-content
+	.page-content
 		width: 90vw
 		margin: 0 auto
 		display: flex
@@ -54,16 +55,17 @@
 
 @media only screen and (min-width: 768px)
 
-	.is__front-page
+	.is__front-page,
+	.is__people-archive
 
-		.entry-header
+		.page-header
 			bottom: 35vh
 			right: 5vw
 			white-space: nowrap
 			padding: 5vh 100px
 			width: auto
 
-			.entry-description
+			.page-description
 				display: block
 				visibility: visible
 				font-weight: 400
@@ -74,6 +76,7 @@
 
 @media only screen and (min-width: 1024px)
 
-	.is__front-page
+	.is__front-page,
+	.is__people-archive
 		.wp-block-columns
 			flex-direction: row
