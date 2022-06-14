@@ -10,7 +10,7 @@
 get_header();
 ?>
 
-	<main id="primary" class="site-main is__people-archive">
+	<main id="primary" class="site-main is__publication-archive	">
 
 		<header class="page-header is__theme-background-transparent">
 			<?php

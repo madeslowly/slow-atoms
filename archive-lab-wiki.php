@@ -7,9 +7,14 @@
  * @package slow_atoms
  */
 
+ if ( !is_user_logged_in() ) {
+     auth_redirect();
+ }
+ 
 get_header();
 
-if ( current_user_can( 'read' )) : ?>
+
+ ?>
 
 	<main id="primary" class="site-main">
 
@@ -48,7 +53,6 @@ if ( current_user_can( 'read' )) : ?>
 	</main><!-- #main -->
 
 
-<?php else : echo 'hello'; endif; ?>
 <?php
 get_sidebar();
 get_footer();
