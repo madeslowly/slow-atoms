@@ -1,0 +1,83 @@
+.is__people-archive
+
+  .is__single-person
+    position: relative
+    max-width: 80vw
+    max-height: 80vw
+    width: 80vw
+    height: 80vw
+
+    .entry-title
+      position: absolute
+      color: $pure-white
+      z-index: 2
+      bottom: 0
+      padding: 2rem 1rem
+
+  .entry-content
+    display: flex
+    justify-content: space-between
+    flex-wrap: wrap
+
+  .is__single-person
+    margin: 6rem auto
+
+    .post-thumbnail
+
+      position: inherit
+      display: inline-block
+
+    .wp-post-image
+      height: 100%
+      width: 100%
+      object-fit: cover
+      filter: grayscale(100%) brightness(.5)
+
+
+@media only screen and (min-width: 768px)
+
+  .is__people-archive
+
+    background-color: rgb(18, 21, 38)
+
+  .is__people-archive > .entry-content
+    max-width: 1000px
+    margin: 0 auto
+
+
+    .is__single-person
+      position: relative
+      max-width: 200px
+      max-height: 200px
+      width: 20vw
+      height: 30vw
+
+      .entry-title
+        position: absolute
+        color: black
+        z-index: 2
+        bottom: -4vw
+        padding: 2rem 1rem
+        background-color:  $pure-white
+        width: 20vw
+        left: 4vw
+        border-radius: 8px
+
+    .entry-content
+      display: flex
+      justify-content: space-between
+      flex-wrap: wrap
+
+    .is__single-person
+      margin: 6rem 5vw
+
+      .post-thumbnail
+
+        position: inherit
+        display: inline-block
+
+      .wp-post-image
+        height: 100%
+        width: 100%
+        object-fit: cover
+        filter: grayscale(100%) brightness(.5)
