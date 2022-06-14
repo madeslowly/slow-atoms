@@ -48,8 +48,8 @@
 <script>
 
 	AOS.init({
-	duration: 600,
-	easing: 'ease-in-out-cubic',
+	duration: 1000,
+	easing: 'ease-out-back',
 	disable: 'mobile'
 	});
 
