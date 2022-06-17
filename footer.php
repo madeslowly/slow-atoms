@@ -11,19 +11,22 @@
 
 ?>
 
-<footer class="sa__footer">
+<footer class="slow-atoms__footer">
 
-	<div class="footer__naviagtion">
-		<div class="useful-links">
-			<h3>Useful Links</h3>
-			<?php
-				wp_nav_menu(
-					array(
-						'theme_location' => 'useful-links',
-						'container_class' => 'footer__menu--highlight'
-					)
-				);
-			?>
+	<div class="footer__body">
+
+		<div class="footer__useful-links">
+			<h5 class="footer__title">Useful Links</h5>
+			<div class="footer__links">
+
+				<?php
+					wp_nav_menu(
+						array(
+							'theme_location' => 'useful-links'
+						)
+					);
+				?>
+			</div>
 		</div>
 
 	</div>
@@ -39,7 +42,7 @@
 
 
 	</div><!-- .site-info -->
-</footer><!-- .sa__footer -->
+</footer><!-- .slow-atoms__footer -->
 
 
 <?php wp_footer(); ?>
@@ -48,8 +51,8 @@
 <script>
 
 	AOS.init({
-	duration: 1000,
-	easing: 'ease-out-back',
+	duration: 600,
+	easing: 'ease-in-sine',
 	disable: 'mobile'
 	});
 
