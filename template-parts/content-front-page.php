@@ -11,12 +11,12 @@
 
 <article id="post-<?php the_ID(); ?>" <?php post_class('is__front-page'); ?>>
 
+	<section class="slow-atoms__page-hero">
 	<header class="page-header is__theme-background-transparent">
 
 		<h1 class="page-title"><?php bloginfo( 'name' ); ?></h1>
 		<h2 class="page-description">
-		<?php $slow_atoms_description = get_bloginfo( 'description', 'display' );
-		 echo $slow_atoms_description ?>
+		<?php echo get_bloginfo( 'description', 'display' ); ?>
 	 </h2>
 	</header><!-- .page-header -->
 
@@ -26,10 +26,10 @@
 		<img class="attachment-post-thumbnail size-post-thumbnail wp-post-image" src="<?php the_field($rand_img); ?>" />
 	</div><!-- .post-thumbnail -->
 
+</section>
+	<div class="slow-atoms__page-content">
 
-	<div class="page-content">
-
-		<h2 class="front__page-title"><?php	echo get_theme_mod( 'slow_atoms_front_page_title'); ?></h2>
+		<h2 class="front__page-title" data-aos="fade-in"><?php	echo get_theme_mod( 'slow_atoms_front_page_title'); ?></h2>
 
 		<?php
 		the_content();
@@ -41,7 +41,7 @@
 			)
 		);
 		?>
-	</div><!-- .page-content -->
+	</div><!-- .slow-atoms__page-content -->
 
 	<?php if ( get_edit_post_link() ) : ?>
 		<footer class="page-footer">

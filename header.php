@@ -25,7 +25,17 @@
 <div id="page" class="site">
 	<a class="skip-link screen-reader-text" href="#primary"><?php esc_html_e( 'Skip to content', 'slow-atoms' ); ?></a>
 
-	<header id="masthead" class="site-header"
+	<header id="masthead" class="site-header
+	<?php
+	/*
+	 * If we pass a new class from a template with get_header('' , array( 'append_site-header_class' => 'new-class' )); check it exists then append to menu_class
+	 */
+	if ( $args['append_site-header_class'] ) :
+		$new_menu_class = ' ' . $args['append_site-header_class'];
+		echo $new_menu_class ;
+	endif;
+	?>
+	"
 	<?php
 		if( is_user_logged_in() ) : ?>
 			style="top:32px;"
@@ -59,11 +69,12 @@
 
 		<nav id="site-navigation" class="main-navigation">
 			<?php
+
 			wp_nav_menu(
 				array(
 					'menu'					=> '4',
 					'menu_id'       => 'primary-menu',
-					'menu_class'    => 'navbar--list',
+					'menu_class'    => 'navbar--list' . $new_menu_class,
 					'walker' => new submenu_wrap(),
 			) ) ; ?>
 

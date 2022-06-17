@@ -14,7 +14,7 @@
 		<h1 class="page-title"><?php esc_html_e( 'Nothing Found', 'slow-atoms' ); ?></h1>
 	</header><!-- .page-header -->
 
-	<div class="page-content">
+	<div class="slow-atoms__page-content">
 		<?php
 		if ( is_home() && current_user_can( 'publish_posts' ) ) :
 
@@ -47,5 +47,5 @@
 
 		endif;
 		?>
-	</div><!-- .page-content -->
+	</div><!-- .slow-atoms__page-content -->
 </section><!-- .no-results -->

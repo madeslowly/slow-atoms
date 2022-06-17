@@ -12,16 +12,19 @@ if ( ! defined( '_S_VERSION' ) ) {
 	define( '_S_VERSION', '1.0.0' );
 }
 
+$slow_atom_func_dir = get_stylesheet_directory() . '/inc/functions/';
 $roots_includes = array(
-  '/functions/custom-posts.php',
-	'/functions/enqueue-scripts-and-styles.php',
-	'/functions/acf-members.php',
-	'/functions/acf-publications.php',
-	'/functions/acf-hero-images.php',
+  '/inc/functions/custom-posts.php',
+	'/inc/functions/enqueue-scripts-and-styles.php',
+	'/inc/functions/acf-members.php',
+	'/inc/functions/acf-publications.php',
+	'/inc/functions/acf-hero-images.php',
+	'/inc/functions/slow-atoms-customise-colors.php',
+
 );
 
-foreach($roots_includes as $file){
-  if(!$filepath = locate_template($file)) {
+foreach( $roots_includes as $file ){
+  if( ! $filepath = locate_template( $file ) ) {
     trigger_error("Error locating `$file` for inclusion!", E_USER_ERROR);
   }
 
@@ -180,161 +183,6 @@ if ( defined( 'JETPACK__VERSION' ) ) {
 	require get_template_directory() . '/inc/jetpack.php';
 }
 
-function slow_atoms_customize_register( $wp_customize ) {
-
-	/**************************** PANELS ****************************/
-
-
-	// Theme Settings Panel
-	$wp_customize 		-> add_panel( 'slow_atoms_theme_panel' , array(
-		'title'					=> __('Theme Settings', 'slow-atoms'),
-		'priority' 			=> 1,
-		'capability'    => 'edit_theme_options',
-		'description'   => __('Several settings pertaining my theme', 'slow-atoms'),
-	));
-
-	/**************************** SECTIONS ****************************/
-
-	// Theme wide colors
-	$wp_customize 		-> add_section( 'slow_atoms_theme_colors', array(
-		'title' 				=> __('Theme Colors', 'slow-atoms'),
-		'priority' 			=> 2,
-		'panel' 				=> 'slow_atoms_theme_panel',
-	));
-	// Homepage strapline
-	$wp_customize 		-> add_section('slow_atoms_theme_front_page', array(
-		'title' 				=> __('Homepage Settings', 'slow-atoms'),
-		'priority' 			=> 1,
-		'panel' 				=> 'slow_atoms_theme_panel',
-	) ) ;
-	// Archive featured images
-	$wp_customize 		-> add_section('slow_atoms_theme_archive_page_heros', array(
-		'title' 				=> __('Featured Images', 'slow-atoms'),
-		'priority' 			=> 3,
-		'panel' 				=> 'slow_atoms_theme_panel',
-	) ) ;
-	/**************************** SETTINGS ****************************/
-
-	// Primary color
-	$wp_customize 		-> add_setting( 'slow_atoms_primary_theme_color' , array(
-		'default' 			=> '#730E04',
-		'transport' 		=> 'refresh',
-	));
-	// Homepage strapline
-	$wp_customize 		-> add_setting( 'slow_atoms_front_page_title', array(
-		'default'       => __( 'Snappy strapline saying how awesome everything is', 'slow-atoms' ),
-		'sanitize_callback' => 'sanitize_text',
-		'transport' 		=> 'refresh',
-	) ) ;
-	// Research featured images
-	$wp_customize			-> add_setting( 'slow_atoms_theme_research_heros', array(
-		'default'				=> get_theme_file_uri('assets/image/logo.jpg'), // Add Default Image URL
-    'sanitize_callback' => 'esc_url_raw',
-		'transport' 		=> 'refresh',
-	));
-	// People featured images
-	$wp_customize			-> add_setting( 'slow_atoms_theme_people_heros', array(
-		'default'				=> get_theme_file_uri('assets/image/logo.jpg'), // Add Default Image URL
-    'sanitize_callback' => 'esc_url_raw',
-		'transport' 		=> 'refresh',
-	));
-	/**************************** CONTROLS ****************************/
-
-	// Primary color
-	$wp_customize 		-> add_control( new WP_Customize_Color_Control( $wp_customize, 'slow_atoms_link_color_control',array(
-		'label' 				=> __('Primary Theme Color' , 'slow-atoms'),
-		'section' 			=> 'slow_atoms_theme_colors',
-		'settings' 			=> 'slow_atoms_primary_theme_color',
-	)));
-	// Homepage strapline
-	$wp_customize 		-> add_control( new WP_Customize_Control( $wp_customize , 'slow_atoms_front_page_title_control', array(
-		'label'    			=> __( 'Homepage Title', 'slow-atoms' ),
-		'description' 	=> __( 'Title above the homepage content. Site title and strapline are found under "Site Identity"' ),
-		'priority' 			=> 3,
-		'section' 			=> 'slow_atoms_theme_front_page',
-		'settings' 			=> 'slow_atoms_front_page_title',
-		'type'     			=> 'text'
-	) ) );
-	// Research archive hero image
-  $wp_customize			-> add_control( new WP_Customize_Image_Control( $wp_customize, 'slow_atoms_featured_image_research_control', array(
-		'label' 				=> 'Research Page Image',
-    'priority' 			=> 4,
-    'section' 			=> 'slow_atoms_theme_archive_page_heros',
-    'settings' 			=> 'slow_atoms_theme_research_heros',
-    'button_labels' => array(// All These labels are optional
-			'select' => 'Select Image',
-      'remove' => 'Remove Image',
-      'change' => 'Change Image',
-    ) ) ) );
-	// People archive hero image
-	$wp_customize			-> add_control( new WP_Customize_Image_Control( $wp_customize, 'slow_atoms_featured_image_people_control', array(
-		'label' 				=> 'People Page Image',
-    'priority' 			=> 4,
-    'section' 			=> 'slow_atoms_theme_archive_page_heros',
-    'settings' 			=> 'slow_atoms_theme_people_heros',
-    'button_labels' => array(// All These labels are optional
-			'select' => 'Select Image',
-      'remove' => 'Remove Image',
-      'change' => 'Change Image',
-    ) ) ) );
-
-	// Sanitize text
-	function sanitize_text( $text ) {
-			return sanitize_text_field( $text );
-	}
-}
-
-add_action('customize_register', 'slow_atoms_customize_register');
-
-
-// Style overrides with selected theme color
-function slow_atoms_customise_css() {
-	$slow_atoms_theme_color = get_theme_mod('slow_atoms_primary_theme_color');
-	$slow_atoms_theme_color_lighter = colourBrightness( $slow_atoms_theme_color, .1);
-	?>
-
-	<style type="text/css">
-
-		:root {
-			--theme-color: <?php echo $slow_atoms_theme_color; ?>;
-			--theme-color-dark: <?php echo colourBrightness( '#004e66' , -.3);	 ?>;
-		}
-
-		.nav-scrolled .navbar--list a:link,
-		.nav-scrolled .navbar--list a:visited,
-		.nav-scrolled .navbar--list a:focus,
-		.nav-scrolled .navbar--list a:active,
-		.is__theme-color {
-			color: <?php echo $slow_atoms_theme_color; ?>
-		}
-
-		.is__theme-background {
-			background-color: <?php echo $slow_atoms_theme_color; ?>
-		}
-
-		.is__theme-background-transparent {
-			background-color: <?php echo hex2rgba( $slow_atoms_theme_color , .9) ?>
-		}
-
-		.slow_atoms__img {
-			box-shadow: 2px 3px 5px <?php echo hex2rgba( $slow_atoms_theme_color , .4); ?>
-		}
-
-		/*
-		.footer__naviagtion > div > h3 {
-			color: <?php echo $slow_atoms_theme_color; ?>
-		}
-		*/
-
-		.nav-scrolled .navbar--list a::after {
-			background-color: <?php echo $slow_atoms_theme_color; ?>;
-		}
-
-	</style>
-
-<?php }
-
-add_action( 'wp_head' , 'slow_atoms_customise_css');
 
 //* Function to convert Hex colors to RGBA
 function hex2rgba( $color, $opacity = false ) {
@@ -384,7 +232,6 @@ function hex2rgba( $color, $opacity = false ) {
  * $rgb = hex2rgba($mycolor);
  * $rgba = hex2rgba($mycolor, 0.5);
  */
-
 
  function colourBrightness($hex, $percent)
  {
@@ -501,3 +348,47 @@ $errors->add('domain_whitelist_error',__('<strong>ERROR</strong>: Registration i
  }
 }
 add_action('register_post', 'is_valid_email_domain',10,3 );
+
+// Convert hex to hsl and rotate by 180
+function slow_atoms_180_hue_rot( $hex ) {
+
+    $red		= hexdec( substr( $hex, 0, 2 ) ) / 255;
+    $green	= hexdec( substr( $hex, 2, 2 ) ) / 255;
+    $blue		= hexdec( substr( $hex, 4, 2 ) ) / 255;
+
+    $cmin = min($red, $green, $blue);
+    $cmax = max($red, $green, $blue);
+    $delta = $cmax - $cmin;
+
+    if ($delta === 0) {
+        $hue = 0;
+    } elseif ($cmax === $red) {
+        $hue = (($green - $blue) / $delta) % 6;
+    } elseif ($cmax === $green) {
+        $hue = ($blue - $red) / $delta + 2;
+    } else {
+        $hue = ($red - $green) / $delta + 4;
+    }
+
+		$hue = round($hue * 60);
+
+		if ($hue < 0) {
+        $hue += 360;
+    }
+		$hue += 180 ;
+
+		if ( $hue > 360 ){
+			$hue -= 360;
+		}
+
+    $lightness = (($cmax + $cmin) / 2);
+    $saturation = $delta === 0 ? 0 : ($delta / (1 - abs(2 * $lightness - 1)));
+    if ($saturation < 0) {
+        $saturation += 1;
+    }
+
+    $lightness = round($lightness  * 100);
+    $saturation = round($saturation  * 100);
+
+    return array( $hue, $saturation, $lightness );
+}

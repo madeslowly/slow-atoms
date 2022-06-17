@@ -1,19 +1,15 @@
-$royal-blue: rgb(14, 35, 69)
-$racing-green: rgb(8, 68, 69)
-$red: rgb(203, 54, 48)
 
 $pure-white: rgb(255, 255, 255)
 $pure-black: rgb(0, 0, 0)
 
-$white: rgb(235, 235, 235)
-
 $soft-white: rgb(245, 245, 245)
 
-$soft-grey: rgb(230, 230, 230)
+$soft-grey: rgb(220, 220, 220)
 
 $soft-black: rgb(30, 30, 30)
 
 $perfect-grey: rgb(117, 117, 117)
+
 
 
 $color__background-body: $pure-white
@@ -26,13 +22,19 @@ $color__background-ins: #fff9c0
 $color__text-screen: #21759b
 $color__text-input: #666
 $color__text-input-focus: #111
-$color__link: #1e294b
-$color__link-visited: $color__link
-$color__link-hover: #0e0e9d //midnightblue
-$color__text-main: #404040
+$color__link: var(--theme-color)
+
+$color__link-hover: var(--theme-color-dark)
+$color__text-main: $soft-black
 
 $color__border-button: #ccc #ccc #bbb
 $color__border-button-hover: #ccc #bbb #aaa
 $color__border-button-focus: #aaa #bbb #bbb
 $color__border-input: #ccc
 $color__border-abbr: #666
+
+.is__theme-background
+  background-color: var(--theme-color)
+
+.is__theme-background-transparent
+  background-color: var(--theme-color-trans-090)

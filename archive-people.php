@@ -12,17 +12,19 @@ get_header();
 
 	<main id="primary" class="site-main is__people-archive">
 
-		<header class="page-header is__theme-background-transparent">
-			<?php
-			the_archive_title( '<h1 class="page-title">', '</h1>' );
-			?>
-		</header><!-- .page-header -->
+		<section class="slow-atoms__page-hero">
+			<header class="page-header is__theme-background-transparent">
+				<!-- Needs moving to theme control -->
+				<h1 class="page-title">Meet the Group</h1>
 
-		<div class="post-thumbnail">
-			<img class="attachment-post-thumbnail size-post-thumbnail wp-post-image" src="<?php echo get_theme_mod('slow_atoms_theme_people_heros'); ?>" />
-		</div><!-- .post-thumbnail -->
+			</header><!-- .page-header -->
 
-		<section class="entry-content">
+			<div class="post-thumbnail">
+				<img class="attachment-post-thumbnail size-post-thumbnail wp-post-image" src="<?php echo get_theme_mod('slow_atoms_theme_people_heros'); ?>" />
+			</div><!-- .post-thumbnail -->
+		</section><!-- .slow-atoms__page-hero -->
+
+		<section class="people__list">
 			<?php
 				if ( have_posts() ) :
 				/* Start the Loop */

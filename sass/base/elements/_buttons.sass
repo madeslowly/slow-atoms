@@ -1,21 +1,50 @@
-button,
-input[type="button"],
-input[type="reset"],
-input[type="submit"] 
-	border: 1px solid
-	border-color: $color__border-button
-	border-radius: 3px
-	background: $color__background-button
-	color: rgba(0, 0, 0, 0.8)
-	line-height: 1
-	padding: 0.6em 1em 0.4em
 
-	&:hover 
-		border-color: $color__border-button-hover
-	
 
-	&:active,
-	&:focus 
-		border-color: $color__border-button-focus
-	
+.slow-atoms__button
+	width: 50%
+	appearance: none
+	background-color: $pure-white
+	border: 1px solid var(--theme-color-trans-040)
+	border-radius: 6px
+	box-shadow: var(--theme-color-trans-020) 0 1px 0, var(--theme-color-trans-020) 0 1px 0 inset
+	color: var(--theme-color)
+	cursor: pointer
+	display: inline-block
+	line-height: 20px
+	list-style: none
+	padding: 2rem 16px
+	position: relative
+	transition: box-shadow 0.4s cubic-bezier(0.3, 0, 0.5, 1)
+	user-select: none
+	touch-action: manipulation
+	vertical-align: middle
+	white-space: nowrap
+	word-wrap: break-word
 
+
+	&:hover
+		box-shadow: var(--theme-color-trans-030) 0 6px 6px, var(--theme-color-trans-030) 0 1px 0 inset
+
+	&:disabled
+		background-color: #FAFBFC
+		border-color: rgba(27, 31, 35, 0.15)
+		color: #959DA5
+		cursor: default
+
+
+	&:active
+		background-color: #EDEFF2
+		box-shadow: rgba(225, 228, 232, 0.2) 0 1px 0 inset
+		transition: none 0s
+
+
+	&:focus
+		outline: 1px transparent
+
+
+	&:before
+		display: none
+
+
+	&:-webkit-details-marker
+		display: none

@@ -1,83 +1,342 @@
+.is__single-person
+  margin: 0 auto
+  padding: 15vh 0
+  width: 100vw
+  //margin-bottom: -30vw
+  background-color: var(--theme-color-trans-090)
+
+  .person__thumbnail-wrap
+    position: relative
+    width: 90vw
+    height: 60vh
+    border-radius: 3rem 0 3rem
+    overflow: hidden
+    margin: 0 auto
+
+    &::after
+      content: ''
+      position: absolute
+      top: 0
+      left: 0
+      width: 100%
+      height: 100%
+      opacity: .1
+      z-index: 2
+
+  .person__thumbnail
+    height: 100%
+    width: 90vw
+    object-fit: cover
+    filter: grayscale(.3)
+    object-position: center
+
+  .person__name-header
+    display: flex
+    flex-direction: column
+    width: 90vw
+    margin: 0 auto
+    padding: 2rem 0
+    //  background-color: rgba($pure-white , 0)
+    z-index: 3
+    color: $pure-white
+
+  .person__name
+    color: inherit
+
+  .person__meta
+    position: relative
+    display: flex
+    justify-content: flex-start
+    flex-wrap: wrap
+    column-gap: 20px
+    row-gap: 20px
+
+    z-index: 3
+    margin: 3rem 0
+
+    padding: 0
+
+
+  .person__meta-item
+
+    line-height: 1
+
+    & > *
+      font-size: $font-size
+
+    & > *
+      color: $pure-white
+
+  .person__meta-entry
+    display: flex
+    flex-direction: row
+    column-gap: 10px
+    align-items: baseline
+    margin: 0
+    color: $soft-white
+
+    & > p
+      margin: 0
+      color: $soft-white
+
+  .person__bio-wrap
+    color: $soft-white
+
+
 .is__people-archive
 
-  .is__single-person
-    position: relative
-    max-width: 80vw
-    max-height: 80vw
-    width: 80vw
-    height: 80vw
-
-    .entry-title
-      position: absolute
-      color: $pure-white
-      z-index: 2
-      bottom: 0
-      padding: 2rem 1rem
-
-  .entry-content
+  .people__list
     display: flex
-    justify-content: space-between
     flex-wrap: wrap
+    flex-direction: column
+    justify-content: space-between
+    margin: 15vh auto
+    //    column-gap: 10px
+    row-gap: 15vh
+
+  .is__people-archive-entry
+    position: relative
+    overflow: hidden
+    padding-right: 20px
+    padding-bottom: 20px
+    margin: 0 5vw
+
+  .person__thumbnail-wrap
+    position: relative
+    //max-width: 250px
+    //max-height: 350px
+    width: 90vw
+    height: 50vh
+    border-radius: 3rem 0 0
+    overflow: hidden
+
+    &::after
+      content: ''
+      position: absolute
+      top: 0
+      left: 0
+      width: 100%
+      height: 100%
+      background-image: linear-gradient(120deg, var(--theme-color-dark), var(--theme-color-light ))
+      opacity: .2
+      z-index: 2
+
+  .person__thumbnail
+    height: 100%
+    width: 100%
+    object-fit: cover
+    filter: grayscale(.8)
+
+  .person__name-header
+    position: absolute
+    bottom: -20px
+    left: 20px
+    background-color: var(--theme-color-trans-090)
+    width: 100%
+    padding: 1rem 10px 0rem 2rem
+    @include default-trans
+    height: $font-size * 6
+    max-height: $font-size * 6
+    border-radius: 2rem 0 0
+    z-index: 3
+
+  .person__name
+    color: $pure-white
+
+  .person__office
+    display: none
+    visibility: hidden
+
+  .person__meta
+    display: none
+    visibility: hidden
+
+
+@media only screen and (min-width: 1024px)
 
   .is__single-person
-    margin: 6rem auto
+    margin: 0 auto
+    padding: 15vh 0
+    width: 100vw
+    margin-bottom: -30vw
+    background-color: var(--theme-color-trans-090)
 
-    .post-thumbnail
 
-      position: inherit
-      display: inline-block
+    .person__thumbnail-wrap
+      position: relative
+      width: 80vw
+      height: 80vh
+      border-radius: 3rem 0 0
+      overflow: hidden
+      margin: 0 auto
 
-    .wp-post-image
+      &::after
+        content: ''
+        position: absolute
+        top: 0
+        left: 0
+        width: 100%
+        height: 100%
+        opacity: .1
+        z-index: 2
+
+    .person__thumbnail
       height: 100%
-      width: 100%
+      width: 35vw
       object-fit: cover
-      filter: grayscale(100%) brightness(.5)
+      filter: grayscale(.3)
+      object-position: center
+
+    .person__name-header
+      display: flex
+      flex-direction: column
+      row-gap: 2vh
+      position: relative
+      top: -75vh
+      left: 35vw
+      width: 60vw
+      margin: 0
+      padding: 2rem 3rem
+      border: solid 1px var(--theme-color)
+      background-color: rgba($pure-white , .95)
+      border-radius: 2rem 0 0
+      z-index: 3
+      box-shadow: 3px 3px 10px rgba(0,0,0,.2)
+
+    .person__name
+      color: var(--theme-color)
+
+    .person__meta
+      position: relative
+      display: flex
+      justify-content: flex-start
+      column-gap: 20px
+      top: 0
+      left: 0
+      z-index: 3
+      margin: 0
+      padding: 0
 
 
-@media only screen and (min-width: 768px)
+    .person__meta-item
+
+      line-height: 1
+
+      & > *
+        font-size: $font-size
+
+      & > *
+        color: var(--theme-color)
+
+    .person__meta-entry
+      display: flex
+      flex-direction: row
+      column-gap: 10px
+      align-items: baseline
+      margin: 0
+
+      & > p
+        margin: 0
+        color: var(--theme-color)
+
+    .person__bio-wrap
+      color: var(--theme-color)
 
   .is__people-archive
 
-    background-color: rgb(18, 21, 38)
-
-  .is__people-archive > .entry-content
-    max-width: 1000px
-    margin: 0 auto
-
-
-    .is__single-person
-      position: relative
-      max-width: 200px
-      max-height: 200px
-      width: 20vw
-      height: 30vw
-
-      .entry-title
-        position: absolute
-        color: black
-        z-index: 2
-        bottom: -4vw
-        padding: 2rem 1rem
-        background-color:  $pure-white
-        width: 20vw
-        left: 4vw
-        border-radius: 8px
-
-    .entry-content
+    .people__list
       display: flex
-      justify-content: space-between
       flex-wrap: wrap
+      justify-content: space-around
+      flex-direction: row
+      max-width: 1200px
+      margin: 15vh auto
+      column-gap: 10px
+      row-gap: 15vh
 
-    .is__single-person
-      margin: 6rem 5vw
+    .is__people-archive-entry
+      position: relative
+      overflow: hidden
+      padding-right: 20px
+      padding-bottom: 20px
+      margin: 0
 
-      .post-thumbnail
+      &:hover
+        .person__name-header
+          height: 40vw
+          max-height: 350px
 
-        position: inherit
-        display: inline-block
+        .person__meta
+          opacity: 1
 
-      .wp-post-image
-        height: 100%
+    .person__thumbnail-wrap
+      position: relative
+      max-width: 250px
+      max-height: 350px
+      width: 30vw
+      height: 40vw
+      border-radius: 3rem 0 0
+      overflow: hidden
+
+      &::after
+        content: ''
+        position: absolute
+        top: 0
+        left: 0
         width: 100%
-        object-fit: cover
-        filter: grayscale(100%) brightness(.5)
+        height: 100%
+        background-image: linear-gradient(120deg, var(--theme-color-dark), var(--theme-color-light ))
+        opacity: .2
+        z-index: 2
+
+    .person__thumbnail
+      height: 100%
+      width: 100%
+      object-fit: cover
+      filter: grayscale(.8)
+
+    .person__name-header
+      position: absolute
+      bottom: -20px
+      left: 20px
+      background-color: var(--theme-color-trans-090)
+      width: 100%
+      padding: 1rem 10px 0rem 2rem
+      @include default-trans
+      height: $font-size * 6
+      max-height: $font-size * 6
+      border-radius: 2rem 0 0
+      z-index: 3
+
+    .person__name
+      color: $pure-white
+
+    .person__office
+      display: none
+      visibility: hidden
+
+    .person__meta
+      position: relative
+      display: flex
+      justify-content: flex-start
+      column-gap: 20px
+      top: 0
+      left: 0
+      z-index: 3
+      opacity: 1
+      margin: 0
+      padding: 4rem 0 0 0
+      visibility: visible
+
+
+    .person__meta-entry > p
+      display: none
+      visibility: hidden
+
+    .person__meta-item
+
+      &  i
+        font-size: $font-size * 2
+
+      & > *
+        color: $soft-white

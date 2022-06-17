@@ -4,10 +4,8 @@
 .updated:not(.published)
 	display: none
 
-.site-main
-	padding-bottom: 10vh
 
-.page-content,
+.slow-atoms__page-content,
 .entry-content,
 .entry-summary
 	margin: 1.5em 0 0
@@ -15,3 +13,10 @@
 .page-links
 	clear: both
 	margin: 0 0 1.5em
+
+
+@media only screen and (min-width: 1024px)
+
+	.slow-atoms__page-content
+		.wp-block-columns
+			flex-direction: row
