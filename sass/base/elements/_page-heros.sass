@@ -1,0 +1,60 @@
+.slow-atoms__page-hero
+
+	.page-header
+		position: absolute
+		bottom: 30vh
+		width: 100%
+		text-align: center
+		color: white
+		padding: 5vh 0
+		z-index: 1
+
+	.page-title
+		font-weight: 200
+		text-transform: uppercase
+
+	.page-description
+		display: none
+		visibility: hidden
+
+	.post-thumbnail
+		height: 70vh
+		overflow: hidden
+		position: relative
+
+		&::after
+			content: ''
+			display: block
+			position: absolute
+			top: 0
+			right: 0
+			bottom: 0
+			left: 0
+			opacity: .4
+			background-image: linear-gradient(0deg, rgba(255,255,255,0) , black )
+
+		.wp-post-image
+			width: 100%
+			height: 100%
+			object-fit: cover
+
+
+@media only screen and (min-width: 768px)
+
+	.slow-atoms__page-hero
+
+		.page-header
+			bottom: 35vh
+			right: 5vw
+			white-space: nowrap
+			padding: 5vh 100px
+			width: auto
+
+			.page-description
+				display: block
+				visibility: visible
+				font-weight: 400
+
+		.front__page-title
+			margin: 15vh auto
+			padding: 0

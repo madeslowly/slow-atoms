@@ -9,12 +9,40 @@
 
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-	<header class="entry-header">
-		<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
-	</header><!-- .entry-header -->
+<article id="post-<?php the_ID(); ?>" <?php post_class('default-page'); ?>>
 
-	<?php slow_atoms_post_thumbnail(); ?>
+	<section class="slow-atoms__page-hero">
+
+		<header class="page-header is__theme-background-transparent">
+
+			<?php the_title( '<h1 class="page-title">', '</h1>' );?>
+			<h2 class="page-description">
+			<?php echo get_bloginfo( 'description', 'display' ); ?>
+		 </h2>
+
+		</header><!-- .page-header -->
+
+
+		<div class="post-thumbnail">
+
+			<?php if ( has_post_thumbnail() ) :
+
+				the_post_thumbnail();
+
+			else :
+
+				// Grab random image from front page
+				$rand_img = 'image_' . rand( 1 , 5 ) ;
+				$pageID = get_option('page_on_front'); ?>
+				<!-- Needs improving so we get the same markup as the_post_thumbnail(); -->
+				<img class="person__thumbnail" src="<?php the_field($rand_img, $pageID); ?> "/>
+
+			<?php	endif; ?>
+
+		</div>
+
+
+	</section>
 
 	<div class="entry-content">
 		<?php
