@@ -114,13 +114,13 @@ function slow_atoms_customize_register( $wp_customize ) {
 		'transport' 		=> 'refresh',
 	) ) ;
 	// Research featured image
-	$wp_customize			-> add_setting( 'slow_atoms_theme_research_heros', array(
+	$wp_customize			-> add_setting( 'slow_atoms_theme_research_hero', array(
 		'default'				=> get_theme_file_uri('assets/image/logo.jpg'), // Add Default Image URL
     'sanitize_callback' => 'esc_url_raw',
 		'transport' 		=> 'refresh',
 	));
 	// People featured image
-	$wp_customize			-> add_setting( 'slow_atoms_theme_people_heros', array(
+	$wp_customize			-> add_setting( 'slow_atoms_theme_people_hero', array(
 		'default'				=> get_theme_file_uri('assets/image/logo.jpg'), // Add Default Image URL
     'sanitize_callback' => 'esc_url_raw',
 		'transport' 		=> 'refresh',
@@ -188,7 +188,7 @@ function slow_atoms_customize_register( $wp_customize ) {
 		'label' 				=> 'Research Page Image',
     'priority' 			=> 1,
     'section' 			=> 'slow_atoms_theme_archive_page_heros',
-    'settings' 			=> 'slow_atoms_theme_research_heros',
+    'settings' 			=> 'slow_atoms_theme_research_hero',
     'button_labels' => array(// All These labels are optional
 			'select' => 'Select Image',
       'remove' => 'Remove Image',
@@ -199,7 +199,7 @@ function slow_atoms_customize_register( $wp_customize ) {
 		'label' 				=> 'People Page Image',
     'priority' 			=> 2,
     'section' 			=> 'slow_atoms_theme_archive_page_heros',
-    'settings' 			=> 'slow_atoms_theme_people_heros',
+    'settings' 			=> 'slow_atoms_theme_people_hero',
     'button_labels' => array(// All These labels are optional
 			'select' => 'Select Image',
       'remove' => 'Remove Image',

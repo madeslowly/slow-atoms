@@ -20,7 +20,7 @@ get_header();
 			</header><!-- .page-header -->
 
 			<div class="post-thumbnail">
-				<img class="attachment-post-thumbnail size-post-thumbnail wp-post-image" src="<?php echo get_theme_mod('slow_atoms_theme_people_heros'); ?>" />
+				<img class="attachment-post-thumbnail size-post-thumbnail wp-post-image" src="<?php echo get_theme_mod('slow_atoms_theme_people_hero'); ?>" />
 			</div><!-- .post-thumbnail -->
 		</section><!-- .slow-atoms__page-hero -->
 

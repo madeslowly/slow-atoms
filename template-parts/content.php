@@ -29,6 +29,7 @@
 		<?php endif; ?>
 	</header><!-- .entry-header -->
 
+
 	<?php slow_atoms_post_thumbnail(); ?>
 
 	<div class="entry-content">
