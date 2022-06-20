@@ -39,12 +39,17 @@ function slow_atoms_customise_colors() {
 			--theme-color-compliment: <?php echo $slow_atoms_secondary_theme_color; 	?>;
 			--theme-color-dark: 			<?php echo $slow_atoms_theme_color_darker;	 		?>;
       --theme-color-light: 			<?php echo $slow_atoms_theme_color_lighter;	 		?>;
-			--theme-color-trans-005: 	<?php echo $slow_atoms_theme_color_alpha_005;	 	?>;
-			--theme-color-trans-010: 	<?php echo $slow_atoms_theme_color_alpha_010;	 	?>;
-			--theme-color-trans-020: 	<?php echo $slow_atoms_theme_color_alpha_020;	 	?>;
-			--theme-color-trans-030: 	<?php echo $slow_atoms_theme_color_alpha_030;	 	?>;
-			--theme-color-trans-040: 	<?php echo $slow_atoms_theme_color_alpha_040;	 	?>;
-			--theme-color-trans-090: 	<?php echo $slow_atoms_theme_color_alpha_090;	 	?>;
+			--theme-color-alpha-005: 	<?php echo $slow_atoms_theme_color_alpha_005;	 	?>;
+			--theme-color-alpha-010: 	<?php echo $slow_atoms_theme_color_alpha_010;	 	?>;
+			--theme-color-alpha-020: 	<?php echo $slow_atoms_theme_color_alpha_020;	 	?>;
+			--theme-color-alpha-030: 	<?php echo $slow_atoms_theme_color_alpha_030;	 	?>;
+			--theme-color-alpha-040: 	<?php echo $slow_atoms_theme_color_alpha_040;	 	?>;
+			--theme-color-alpha-050: 	<?php echo $slow_atoms_theme_color_alpha_050;	 	?>;
+			--theme-color-alpha-060: 	<?php echo $slow_atoms_theme_color_alpha_060;	 	?>;
+			--theme-color-alpha-070: 	<?php echo $slow_atoms_theme_color_alpha_070;	 	?>;
+			--theme-color-alpha-080: 	<?php echo $slow_atoms_theme_color_alpha_080;	 	?>;
+			--theme-color-alpha-090: 	<?php echo $slow_atoms_theme_color_alpha_090;	 	?>;
+
 		}
 	</style>
 
