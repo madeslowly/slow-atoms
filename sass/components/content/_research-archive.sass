@@ -1,0 +1,92 @@
+.is__research-archive
+
+  .research__list
+    display: flex
+    flex-wrap: wrap
+    flex-direction: column
+    justify-content: space-between
+    margin: 15vh auto
+    row-gap: 15vh
+
+  .is__research-archive-entry
+    width: 90vw
+    display: flex
+    flex-direction: column-reverse
+    margin: 0 auto
+
+    .research__thumbnail-wrap
+      width: inherit
+      height: inherit
+
+  .research__project-excerpt-wrap
+    display: none
+    visibility: hidden
+
+
+@media only screen and (min-width: 1024px)
+
+  .is__research-archive
+
+    .research__list
+      flex-direction: row
+      column-gap: 8.5vw
+      row-gap: 20vh
+      margin: 20vh 5vw
+      max-width: 1200px
+
+    .is__research-archive-entry
+      width: 37vw
+      height: 32vh
+      position: relative
+      @include default-box-shadow
+
+    .research__project-copy-wrap
+      display: flex
+      flex-direction: row
+      position: absolute
+      top: 0
+      width: 37vw
+      bottom: 0
+      overflow: hidden
+
+    .research__project-header
+      @include default-trans
+      height: 32vh
+      width: 20vw
+      background-color: var(--theme-color-alpha-080)
+      padding: 3rem 3rem 0 3rem
+
+      .research__project-title
+        @include default-link-trans
+        color: $pure-white
+
+    .research__project-excerpt-wrap
+      //visibility: hidden
+      @include default-trans
+      opacity: 0
+      transform: translateX(20px)
+      display: flex
+      align-items: center
+      height: 32  vh
+      width: 17vw
+      bottom: 0
+      background-color: var(--theme-color-alpha-080)
+      padding: 2rem 1rem 0 10px
+
+      & > .research__project-excerpt
+
+        color: $pure-white
+
+    .research__project-link
+
+      &:hover
+        .research__project-excerpt-wrap
+          opacity: 1
+          transform: translateX(0)
+          background-color: var(--theme-color)
+
+        .research__project-title
+          color: rgba($pure-white, .4)
+
+        .research__project-header
+          background-color: var(--theme-color)

@@ -6,34 +6,89 @@
  *
  * @package slow_atoms
  */
-
+global $count_for_aos ;
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-	<header class="entry-header">
-		<?php
-		if ( is_singular() ) :
-			the_title( '<h1 class="entry-title">', '</h1>' );
-		else :
-			the_title( '<h2 class="entry-title"><a href="' . esc_url( get_permalink() ) . '" rel="bookmark">', '</a></h2>' );
-		endif;
-
-		if ( 'post' === get_post_type() ) :
-			?>
-			<div class="entry-meta">
-				<?php
-				slow_atoms_posted_on();
-				slow_atoms_posted_by();
-				?>
-			</div><!-- .entry-meta -->
-		<?php endif; ?>
-	</header><!-- .entry-header -->
+<article id="post-<?php the_ID(); ?>" <?php
 
 
-	<?php slow_atoms_post_thumbnail(); ?>
+	if ( !is_singular() ) :
 
-	<div class="entry-content">
-		<?php
+		post_class('is__research-archive-entry') ; ?>
+
+		data-aos="fade-in"  data-aos-anchor-placement="top-bottom" <?php
+
+	endif ;
+
+	if ( $count_for_aos % 2 == 0 && !is_singular() ) : ?>
+
+		data-aos-delay="400" <?php
+
+	endif ;
+
+	if ( is_singular() ) : ?>
+
+		post_class('is__single-research'); <?php
+
+	endif; ?> > <?php
+
+	if ( has_post_thumbnail() ) : ?>
+
+		<div class="research__thumbnail-wrap"> <?php
+			the_post_thumbnail('full', array('class' => 'research__thumbnail')); ?>
+		</div> <?php
+
+	else :
+
+			slow_atoms_get_random_hero('research__thumbnail-wrap' ,'research__thumbnail');
+
+	endif ;
+
+	if ( !is_singular() ) : ?>
+
+		<a class="research__project-link" href="<?php the_permalink() ; ?>" rel="bookmark">
+			<div class="research__project-copy-wrap"> <?php
+
+	endif ; ?>
+
+	<header class="research__project-header"> <?php
+
+	if ( is_singular() ) :
+
+		the_title( '<h1 class="research__project-title">', '</h1>' );
+
+	else :
+
+
+		the_title( '<h2 class="research__project-title">', '</h2>' );
+
+	endif ; ?>
+
+</header><!-- .research__project-header --><?php
+
+if ( has_excerpt() ) : ?>
+
+	<div class="research__project-excerpt-wrap">
+		<p class="research__project-excerpt"><?php
+
+			echo  get_the_excerpt() ; ?>
+
+		</p>
+
+	</div><!-- .research__project-excerpt --><?php
+
+endif ;
+
+if ( !is_singular() ) : ?>
+
+</div></a> <?php
+
+endif ; ?>
+
+	<div class="entry-content"> <?php
+
+	if ( is_singular() ) :
+
 		the_content(
 			sprintf(
 				wp_kses(
@@ -55,7 +110,8 @@
 				'after'  => '</div>',
 			)
 		);
-		?>
+
+	endif ; ?>
 	</div><!-- .entry-content -->
 
 	<footer class="entry-footer">
