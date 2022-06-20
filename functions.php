@@ -392,3 +392,28 @@ function slow_atoms_180_hue_rot( $hex ) {
 
     return array( $hue, $saturation, $lightness );
 }
+/*
+ * Get random image from homepage ACF hero image fields
+ * NOTE: Need a way to count populated fields so we can rand with that number.
+ * Workarround is we force user to populate all 5 fields.
+ */
+
+function slow_atoms_get_random_hero( $wrapper_class , $image_class ) {
+		$home_page_ID   = get_option('page_on_front');
+		$image_label    = 'image_' . rand( 1 , 5 ) ;
+
+		if ( get_field($image_label, $home_page_ID, false) ) {
+			$image_ID       = get_field($image_label, $home_page_ID, false);
+			$image_srcset   = wp_get_attachment_image_srcset( $image_ID, 'full' );
+			$image_url      = wp_get_attachment_image_src($image_ID)[0]; ?>
+
+			<div class="<?php echo $wrapper_class ?>">
+				<img class="<?php echo $image_class ?>"src="<?php echo $image_url ;  ?>" srcset="<?php echo esc_attr( $image_srcset ); ?>" />
+			</div><!-- .<?php echo $wrapper_class ?> --><?php
+		} else {
+			echo '<span style="display:flex;width:20vw;">No image found. Edit home page and select images under "Hero Images"</span> ';
+		};
+
+return;
+
+}

@@ -6,7 +6,7 @@
 * @package slow_wheels
 */
 
-get_header());
+get_header();
 ?>
 
 <main id="primary" class="site-main">
@@ -15,21 +15,18 @@ get_header());
 
       <header class="page-header is__theme-background-transparent">
         <h1 class="page-title"><?php bloginfo( 'name' ); ?></h1>
-        <h2 class="page-description">
+        <h2 class="page-description" data-aos="fade-in" data-aos-duration="600">
           <?php echo get_bloginfo( 'description', 'display' ); ?>
         </h2>
       </header><!-- .page-header .is__theme-background-transparent -->
 
-      <div class="post-thumbnail">
-        <?php $rand_img = 'image_' . rand(1,5); ?>
-        <img class="attachment-post-thumbnail size-post-thumbnail wp-post-image" src="<?php the_field($rand_img); ?>" />
-      </div><!-- .post-thumbnail -->
+      <?php slow_atoms_get_random_hero('post-thumbnail' , ''); ?>
 
     </section>
 
     <div class="slow-atoms__page-content">
 
-      <h2 class="front__page-title" data-aos="fade-in">
+      <h2 class="front__page-title" data-aos="fade-in" data-aos-anchor-placement="top-bottom" data-aos-duration="600" data-aos-delay="650">
         <?php	echo get_theme_mod( 'slow_atoms_front_page_title'); ?>
       </h2>
 

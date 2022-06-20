@@ -19,25 +19,19 @@
 
 		post_class('is__single-person');
 
-	endif; ?>>
+	endif; ?>> <?php
 
-	<div class="person__thumbnail-wrap">
+	if ( has_post_thumbnail() ) : ?>
 
-		<?php if ( has_post_thumbnail() ) :
+		<div class="person__thumbnail-wrap"> <?php
+			the_post_thumbnail('full', array('class' => 'person__thumbnail')); ?>
+		</div> <?php
 
-			the_post_thumbnail('full', array('class' => 'person__thumbnail'));
+	else :
 
-		else :
+			slow_atoms_get_random_hero('person__thumbnail-wrap' ,'person__thumbnail');
 
-			// Grab random image from front page
-			$rand_img = 'image_' . rand( 1 , 5 ) ;
-			$pageID = get_option('page_on_front'); ?>
-			<!-- Needs improving so we get the same markup as the_post_thumbnail(); -->
-			<img class="person__thumbnail" src="<?php the_field($rand_img, $pageID); ?> "/>
-
-		<?php	endif; ?>
-
-	</div>
+	endif; ?>
 
 	<header class="person__name-header"
 

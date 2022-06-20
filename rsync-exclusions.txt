@@ -1,0 +1,11 @@
+.DS_Store
+_scripts/
+.git/
+node_modules/
+sass/
+.eslintrc
+.gitignore
+.stylelintrc.json
+package-lock.json
+package.json
+rsync-exclusions.txt
