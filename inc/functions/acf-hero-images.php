@@ -7,6 +7,23 @@ acf_add_local_field_group(array(
 	'title' => 'Hero Images',
 	'fields' => array(
 		array(
+					'key' => 'field_62af15b4b5862',
+					'label' => 'Instruction',
+					'name' => 'instruction',
+					'type' => 'message',
+					'instructions' => '',
+					'required' => 0,
+					'conditional_logic' => 0,
+					'wrapper' => array(
+						'width' => '100',
+						'class' => '',
+						'id' => '',
+					),
+					'message' => 'Select images to display on your homepage. On displaying these images they are scalled to fit the area so avoid images of people or collages. One image will be randomly selected to display on page load. Throughout this theme, these images will also be used when one is not provided. ',
+					'new_lines' => '',
+					'esc_html' => 0,
+				),
+		array(
 			'key' => 'field_62a315d8d4f81',
 			'label' => 'Image 1',
 			'name' => 'image_1',
@@ -115,7 +132,7 @@ acf_add_local_field_group(array(
 				'class' => '',
 				'id' => '',
 			),
-			'return_format' => 'url',
+			'return_format' => 'id',
 			'preview_size' => 'thumbnail',
 			'library' => 'all',
 			'min_width' => '',
