@@ -11,39 +11,43 @@ global $count_for_aos ;
 
 <article id="post-<?php the_ID(); ?>" <?php
 
-
-	if ( !is_singular() ) :
+	// if archive list, add appropriate class and animation
+	if ( !is_singular() ) {
 
 		post_class('is__research-archive-entry') ; ?>
-
 		data-aos="fade-in"  data-aos-anchor-placement="top-bottom" <?php
 
-	endif ;
+		// delay aos on .is__research-archive-entry on the right
+		if ( $count_for_aos % 2 == 0 && !is_singular() ) { ?>
 
-	if ( $count_for_aos % 2 == 0 && !is_singular() ) : ?>
+			data-aos-delay="400" <?php
 
-		data-aos-delay="400" <?php
+		}
+	}
+	// singular so add appropriate class
+	else ; {
 
-	endif ;
+		post_class( 'is__single-research' ) ;
 
-	if ( is_singular() ) : ?>
+	} ?> ><!-- #post-<?php the_ID(); ?> --><?php
 
-		post_class('is__single-research'); <?php
+	// Check if archive list then for post thumbnail and set up hero markup
+	if ( ! is_singular() ) {
+		if ( has_post_thumbnail() ) : ?>
 
-	endif; ?> > <?php
+			<div class="research__thumbnail-wrap"> <?php
+				the_post_thumbnail('full', array('class' => 'research__thumbnail')); ?>
+			</div> <?php
 
-	if ( has_post_thumbnail() ) : ?>
+		// No thumbnail so use random from hompage heros
+		else :
 
-		<div class="research__thumbnail-wrap"> <?php
-			the_post_thumbnail('full', array('class' => 'research__thumbnail')); ?>
-		</div> <?php
+				slow_atoms_get_random_hero('research__thumbnail-wrap' ,'research__thumbnail');
 
-	else :
+		endif ;
+	}
 
-			slow_atoms_get_random_hero('research__thumbnail-wrap' ,'research__thumbnail');
-
-	endif ;
-
+	// If archive list, wrap all copy with href pointing to single post
 	if ( !is_singular() ) : ?>
 
 		<a class="research__project-link" href="<?php the_permalink() ; ?>" rel="bookmark">
@@ -59,50 +63,33 @@ global $count_for_aos ;
 
 	else :
 
-
 		the_title( '<h2 class="research__project-title">', '</h2>' );
 
 	endif ; ?>
 
-</header><!-- .research__project-header --><?php
+	</header><!-- .research__project-header --><?php
 
-if ( has_excerpt() ) : ?>
+	if ( has_excerpt() && ! is_singular() ) : ?>
 
 	<div class="research__project-excerpt-wrap">
 		<p class="research__project-excerpt"><?php
-
 			echo  get_the_excerpt() ; ?>
-
 		</p>
-
 	</div><!-- .research__project-excerpt --><?php
 
-endif ;
+	endif ;
 
-if ( !is_singular() ) : ?>
+	if ( !is_singular() ) { ?>
 
-</div></a> <?php
+	</div></a> <!-- .research__project-link --><?php
 
-endif ; ?>
+	} ?>
 
 	<div class="entry-content"> <?php
 
 	if ( is_singular() ) :
 
-		the_content(
-			sprintf(
-				wp_kses(
-					/* translators: %s: Name of current post. Only visible to screen readers */
-					__( 'Continue reading<span class="screen-reader-text"> "%s"</span>', 'slow-atoms' ),
-					array(
-						'span' => array(
-							'class' => array(),
-						),
-					)
-				),
-				wp_kses_post( get_the_title() )
-			)
-		);
+		the_content( );
 
 		wp_link_pages(
 			array(
@@ -112,9 +99,11 @@ endif ; ?>
 		);
 
 	endif ; ?>
+
 	</div><!-- .entry-content -->
 
 	<footer class="entry-footer">
 		<?php slow_atoms_entry_footer(); ?>
 	</footer><!-- .entry-footer -->
+
 </article><!-- #post-<?php the_ID(); ?> -->

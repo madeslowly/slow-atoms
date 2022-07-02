@@ -7,10 +7,10 @@
  * @package slow_atoms
  */
 
-get_header();
+get_header('' , array( 'append_site-header_class' => 'is__light-background' ));
 ?>
 
-	<main id="primary" class="site-main hello">
+	<main id="primary" class="site-main">
 
 		<?php
 		while ( have_posts() ) :
@@ -18,12 +18,7 @@ get_header();
 
 			get_template_part( 'template-parts/content', get_post_type() );
 
-			the_post_navigation(
-				array(
-					'prev_text' => '<span class="nav-subtitle">' . esc_html__( 'Previous:', 'slow-atoms' ) . '</span> <span class="nav-title">%title</span>',
-					'next_text' => '<span class="nav-subtitle">' . esc_html__( 'Next:', 'slow-atoms' ) . '</span> <span class="nav-title">%title</span>',
-				)
-			);
+			slow_atoms_posts_nav();
 
 			// If comments are open or we have at least one comment, load up the comment template.
 			if ( comments_open() || get_comments_number() ) :
