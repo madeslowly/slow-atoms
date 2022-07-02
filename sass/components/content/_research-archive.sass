@@ -1,3 +1,11 @@
+.is__single-research
+  display: flex
+  flex-direction: column
+  width: 90vw
+  margin: 15vh auto
+
+
+
 .is__research-archive
 
   .research__list
@@ -24,6 +32,21 @@
 
 
 @media only screen and (min-width: 1024px)
+
+  .is__single-research
+    width: 80vw
+    max-width: 1200px
+    margin: 20vh auto
+
+    .research__project-header
+      width: 100%
+      margin-bottom: 10vh 
+
+      .research__project-title
+        text-transform: uppercase
+
+    .entry-content
+      width: 100%
 
   .is__research-archive
 
@@ -72,6 +95,7 @@
       bottom: 0
       background-color: var(--theme-color-alpha-080)
       padding: 2rem 1rem 0 10px
+      visibility: visible
 
       & > .research__project-excerpt
 
