@@ -1,0 +1,93 @@
+.slow-atoms-posts-nav
+  display: flex
+  width: 90vw
+  justify-content: space-between
+  margin: 100px auto
+  border-top: solid 2px var(--theme-color-compliment)
+
+
+.slow-atoms-posts-nav a
+  margin-top: 100px
+
+.slow-atoms-posts-nav h4,
+.slow-atoms-posts-nav strong
+  margin: 0
+
+.slow-atoms-posts-nav h4
+  display: none
+
+.slow-atoms-posts-nav a svg
+  display: inline-block
+  margin: 0
+  padding-top: 10px
+
+
+.slow-atoms-posts-nav > div:nth-child(1) a
+  text-align: left
+
+
+.slow-atoms-posts-nav > div:nth-child(2) a
+  text-align: right
+
+
+.slow-atoms-posts-nav__thumbnail
+  display: none
+
+.slow-atoms-posts-nav__prev,
+.slow-atoms-posts-nav__next
+  margin: 0
+
+
+@media only screen and (min-width: 764px)
+
+  .slow-atoms-posts-nav
+    width: 80vw
+    max-width: 1200px
+    margin: 100px auto
+
+  .slow-atoms-posts-nav a
+    display: flex
+    flex-direction: row
+    align-items: center
+    margin-top: 100px
+
+
+  .slow-atoms-posts-nav h4,
+  .slow-atoms-posts-nav strong
+    margin: 0
+
+  .slow-atoms-posts-nav h4
+    display: block
+    color: var(--theme-color-compliment)
+
+
+  .slow-atoms-posts-nav a svg
+    display: inline-block
+    margin: 0
+    padding-top: 10px
+
+
+  .slow-atoms-posts-nav > div:nth-child(1) a
+    text-align: left
+
+
+  .slow-atoms-posts-nav > div:nth-child(2) a
+    text-align: right
+
+
+  .slow-atoms-posts-nav__thumbnail
+    display: block
+    margin: 0
+
+    & > img
+      width: 100px
+      height: 100px
+
+  .slow-atoms-posts-nav__thumbnail img
+    border-radius: 10px
+
+  .slow-atoms-posts-nav__prev
+    margin-right: 5rem
+
+  .slow-atoms-posts-nav__next
+    margin-left: 5rem
