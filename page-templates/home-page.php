@@ -20,7 +20,7 @@ get_header();
         </h2>
       </header><!-- .page-header .is__theme-background-transparent -->
 
-      <?php slow_atoms_get_random_hero('post-thumbnail' , ''); ?>
+      <?php slow_atoms_get_random_hero('post-thumbnail' , 'attachment-post-thumbnail size-post-thumbnail wp-post-image'); ?>
 
     </section>
 
