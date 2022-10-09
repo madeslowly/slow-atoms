@@ -10,47 +10,51 @@
  if ( !is_user_logged_in() ) {
      auth_redirect();
  }
- 
-get_header();
+
+get_header(); ?>
 
 
- ?>
+<main id="primary" class="site-main is__wiki-archive">
 
-	<main id="primary" class="site-main">
+  <section class="slow-atoms__page-hero">
 
-		<?php if ( have_posts() ) : ?>
+    <header class="page-header is__theme-background-transparent">
+      <!-- Needs moving to theme control -->
+      <h1 class="page-title">Lab Wiki</h1>
+    </header><!-- .page-header --><?php
 
-			<header class="page-header">
-				<?php
-				the_archive_title( '<h1 class="page-title">', '</h1>' );
-				the_archive_description( '<div class="archive-description">', '</div>' );
-				?>
-			</header><!-- .page-header -->
+    slow_atoms_get_random_hero('post-thumbnail' ,'attachment-post-thumbnail size-post-thumbnail wp-post-image'); ?>
 
-			<?php
-			/* Start the Loop */
-			while ( have_posts() ) :
-				the_post();
+  </section><!-- .slow-atoms__page-hero -->
 
-				/*
-				 * Include the Post-Type-specific template for the content.
-				 * If you want to override this in a child theme, then include a file
-				 * called content-___.php (where ___ is the Post Type name) and that will be used instead.
-				 */
-				get_template_part( 'template-parts/content', get_post_type() );
+  <section class="wiki__list"><?php
 
-			endwhile;
 
-			the_posts_navigation();
+    if ( have_posts() ) :
+  	/* Start the Loop */
 
-		else :
+      while ( have_posts() ) :
+        the_post();
+  				/*
+  				 * Include the Post-Type-specific template for the content.
+  				 * If you want to override this in a child theme, then include a file
+  				 * called content-___.php (where ___ is the Post Type name) and that will be used instead.
+  				 */
+  			get_template_part( 'template-parts/content', get_post_type() );
 
-			get_template_part( 'template-parts/content', 'none' );
+  		endwhile;
 
-		endif;
-		?>
+  		the_posts_navigation();
 
-	</main><!-- #main -->
+  	else :
+
+  	   get_template_part( 'template-parts/content', 'none' );
+
+  	endif; ?>
+
+
+</section>
+</main><!-- #main -->
 
 
 <?php

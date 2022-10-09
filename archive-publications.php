@@ -8,26 +8,57 @@
  */
 
 get_header();
+
 ?>
 
-	<main id="primary" class="site-main is__publication-archive	">
+	<main id="primary" class="site-main is__publication-archive">
 
-		<header class="page-header is__theme-background-transparent">
-			<?php
-			the_archive_title( '<h1 class="page-title">', '</h1>' );
-			?>
-		</header><!-- .page-header -->
+		<section class="slow-atoms__page-hero">
 
-		<div class="post-thumbnail">
-			<img class="attachment-post-thumbnail size-post-thumbnail wp-post-image" src="<?php echo get_theme_mod('slow_atoms_theme_people_hero'); ?>" />
-		</div><!-- .post-thumbnail -->
+			<header class="page-header is__theme-background-transparent"> <?php
+				the_archive_title( '<h1 class="page-title">', '</h1>' );	?>
+			</header><!-- .page-header --> <?php
+
+			if ( get_theme_mod('slow_atoms_theme_people_hero') ) :
+
+				$image_url			= get_theme_mod('slow_atoms_theme_people_hero') ;
+				$image_ID       = attachment_url_to_postid( $image_url );
+				$image_srcset   = wp_get_attachment_image_srcset( $image_ID, 'full' ); ?>
+
+				<div class="post-thumbnail">
+					<img class="attachment-post-thumbnail size-post-thumbnail wp-post-image"
+					src="<?php echo $image_url ; ?>" srcset="<?php echo esc_attr( $image_srcset ); ?>" />
+				</div><!-- .post-thumbnail --> <?php
+
+			else :
+
+				slow_atoms_get_random_hero('post-thumbnail' ,'attachment-post-thumbnail size-post-thumbnail wp-post-image');
+
+			endif ; ?>
+
+		</section><!-- .slow-atoms__page-hero -->
 
 		<section class="entry-content">
 			<?php
+
+				$years = array();
+				$year = '' ;
+
 				if ( have_posts() ) :
 				/* Start the Loop */
 				while ( have_posts() ) :
 					the_post();
+
+					$previous_year = $year ;
+					$year = get_the_date( 'Y' ) ;
+
+					if ( $year != $previous_year ) :
+						echo '<h2 class="publication__year-title">' .  $year . '</h2>' ;
+					endif ;
+
+					if ( ! isset( $years[ $year ] ) ) $years[ $year ] = array();
+      			$years[ $year ][] = array( 'title' => get_the_title(), 'permalink' => get_the_permalink() );
+
 					/*
 					 * Include the Post-Type-specific template for the content.
 					 * If you want to override this in a child theme, then include a file
@@ -37,7 +68,11 @@ get_header();
 
 				endwhile;
 
-				the_posts_navigation();
+				the_posts_navigation( array(
+					'prev_text'	=> 'Older Publications',
+					'next_text' => 'Newer Publications',
+					'class'			=> 'slow-atoms-posts-nav'
+				));
 
 			else :
 

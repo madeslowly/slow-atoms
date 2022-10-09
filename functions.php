@@ -344,7 +344,7 @@ function is_valid_email_domain($login, $email, $errors ){
  // Return error messlow_atomsge for invalid domains
  if( $valid === false ){
 
-$errors->add('domain_whitelist_error',__('<strong>ERROR</strong>: Registration is only allowed from approved domains. If you think you are seeing this in error, please contact the system administrator.' ));
+$errors->add('domain_whitelist_error',__('<strong>ERROR</strong>: Registration is only allowed from approved domains. If you think you are seeing this in error, please contact the <a href="mailto:arran.curran@ru.nl?subject=Dullenslab Registration Error">system administrator</a>.' ));
  }
 }
 add_action('register_post', 'is_valid_email_domain',10,3 );
@@ -421,7 +421,7 @@ return;
 
 // Using Thumbnails with Previous and Next Post Links
 
-function slow_atoms_posts_nav() {
+function slow_atoms_posts_nav( $archive_name , $show_thumb , $show_title ) {
 	$next_post = get_next_post() ;
   $prev_post = get_previous_post() ;
 
@@ -433,21 +433,30 @@ function slow_atoms_posts_nav() {
 
 			if ( ! empty( $prev_post ) ) : ?>
 
-			<a href="<?php echo get_permalink( $prev_post ); ?>">
+			<a href="<?php echo get_permalink( $prev_post ); ?>"> <?php
+
+			if ( $show_thumb == 'true' ) : ?>
+
 				<div>
 					<div class="slow-atoms-posts-nav__thumbnail slow-atoms-posts-nav__prev">
 						<?php echo get_the_post_thumbnail( $prev_post, [ 100, 100 ] ); ?>
 					</div>
-				</div>
+				</div> <?php
+
+			endif ; ?>
+
 
 				<div>
 					<strong>
 						<i class="fas fa-arrow-circle-left"></i>
+						<?php _e( 'Previous ' . $archive_name , 'textdomain' ) ?>
+          </strong> <?php
 
-						<?php _e( 'Previous project', 'textdomain' ) ?>
-          </strong>
+					if( $show_title == 'true' ) : ?>
 
-					<h4><?php echo get_the_title( $prev_post ); ?></h4>
+					<h4><?php echo get_the_title( $prev_post ); ?></h4> <?php
+
+					endif ; ?>
 				</div>
       </a> <?php
 
@@ -461,11 +470,16 @@ function slow_atoms_posts_nav() {
 		<a href="<?php echo get_permalink( $next_post ); ?>">
 			<div>
 				<strong>
-          <?php _e( 'Next project', 'textdomain' ) ?>
+          <?php _e( 'Next ' . $archive_name , 'textdomain' ) ?>
           <i class="fas fa-arrow-circle-right"></i>
-        </strong>
+        </strong><?php
 
-				<h4><?php echo get_the_title( $next_post ); ?></h4>
+				if( $show_title == 'true' ) : ?>
+
+				<h4><?php echo get_the_title( $next_post ); ?></h4> <?php
+
+				endif ; ?>
+
       </div>
 
 			<div>
@@ -480,3 +494,42 @@ function slow_atoms_posts_nav() {
 </div> <!-- .slow-atoms-posts-nav --> <?php
 
 endif ; }
+
+
+/**
+* Get custom taxonomies terms links.
+*
+* @see get_object_taxonomies()
+*/
+function slow_atoms_custom_taxonomies_terms_links() {
+	// Get post by post ID.
+	if ( ! $post = get_post() ) {
+		return '';
+	}
+
+	// Get post type by post.
+	$post_type = $post->post_type;
+
+	// Get post type taxonomies.
+	$taxonomies = get_object_taxonomies( $post_type, 'objects' );
+
+	$out = array();
+
+	foreach ( $taxonomies as $taxonomy_slug => $taxonomy ){
+
+		// Get the terms related to post.
+		$terms = get_the_terms( $post->ID, $taxonomy_slug );
+
+		if ( ! empty( $terms ) ) {
+				$out[] = "<h2>" . $taxonomy->label . "</h2>\n<ul>";
+				foreach ( $terms as $term ) {
+						$out[] = sprintf( '<li><a href="%1$s">%2$s</a></li>',
+								esc_url( get_term_link( $term->slug, $taxonomy_slug ) ),
+								esc_html( $term->name )
+						);
+				}
+				$out[] = "\n</ul>\n";
+		}
+	}
+	return implode( '', $out );
+}

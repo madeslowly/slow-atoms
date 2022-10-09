@@ -9,7 +9,7 @@
 
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class('default-page'); ?>>
+<article id="post-<?php the_ID(); ?>" <?php post_class('is__default-content-page'); ?>>
 
 	<section class="slow-atoms__page-hero">
 

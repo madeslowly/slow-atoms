@@ -12,19 +12,13 @@ get_header('' , array( 'append_site-header_class' => 'is__light-background' ));
 
 	<main id="primary" class="site-main">
 
-
-
 		<?php
-
 		while ( have_posts() ) :
-
 			the_post();
-
-			//echo slow_atoms_custom_taxonomies_terms_links();
 
 			get_template_part( 'template-parts/content', get_post_type() );
 
-			slow_atoms_posts_nav('project' , 'true' , 'true');
+			slow_atoms_posts_nav('publication' , '' , '' );
 
 			// If comments are open or we have at least one comment, load up the comment template.
 			if ( comments_open() || get_comments_number() ) :

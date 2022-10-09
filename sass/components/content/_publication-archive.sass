@@ -1,24 +1,66 @@
+.publication__year-title
+  width: 90vw
+  max-width: 1000px
+  margin: 0 auto
+  font-weight: 400
+
+
 .publication-entry
   display: flex
   justify-content: space-between
-  max-width: 1200px
-  margin: 5vh auto
+  flex-direction: row
+  width: 90vw
+  max-width: 1000px
+  margin: 7rem auto
+  padding-bottom: 3rem
   flex-wrap: wrap
 
   .publication-title
-    width: 100vw
-    margin-bottom: 5vh
+    width: 100%
+    margin-bottom: 2rem
 
-  .publication-figure
-    width: 30%
-    height: 100%
-    border-radius: 12px
-    border: solid 1px rgb(55, 79, 93)
-    overflow: hidden
-    box-shadow: 3px 3px 10px rgba(0,0,0,.2)
-    object-fit: cover
-    //  min-width: 30vw
+.is__single-publication
+  margin-top: 20vh
 
   .publication-meta
-    width: 70%
-    padding-left: 5rem
+    width: 100%
+
+.is__publication-archive
+  .entry-content
+    margin-top: 15vh
+
+  .publication-entry
+    border-bottom: solid 1px var(--theme-color)
+
+.publication-figure
+  width: 25%
+  max-height: 200px
+  display: flex
+  border-radius: 12px
+  border: solid 1px rgb(55, 79, 93)
+  overflow: hidden
+  box-shadow: 3px 3px 10px rgba(0,0,0,.2)
+  overflow: hidden
+  margin: 0
+
+  & > img
+    width: 100%
+    height: auto
+    object-fit: cover
+
+
+.publication-meta
+  display: flex
+  flex-direction: column
+  width: 70%
+  justify-content: center
+  overflow: hidden
+  row-gap: 1rem
+
+  .publication-authors
+    font-style: italic
+
+  .publication-authors,
+  .publication-journal,
+  .publication-abstract
+    margin: 0
