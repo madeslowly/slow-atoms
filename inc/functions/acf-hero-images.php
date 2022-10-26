@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * 
+ * Register ACF field for images to be randomly displayed on the homepage.
+ * 
+ */
+
 if( function_exists('acf_add_local_field_group') ):
 
 acf_add_local_field_group(array(
@@ -19,7 +25,7 @@ acf_add_local_field_group(array(
 						'class' => '',
 						'id' => '',
 					),
-					'message' => 'Select images to display on your homepage. On displaying these images they are scalled to fit the area so avoid images of people or collages. One image will be randomly selected to display on page load. Throughout this theme, these images will also be used when one is not provided. ',
+					'message' => 'Select images to display on your homepage. Avoid images of people or collages. One image will be randomly selected to display on page load. Throughout this theme, these images will also be used when one is not provided.',
 					'new_lines' => '',
 					'esc_html' => 0,
 				),
