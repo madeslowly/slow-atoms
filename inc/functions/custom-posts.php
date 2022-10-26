@@ -40,7 +40,7 @@ function slow_atoms_research_post_type() {
 	$args = array(
 		'hierarchical'	=>	true,
 		'labels'				=>	$labels,
-		'menu_icon'			=>	'dashicons-welcome-learn-more',
+		'menu_icon'			=>	'dashicons-lightbulb',
     'menu_position' =>  4,
 		'public'				=>	true,
 		'has_archive'		=>	true,
@@ -101,7 +101,7 @@ function slow_atoms_publications_post_type() {
 		'hierarchical'	=>	true,
 		'labels'				=>	$labels,
 		'menu_icon'			=>	'dashicons-text-page',
-    'menu_position' =>  7,
+    'menu_position' =>  5,
 		'public'				=>	true,
 		'has_archive'		=>	true,
 		'supports'			=>	array('title'),
@@ -116,6 +116,66 @@ function slow_atoms_publications_post_type() {
  * 
  */
 
+
+/**
+ * Teaching
+ */
+add_action( 'init' , 'slow_atoms_teaching_post_type');
+
+function slow_atoms_teaching_post_type() {
+
+ $labels = array(
+       'name'              => _x( 'Teaching', 'Post type general name', 'textdomain' ),
+       'singular_name'     => _x( 'Teaching', 'Post type singular name', 'textdomain' ),
+       'search_items'      => __( 'Search Teaching', 'textdomain' ),
+       'all_items'         => __( 'All Teaching Material', 'textdomain' ),
+       'edit_item'         => __( 'Edit Teaching', 'textdomain' ),
+       'update_item'       => __( 'Update Teaching', 'textdomain' ),
+       'add_new_item'      => __( 'Add New Teaching Entry', 'textdomain' ),
+       'new_item_name'     => __( 'New Teaching Name', 'textdomain' ),
+       'menu_name'         => __( 'Teaching', 'textdomain' ),
+   );
+
+	$args = array(
+		'hierarchical'	=>	true,
+		'labels'				=>	$labels,
+		'menu_icon'			=>	'dashicons-welcome-learn-more',
+    'menu_position' =>  6,
+		'public'				=>	true,
+		'has_archive'		=>	true,
+		'supports'			=>	array('title'),
+		'show_in_rest' => true,
+	);
+	register_post_type('teaching', $args );
+}
+
+add_action( 'init' , 'slow_atoms_teaching_taxonomy');
+
+function slow_atoms_teaching_taxonomy() {
+
+ $labels = array(
+       'name'              => _x( 'Subjects', 'Taxonomy general name', 'textdomain' ),
+       'singular_name'     => _x( 'Subject', 'Taxonomy singular name', 'textdomain' ),
+       'search_items'      => __( 'Search Subjects', 'textdomain' ),
+       'all_items'         => __( 'All Teaching Subjects', 'textdomain' ),
+       'parent_item'       => __( 'Parent Subject', 'textdomain' ),
+       'parent_item_colon' => __( 'Parent Subject', 'textdomain' ),
+       'edit_item'         => __( 'Edit Subject', 'textdomain' ),
+       'update_item'       => __( 'Update Subject', 'textdomain' ),
+       'add_new_item'      => __( 'Add New Teaching Subject', 'textdomain' ),
+       'new_item_name'     => __( 'New Teaching Subject', 'textdomain' ),
+       'menu_name'         => __( 'Subject', 'textdomain' ),
+   );
+
+	$args	=	array(
+		'labels'				=>	$labels,
+		'public'				=>	true,
+		'hierarchical'	=>	true,
+		'show_admin_column'	=> true,
+    'show_in_rest'  => true,
+	);
+	register_taxonomy('teaching-subjects', array('teaching'), $args);
+}
 
 /**
  * People
@@ -141,7 +201,7 @@ function slow_atoms_people_post_type() {
 		'hierarchical'	=>	true,
 		'labels'				=>	$labels,
 		'menu_icon'			=>	'dashicons-groups',
-    'menu_position' =>  5,
+    'menu_position' =>  7,
 		'public'				=>	true,
 		'has_archive'		=>	true,
 		'supports'			=>	array('title' , 'thumbnail'),
@@ -202,7 +262,7 @@ function slow_atoms_wiki_post_type() {
 		'hierarchical'	=>	true,
 		'labels'				=>	$labels,
 		'menu_icon'			=>	'dashicons-info',
-    'menu_position' =>  6,
+    'menu_position' =>  8,
 		'public'				=>	true,
 		'has_archive'		=>	true,
 		'supports'			=>	array('title' , 'editor', 'revisions', 'author', 'thumbnail'),
@@ -223,7 +283,7 @@ function slow_atoms_wiki_taxonomy() {
        'parent_item'       => __( 'Parent Subject', 'textdomain' ),
        'parent_item_colon' => __( 'Parent Subject', 'textdomain' ),
        'edit_item'         => __( 'Edit Subject', 'textdomain' ),
-       'update_item'       => __( 'Update v', 'textdomain' ),
+       'update_item'       => __( 'Update Subject', 'textdomain' ),
        'add_new_item'      => __( 'Add New Wiki Subject', 'textdomain' ),
        'new_item_name'     => __( 'New Wiki Subject', 'textdomain' ),
        'menu_name'         => __( 'Subject', 'textdomain' ),
