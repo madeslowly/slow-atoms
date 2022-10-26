@@ -9,12 +9,16 @@
  * @package slow_atoms
  */
 
+/**
+ * 
+ * Register our custom posts and taxonomies that will apear in the wp-admin dashboard
+ * 
+ */
+
 
 /**
- *
- * Research posts and taxonomies
- *
-*/
+ * Research
+ */
 add_action( 'init' , 'slow_atoms_research_post_type');
 
 function slow_atoms_research_post_type() {
@@ -75,10 +79,47 @@ function slow_atoms_research_taxonomy() {
 }
 
 /**
- *
- * People posts and taxonomies
- *
-*/
+ * Publications
+ */
+add_action( 'init' , 'slow_atoms_publications_post_type');
+
+function slow_atoms_publications_post_type() {
+
+ $labels = array(
+       'name'              => _x( 'Publications', 'Post type general name', 'textdomain' ),
+       'singular_name'     => _x( 'Publication', 'Post type singular name', 'textdomain' ),
+       'search_items'      => __( 'Search Publications', 'textdomain' ),
+       'all_items'         => __( 'All Publications', 'textdomain' ),
+       'edit_item'         => __( 'Edit Publication', 'textdomain' ),
+       'update_item'       => __( 'Update Publication', 'textdomain' ),
+       'add_new_item'      => __( 'Add New Publication', 'textdomain' ),
+       'new_item_name'     => __( 'New Publication Name', 'textdomain' ),
+       'menu_name'         => __( 'Publications', 'textdomain' ),
+   );
+
+	$args = array(
+		'hierarchical'	=>	true,
+		'labels'				=>	$labels,
+		'menu_icon'			=>	'dashicons-text-page',
+    'menu_position' =>  7,
+		'public'				=>	true,
+		'has_archive'		=>	true,
+		'supports'			=>	array('title'),
+		'show_in_rest' => true,
+	);
+	register_post_type('publications', $args );
+}
+
+/**
+ * 
+ * We dont set up custom publication taxonomies, instead use the research taxonomies. We can then easilly correlate publications and research.
+ * 
+ */
+
+
+/**
+ * People
+ */
 
 add_action( 'init' , 'slow_atoms_people_post_type');
 
@@ -139,9 +180,7 @@ function slow_atoms_people_taxonomy() {
 }
 
 /**
- *
- * Wiki posts and taxonomies
- *
+ * Lab-Wiki
  */
 add_action( 'init' , 'slow_atoms_wiki_post_type');
 
@@ -199,69 +238,5 @@ function slow_atoms_wiki_taxonomy() {
 	);
 	register_taxonomy('wiki-subjects', array('lab-wiki'), $args);
 }
-
-/**
- *
- * Publications posts and taxonomies
- *
- */
-add_action( 'init' , 'slow_atoms_publications_post_type');
-
-function slow_atoms_publications_post_type() {
-
- $labels = array(
-       'name'              => _x( 'Publications', 'Post type general name', 'textdomain' ),
-       'singular_name'     => _x( 'Publication', 'Post type singular name', 'textdomain' ),
-       'search_items'      => __( 'Search Publications', 'textdomain' ),
-       'all_items'         => __( 'All Publications', 'textdomain' ),
-       'edit_item'         => __( 'Edit Publication', 'textdomain' ),
-       'update_item'       => __( 'Update Publication', 'textdomain' ),
-       'add_new_item'      => __( 'Add New Publication', 'textdomain' ),
-       'new_item_name'     => __( 'New Publication Name', 'textdomain' ),
-       'menu_name'         => __( 'Publications', 'textdomain' ),
-   );
-
-	$args = array(
-		'hierarchical'	=>	true,
-		'labels'				=>	$labels,
-		'menu_icon'			=>	'dashicons-text-page',
-    'menu_position' =>  7,
-		'public'				=>	true,
-		'has_archive'		=>	true,
-		'supports'			=>	array('title'),
-		'show_in_rest' => true,
-	);
-	register_post_type('publications', $args );
-}
-
-/*
-add_action( 'init' , 'slow_atoms_publications_taxonomy');
-
-function slow_atoms_publications_taxonomy() {
-
- $labels = array(
-       'name'              => _x( 'Publications', 'taxonomy general name', 'textdomain' ),
-       'singular_name'     => _x( 'Publication', 'taxonomy singular name', 'textdomain' ),
-       'search_items'      => __( 'Search Publications', 'textdomain' ),
-       'all_items'         => __( 'All Publications', 'textdomain' ),
-       'parent_item'       => __( 'Parent Publication', 'textdomain' ),
-       'parent_item_colon' => __( 'Parent Subject', 'textdomain' ),
-       'edit_item'         => __( 'Edit Subject', 'textdomain' ),
-       'update_item'       => __( 'Update v', 'textdomain' ),
-       'add_new_item'      => __( 'Add New Wiki Subject', 'textdomain' ),
-       'new_item_name'     => __( 'New Wiki Subject', 'textdomain' ),
-       'menu_name'         => __( 'Subject', 'textdomain' ),
-   );
-
-	$args	=	array(
-		'labels'				=>	$labels,
-		'public'				=>	true,
-		'hierarchical'	=>	true,
-		'show_admin_column'	=> true,
-	);
-	register_taxonomy('wiki-subjects', array('publications'), $args);
-}
-*/
-
 
 ?>
