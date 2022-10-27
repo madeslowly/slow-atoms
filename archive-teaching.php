@@ -36,7 +36,7 @@ get_header() ; ?>
 
 	</section><!-- .slow-atoms__page-hero -->
 
-	<section class="teaching__list"> <?php
+	<section class="teaching__content"> <?php
 		if ( have_posts() ) :
 			$count_for_aos = 0 ;
 			/* Start the Loop */
@@ -51,10 +51,38 @@ get_header() ; ?>
 				 * If you want to override this in a child theme, then include a file
 				 * called content-___.php (where ___ is the Post Type name) and that will be used instead.
 				 */
-				 get_template_part( 'template-parts/content', get_post_type() );
+				
+				/**
+				 * get_template_part( 'template-parts/content', get_post_type() );
+				 * dont bother getting the content or post title
+				 */ 
 
-				 $wp_query->current_post 	;
-				 echo $index_query ;
+				if ( get_field('lecture_notes_lecture_name', $post->ID) ) :
+					// User has given a unique name so use it.
+					$lecture_name =  get_field('lecture_notes_lecture_name', $post->ID) ;
+					
+				else :
+					// No unique name so get post title and append with "lecture Notes"
+					$lecture_name =  the_title( '' , ' Lecture Notes' , false );
+
+				endif ;
+				
+				// get URLs for teaching material
+				// Get sub field directly get_field('GROUP FIELD NAME_SUB FIELD NAME');
+				$lecture_notes_url	= get_field('lecture_notes_lecture_notes_url', $post->ID);
+				$problems_url		= get_field('problems', $post->ID);
+				$solutions_url		= get_field('solutions', $post->ID); ?>
+
+				<div class="teaching__content-block">
+				
+					<ul class="teaching__content-list"><?php
+						echo "<li class='teaching-list-item'><a href='" . $lecture_notes_url . "' class='teaching__entry'>" . $lecture_name . "</a></li>" ;
+						echo "<li class='teaching-list-item'><a href='" . $problems_url . "' class='teaching__entry'>Problems</a></li>" ;
+						echo "<li class='teaching-list-item'><a href='" . $solutions_url . "' class='teaching__entry'>Solutions</a></li>" ; ?>
+					</ul>
+				</div><?php
+				
+				 $wp_query->current_post ;
 
 			 endwhile;
 

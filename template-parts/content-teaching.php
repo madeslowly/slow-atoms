@@ -43,17 +43,16 @@
 		<?php endif;
 
 		if ( is_singular() ) : // single post
+		?>
+
+		<div class="teaching__wrap">
+		<?php
 
 			// get URLs for teaching material
-
 			$lecture_notes							= get_field('lecture_notes', $post->ID);
 			$problems								= get_field('problems', $post->ID);
 			$solutions								= get_field('solutions', $post->ID);
 
-		 ?>
-
-		<div class="teaching__wrap">
-		<?php
 			echo "<a href='" . $lecture_notes . "' class='teaching__entry'>Lecture Notes</a>" ;
 			echo "<a href='" . $problems . "' class='teaching__entry'>Problems</a>" ;
 			echo "<a href='" . $solutions . "' class='teaching__entry'>Solutions</a>" ;
