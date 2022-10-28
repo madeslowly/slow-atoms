@@ -1,0 +1,43 @@
+.teaching__content
+    width: 95vw
+    max-width: 1000px
+    margin: 10vh auto
+
+.teaching__content-list
+    display: flex
+    flex-direction: column
+    justify-content: left
+
+.teaching-list-item
+    display: flex
+    justify-content: space-between
+    flex-basis: 25%
+    font-family: "Roboto", sans-serif
+    list-style: none
+    color: white
+    box-sizing: border-box
+    display: flex
+    height: 120px
+    align-items: center
+    background-color: #2e3145
+    transition: 0.8s ease-in-out
+    padding: 1rem 2rem
+    margin: 20px 40px
+    border-radius: 16px
+
+.teaching-link-url
+    color: $soft-white
+
+    &:visited
+        color: $soft-white
+
+.teaching-link-download
+    color: $perfect-grey
+
+    &:visited
+        color: $perfect-grey
+
+@media only screen and (min-width: 1024px)
+
+    .teaching__content-list
+        flex-direction: row
