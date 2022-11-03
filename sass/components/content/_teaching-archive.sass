@@ -9,8 +9,6 @@
     justify-content: left
 
 .teaching-list-item
-    display: flex
-    justify-content: space-between
     flex-basis: 25%
     font-family: "Roboto", sans-serif
     list-style: none
@@ -19,11 +17,20 @@
     display: flex
     height: 120px
     align-items: center
-    background-color: #2e3145
+    background-color: var(--theme-color)
     transition: 0.8s ease-in-out
     padding: 1rem 2rem
     margin: 20px 40px
     border-radius: 16px
+
+.teaching__content-overview
+    width: 100%
+    flex-basis: 100%
+
+.teaching-list-nav
+    display: flex
+    justify-content: space-between
+    width: 100%
 
 .teaching-link-url
     color: $soft-white
@@ -32,12 +39,28 @@
         color: $soft-white
 
 .teaching-link-download
-    color: $perfect-grey
+    color: $soft-white
 
     &:visited
-        color: $perfect-grey
+        color: $soft-white
 
 @media only screen and (min-width: 1024px)
 
     .teaching__content-list
         flex-direction: row
+
+    .teaching-list-nav
+        &:hover > a
+            color: $perfect-grey
+
+        a:hover
+            color: $pure-white
+
+
+    .teaching__content-row:first-child > .teaching__content-list > .teaching-list-item
+        padding: 2rem 10rem
+        background-color: var(--theme-color-compliment)
+
+        & > .teaching-list-nav > .teaching-link
+            font-size: 2.6rem
+            text-transform: uppercase

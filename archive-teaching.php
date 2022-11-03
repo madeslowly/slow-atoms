@@ -13,8 +13,9 @@ get_header() ; ?>
 
 	<section class="slow-atoms__page-hero">
 
-		<header class="page-header is__theme-background-transparent"> <?php
-			the_archive_title( '<h1 class="page-title">', '</h1>' );	?>
+		<header class="page-header is__theme-background-transparent"> 
+		<h2 style="word-wrap: normal" class="page-title">This website obeys the laws of thermodynamics</h2>
+			<!--<?php the_archive_title( '<h1 class="page-title">', '</h1>' );	?> -->
 		</header><!-- .page-header --> <?php
 
 		if ( get_theme_mod('slow_atoms_theme_teaching_hero') ) :
@@ -36,7 +37,25 @@ get_header() ; ?>
 
 	</section><!-- .slow-atoms__page-hero -->
 
-	<section class="teaching__content"> <?php
+	<section class="teaching__content"> 
+		
+		<div class="teaching__content-row">
+
+			<ul class="teaching__content-list">
+			
+				<li class='teaching-list-item teaching__content-overview'>
+
+					<nav class='teaching-list-nav'>
+						<?php $teaching_guide_url =  get_theme_mod( 'slow_atoms_theme_pdf_upload_settings'); ?>
+						<a href='<?php echo $teaching_guide_url ?>' class='teaching-link teaching-link-url'>Course Guide</a>
+						<a href='<?php echo $teaching_guide_url ?>' class='teaching-link teaching-link-download' download><i class='fa fa-download' aria-hidden='true'></i></a>
+					</nav>
+				</li>
+			</ul>
+		</div>
+	
+	
+		<?php
 		if ( have_posts() ) :
 			$count_for_aos = 0 ;
 			/* Start the Loop */
@@ -62,23 +81,44 @@ get_header() ; ?>
 					$lecture_name =  get_field('lecture_notes_lecture_name', $post->ID) ;
 					
 				else :
-					// No unique name so get post title and append with "lecture Notes"
-					$lecture_name =  the_title( '' , ' Lecture Notes' , false );
+					// No unique name so get post title and append with "Notes"
+					$lecture_name =  the_title( '' , ' Notes' , false );
 
 				endif ;
 				
 				// get URLs for teaching material
 				// Get sub field directly get_field('GROUP FIELD NAME_SUB FIELD NAME');
 				$lecture_notes_url	= get_field('lecture_notes_lecture_notes_url', $post->ID);
-				$problems_url		= get_field('problems', $post->ID);
-				$solutions_url		= get_field('solutions', $post->ID); ?>
+				$problems_url		= get_field('problems_and_solutions_problems', $post->ID);
+				$solutions_url		= get_field('problems_and_solutions_solutions', $post->ID); 
+				
+				// Array of urls to loop through
+				$urls = array($lecture_notes_url , $problems_url , $solutions_url); 
+				
+				// Array of file names
+				$names = array( $lecture_name , the_title( '' , ' Problems' , false ) , the_title( '' , ' Solutions' , false ) )?>
 
-				<div class="teaching__content-block">
+				<div class="teaching__content-row">
 				
 					<ul class="teaching__content-list"><?php
-						echo "<li class='teaching-list-item'><a href='" . $lecture_notes_url . "' class='teaching__entry'>" . $lecture_name . "</a></li>" ;
-						echo "<li class='teaching-list-item'><a href='" . $problems_url . "' class='teaching__entry'>Problems</a></li>" ;
-						echo "<li class='teaching-list-item'><a href='" . $solutions_url . "' class='teaching__entry'>Solutions</a></li>" ; ?>
+						
+						for ( $i = 0; $i <= count($urls); $i ++) {
+
+							if( $urls[ $i ] ) :
+						
+							echo "
+							<li class='teaching-list-item'>
+
+								<nav class='teaching-list-nav'>
+									<a href='" . $urls[ $i ] . "' class='teaching-link teaching-link-url'>" . $names[ $i ] . "</a> 
+									<a href='" . $urls[ $i ] . "' class='teaching-link teaching-link-download' download><i class='fa fa-download' aria-hidden='true'></i></a>
+								</nav>
+							</li>
+							" ;
+
+							endif ;
+						} ?>
+						
 					</ul>
 				</div><?php
 				
