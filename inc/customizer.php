@@ -68,26 +68,26 @@ function slow_atoms_customize_register( $wp_customize ) {
 
 	// Theme Settings Panel
 	$wp_customize 		-> add_panel( 'slow_atoms_theme_panel' , array(
-		'title'					=> __('Theme Settings', 'slow-atoms'),
-		'priority' 			=> 1,
+		'title'			=> __('Theme Settings', 'slow-atoms'),
+		'priority' 		=> 1,
 		'capability'    => 'edit_theme_options',
 		'description'   => __('Several settings pertaining to Slow Atoms theme', 'slow-atoms'),
 	));
 
 	/**************************** SECTIONS ****************************/
 
-	// Theme wide colors
-	$wp_customize 		-> add_section( 'slow_atoms_theme_colors', array(
-		'title' 				=> __('Theme Colors', 'slow-atoms'),
-		'priority' 			=> 2,
-		'panel' 				=> 'slow_atoms_theme_panel',
-	));
 	// Homepage strapline
 	$wp_customize 		-> add_section('slow_atoms_theme_front_page', array(
 		'title' 				=> __('Homepage Settings', 'slow-atoms'),
 		'priority' 			=> 1,
 		'panel' 				=> 'slow_atoms_theme_panel',
 	) ) ;
+	// Theme wide colors
+	$wp_customize 		-> add_section( 'slow_atoms_theme_colors', array(
+		'title' 				=> __('Theme Colors', 'slow-atoms'),
+		'priority' 			=> 2,
+		'panel' 				=> 'slow_atoms_theme_panel',
+	));
 	// Featured images !front-page
 	$wp_customize 		-> add_section('slow_atoms_theme_archive_page_heros', array(
 		'title' 				=> __('Featured Images', 'slow-atoms'),
@@ -97,9 +97,16 @@ function slow_atoms_customize_register( $wp_customize ) {
 	// Contact page details
 	$wp_customize 		-> add_section('slow_atoms_theme_contact_page_details', array(
 		'title' 				=> __('Contact Details', 'slow-atoms'),
-		'priority' 			=> 3,
+		'priority' 			=> 4,
 		'panel' 				=> 'slow_atoms_theme_panel',
 	) ) ;
+	// Teaching Content
+	$wp_customize 		-> add_section('slow_atoms_theme_teaching_material', array(
+		'title' 				=> __('Teaching Guide', 'slow-atoms'),
+		'priority' 			=> 5,
+		'panel' 				=> 'slow_atoms_theme_panel',
+	) ) ;
+
 	/**************************** SETTINGS ****************************/
 
 	// Primary color
@@ -167,6 +174,11 @@ function slow_atoms_customize_register( $wp_customize ) {
 		'sanitize_callback' => 'sanitize_text',
 		'transport' 		=> 'refresh',
 	) ) ;
+	// Teaching guide upload
+	$wp_customize		-> add_setting( 'slow_atoms_theme_pdf_upload_settings', array(
+        'transport'         => 'refresh'
+    ));
+  
 	/**************************** CONTROLS ****************************/
 
 	// Primary color
@@ -262,6 +274,12 @@ function slow_atoms_customize_register( $wp_customize ) {
 		'settings' 			=> 'slow_atoms_contact_country',
 		'type'     			=> 'text'
 	) ) );
+	// Teaching guide upload
+	$wp_customize		-> add_control( new WP_Customize_Upload_Control( $wp_customize, 'slow_atoms_theme_pdf_upload_settings', array(
+        'label'             => __('PDF Upload', 'name-theme'),
+        'section'           => 'slow_atoms_theme_teaching_material',
+        'settings'          => 'slow_atoms_theme_pdf_upload_settings',    
+    )));
 
 	// Sanitize text
 	function sanitize_text( $text ) {
