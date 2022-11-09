@@ -58,74 +58,66 @@ $cnt++ ;
 
 endforeach ;
 
+if ( is_singular() ) :
+	
+	$conditional_class = 'is__single-publication' ;
+
+	$publication_entry = the_title( '<h2 class="publication-title">' , '</h2>' , false)  ;
+
+	// Dont display the thumb on singular
+	$publication_thumb = '' ;
+
+	$publication_abstract = get_field('publication_abstract') ;
+
+	$publication_doi = sprintf( '<a href="%s" rel="bookmark">' , esc_url( 'doi.org/' . get_field('publication_doi') ) ) . 'doi</a>';
+
+else :
+
+	$conditional_class = '';
+
+	$publication_entry = the_title( sprintf( '<h4 class="publication-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h4>' , false ) ; 
+	
+	// if we have a thumbnail, use it and set the abstract word count to 200
+	if ( $publication_thumb = get_field( 'publication_thumbnail' ) ) : 
+		
+		$abstract_word_count = 200 ;
+		
+		$publication_thumb = '<figure class="publication-figure">' . wp_get_attachment_image( $publication_thumb , "full" ) . '</figure>' ;
+	
+	else :
+		
+		// No thumb so expand the word count for symetry
+		$abstract_word_count = 600 ;
+	
+	endif ;
+
+	$publication_abstract = substr( get_field('publication_abstract') , 0 , $abstract_word_count ) . ' ...' ;
+
+	$publication_doi = sprintf( '<a href="%s" rel="bookmark">' , esc_url( get_permalink() ) ) . 'Abstract</a>' .  ' | ' . sprintf( '<a href="%s" rel="bookmark">' , esc_url( 'doi.org/' . get_field('publication_doi') ) ) . 'doi</a>' ;
+
+
+endif ;
 
 ?>
 
-<article class="publication-entry <?php
+<article class="publication-entry <?php echo $conditional_class ; ?>">
 
-	if ( is_singular() ) : ?>
-	 is__single-publication <?php
-	endif ; ?>
-
-	 ">
-
-	<?php
-
-	if ( is_singular() ) :
-
-		the_title( '<h2 class="publication-title">' , '</h2>' )  ;
-
-	else :
-
-		the_title( sprintf( '<h4 class="publication-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h4>' ); ?>
-
-		<figure class="publication-figure">
-			<?php echo wp_get_attachment_image( get_field( 'publication_thumbnail' ) , 'full' ) ; ?>
-		</figure> <?php
-
-	endif ;?>
+	<?php echo $publication_entry  ; echo $publication_thumb ; ?>
 
 	<section class="publication-meta">
 
-		<p class="publication-authors">
-			<?php echo $author_list_string ; ?>
-		</p>
+		<p class="publication-authors"> <?php echo $author_list_string ; ?> </p>
 
 		<p class="publication-journal">
 			<?php echo get_field('publication_journal') . ' ' . get_field('publication_year') . ' ' . '<b>' . get_field('publication_volume') . '</b>' . ' ' . get_field('publication_page_number') ;?>
 		</p>
 
-		<p class="publication-abstract">
+		<p class="publication-abstract"> <?php echo $publication_abstract ; ?> </p>
 
-			<?php
-			if ( is_singular() ) :
-
-				$abstract = get_field('publication_abstract') ;
-
-				echo $abstract ; ?>
-
-		</p> <?php
-
-			echo sprintf( '<a href="%s" rel="bookmark">' , esc_url( 'doi.org/' . get_field('publication_doi') ) ) . 'doi</a>';
-
-			else :
-
-				$abstract = substr( get_field('publication_abstract') , 0 , 200 ) . ' ...' ;
-
-				echo $abstract ; ?>
-
-		</p>
-
-		<p> <?php
-
-			echo sprintf( '<a href="%s" rel="bookmark">' , esc_url( get_permalink() ) ) . 'Abstract</a>' .  ' | ' . sprintf( '<a href="%s" rel="bookmark">' , esc_url( 'doi.org/' . get_field('publication_doi') ) ) . 'doi</a>'; ?>
-
-		</p><?php
-
-			endif ; ?>
-
-
+		<p>	<?php echo $publication_doi ; ?> </p>
 
 	</section>
 
 </article>
+
+<?php edit_post_link(__('{Edit}')); ?>
