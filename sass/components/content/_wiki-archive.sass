@@ -1,18 +1,62 @@
-.is__wiki-archive
+.wiki__content
+  display: flex
+  width: 100vw
+
+
+  .wiki__sidebar
+    display: none
+    
 
   .wiki__list
+    width: 75%
     display: flex
     flex-wrap: wrap
     justify-content: space-between
-    width: 80%
-    max-width: 800px
-    margin: 10vh auto
-
-  .wiki-entry
-    width: 33%
+    padding: 25vh 20px
 
 
 .is__single-wiki
-  width: 80%
+  width: 95%
   max-width: 800px
-  margin: 10vh auto
+  margin: 25vh auto
+
+
+@media only screen and (min-width: 1024px)
+
+  .wiki__content
+
+    .is__single-wiki > *
+      padding-left: 20px
+
+    .wiki__sidebar
+      display: block
+      position: sticky
+      top: 0
+      width: 25%
+      height: 100vh
+      padding: 25vh 10px
+      background-color: var(--theme-color-alpha-010)
+      border-right: solid 1px var(--theme-color-alpha-080)
+
+      .wiki-subject-list
+        display: none
+        height: 0
+        overflow: hidden
+      
+      .wiki__sidebar-header
+        display: flex
+        justify-content: stretch
+        margin: 3px 0
+
+      .wiki__sidebar-link
+
+        margin: 0
+        width: 100%
+        padding: 3px 15px
+        border-radius: 2px
+
+
+        &:hover,
+        &:focus,
+        &:active
+          background-color: var(--theme-color-alpha-010)

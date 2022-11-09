@@ -15,7 +15,7 @@
 
  ?>
 
- 	<main id="primary" class="site-main">
+ 	<main id="primary" class="">
 
  		<?php
  		while ( have_posts() ) :

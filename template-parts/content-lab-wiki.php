@@ -1,6 +1,6 @@
 <?php
 /**
- * Template part for displaying wikis
+ * Template part for displaying wiki content
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
  *
@@ -8,6 +8,13 @@
  */
 
 ?>
+
+
+<?php if ( is_singular() ) :
+
+	echo '<section class="wiki__content">' ;
+	get_template_part( 'template-parts/sidebar', get_post_type() ); 
+endif ; ?>
 
 <article id="post-<?php the_ID(); ?>" class="wiki-entry <?php
 
@@ -54,3 +61,6 @@
 
 
 </article>
+<?php if ( is_singular() ) :
+echo "</section>" ; 
+endif ; ?>
