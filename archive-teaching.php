@@ -47,8 +47,8 @@ get_header() ; ?>
 
 					<nav class='teaching-list-nav'>
 						<?php $teaching_guide_url =  get_theme_mod( 'slow_atoms_theme_pdf_upload_settings'); ?>
-						<a href='<?php echo $teaching_guide_url ?>' class='teaching-link teaching-link-url'>Course Guide</a>
-						<a href='<?php echo $teaching_guide_url ?>' class='teaching-link teaching-link-download' download><i class='fa fa-download' aria-hidden='true'></i></a>
+						<a href='<?php echo $teaching_guide_url ?>?action=purge' class='teaching-link teaching-link-url'>Course Guide</a>
+						<a href='<?php echo $teaching_guide_url ?>?action=purge' class='teaching-link teaching-link-download' download><i class='fa fa-download' aria-hidden='true'></i></a>
 					</nav>
 				</li>
 			</ul>
@@ -110,8 +110,8 @@ get_header() ; ?>
 							<li class='teaching-list-item'>
 
 								<nav class='teaching-list-nav'>
-									<a href='" . $urls[ $i ] . "' class='teaching-link teaching-link-url'>" . $names[ $i ] . "</a> 
-									<a href='" . $urls[ $i ] . "' class='teaching-link teaching-link-download' download><i class='fa fa-download' aria-hidden='true'></i></a>
+									<a href='" . $urls[ $i ] . "?action=purge' class='teaching-link teaching-link-url'>" . $names[ $i ] . "</a> 
+									<a href='" . $urls[ $i ] . "?action=purge' class='teaching-link teaching-link-download' download><i class='fa fa-download' aria-hidden='true'></i></a>
 								</nav>
 							</li>
 							" ;
