@@ -9,26 +9,27 @@
 
 if ( ! defined( '_S_VERSION' ) ) {
 	// Replace the version number of the theme on each release.
-	define( '_S_VERSION', '1.0.0' );
+	define( '_S_VERSION', '2.0.0' );
 }
 
-$slow_atom_func_dir = get_stylesheet_directory() . '/inc/functions/';
+$slow_atoms_func_dir = '/inc/functions/';
 $roots_includes = array(
-  '/inc/functions/custom-posts.php',
-	'/inc/functions/enqueue-scripts-and-styles.php',
-	'/inc/functions/acf-members.php',
-	'/inc/functions/acf-publications.php',
-	'/inc/functions/acf-hero-images.php',
-	'/inc/functions/slow-atoms-customise-colors.php',
-
+  	'custom-posts.php',
+	'enqueue-scripts-and-styles.php',
+	'acf-members.php',
+	'acf-publications.php',
+	'acf-hero-images.php',
+	'acf-teaching.php',
+	'slow-atoms-customise-colors.php',
+	'og-meta.php',
+	'structured-data.php',
 );
 
 foreach( $roots_includes as $file ){
-  if( ! $filepath = locate_template( $file ) ) {
-    trigger_error("Error locating `$file` for inclusion!", E_USER_ERROR);
-  }
-
-  require_once $filepath;
+	if( ! $filepath = locate_template( $slow_atoms_func_dir . $file ) ) {
+		trigger_error("Error locating `$file` for inclusion!", E_USER_ERROR);
+	}
+	require_once $filepath;
 }
 unset($file, $filepath);
 

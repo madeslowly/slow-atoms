@@ -19,7 +19,13 @@
 
 			<link rel="profile" href="https://gmpg.org/xfn/11">
 
+			<?php 
+			slow_atoms_og() ;
+			//slow_atoms_structured_data() ;
+			?>
+
 			<?php wp_head(); ?>
+			
 		</head>
 
 		<body <?php body_class(); ?> >
