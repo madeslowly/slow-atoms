@@ -25,3 +25,5 @@ phpcs.xml.dist
 *.zip
 
 node_modules
+
+humans.txt
