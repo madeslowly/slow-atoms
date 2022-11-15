@@ -20,7 +20,12 @@ endif ; ?>
 
 	if ( is_singular() ) : ?>
 	 is__single-wiki <?php
+	endif ; 
+	
+	if ( is_archive() ) : ?>
+		is__wiki-archive-entry <?php
 	endif ; ?>
+	
 
 	 ">
 	<?php
@@ -56,11 +61,12 @@ endif ; ?>
 
 		the_title( sprintf( '<h4 class="wiki-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h4>' );
 
-	endif ;?>
-
-
+	endif ;
+	
+	slow_atoms_edit_post_link() ; ?>
 
 </article>
 <?php if ( is_singular() ) :
-echo "</section>" ; 
+echo "</section>" ;
+
 endif ; ?>

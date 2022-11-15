@@ -24,12 +24,11 @@
     <?php //slow_atoms_get_random_hero('post-thumbnail' ,'attachment-post-thumbnail size-post-thumbnail wp-post-image'); ?>
   </section> --> <!-- .slow-atoms__page-hero -->
 
-  <section class="wiki__content">
+  <section class="wiki__content is__wiki_archive">
 
     <?php get_template_part( 'template-parts/sidebar', get_post_type() ); ?>
 
     <section class="wiki__list"><?php
-       
 
       if ( have_posts() ) :
       /* Start the Loop */

@@ -21,6 +21,7 @@
   margin: 25vh auto
 
 
+
 @media only screen and (min-width: 1024px)
 
   .wiki__content
@@ -59,4 +60,30 @@
         &:hover,
         &:focus,
         &:active
-          background-color: var(--theme-color-alpha-010)
+          //background-color: var(--theme-color-alpha-010)
+
+  .is__wiki-archive
+    
+    .wiki-entry
+      width: 100%
+      height: fit-content
+      margin: 1rem 20%
+      display: flex
+      justify-content: space-between
+      border: solid 1px var(--theme-color-alpha-060)
+      border-radius: 6px
+      align-items: baseline
+      box-shadow: 2px 6px 6px var(--theme-color-alpha-020)
+      @include default-link-trans
+
+      &:hover
+        box-shadow: 1px 3px 4px var(--theme-color-alpha-020)
+        border: solid 1px var(--theme-color-alpha-090)
+
+        & > wiki-title > a
+          color: red!important
+
+
+
+      & > *
+        margin: 1rem 1rem
