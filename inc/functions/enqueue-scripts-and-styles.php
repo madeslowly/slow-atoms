@@ -38,11 +38,16 @@ add_action( 'wp_enqueue_scripts', 'slow_atoms_javascripts' );
 
 function slow_atoms_javascripts() {
 
-	wp_enqueue_script( 'aos-javascript', 'https://unpkg.com/aos@next/dist/aos.js', array(), '', true);
+	wp_enqueue_script( 'polyfill', 'https://polyfill.io/v3/polyfill.min.js?features=es6', array(), '', true);
+
+	wp_enqueue_script( 'mathjax', 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js', array('polyfill'), '', true);
+
+	wp_enqueue_script( 'aos', 'https://unpkg.com/aos@next/dist/aos.js', array(), '', true);
 
 	wp_enqueue_script( 'slow-atoms-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true );
 
 	wp_enqueue_script( 'slow-atoms-nav-scrolled', get_template_directory_uri() . '/js/navBarScroll.js', array(), _S_VERSION, true);
+
 
 }
 
