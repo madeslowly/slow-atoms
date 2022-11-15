@@ -1,61 +1,30 @@
-.publication__year-title
-  width: 90vw
-  max-width: 1000px
-  margin: 0 auto
-  font-weight: 400
-
-
 .publication-entry
   display: flex
   justify-content: space-between
   flex-direction: row
-  width: 90vw
-  max-width: 1000px
-  margin: 7rem auto
-  padding-bottom: 3rem
+  width: 95vw
   flex-wrap: wrap
+  margin: 0 auto
 
-  .publication-title
-    width: 100%
-    margin-bottom: 2rem
+.publication__year-title
+  width: 95vw
+  margin: 0 auto
+  font-weight: 400
 
-.is__single-publication
-  margin-top: 20vh
+.publication-authors > *
+  display: inline-block
 
-  .publication-meta
-    width: 100%
-
-.is__publication-archive
-  .entry-content
-    margin-top: 15vh
-
-  .publication-entry
-    border-bottom: solid 1px var(--theme-color)
-
-.publication-figure
-  width: 25%
-  max-height: 200px
-  display: flex
-  border-radius: 12px
-  border: solid 1px rgb(55, 79, 93)
-  overflow: hidden
-  box-shadow: 3px 3px 10px rgba(0,0,0,.2)
-  overflow: hidden
+.publication_doi
   margin: 0
 
-  & > img
-    width: 100%
-    height: auto
-    object-fit: cover
-
+.publication-title
+  font-size: $font-size
 
 .publication-meta
   display: flex
   flex-direction: column
-  width: 70%
   justify-content: center
   overflow: hidden
-  row-gap: 1rem
 
   .publication-authors
     font-style: italic
@@ -64,3 +33,135 @@
   .publication-journal,
   .publication-abstract
     margin: 0
+
+.related_publications
+  width: 95vw
+  max-width: 1000px
+  margin: 10vh auto
+  padding-top: 2rem
+  border-top: solid 2px var(--theme-color)
+
+.related_publications-header
+  color: var(--theme-color-compliment)
+  
+
+.is__single-publication
+  margin-top: 20vh
+
+  .publication-meta
+    width: 100%
+
+    & > *
+      padding: 1rem 0
+
+.is__publication-archive
+
+  .entry-content
+    margin-top: 5vh
+
+  .publication-entry
+    border-bottom: solid 1px var(--theme-color)
+    margin: 2rem auto
+    padding-bottom: 0
+
+  .publication-meta
+    font-size: $font-size * .8
+
+    & > *
+      margin-bottom: $font-size * .5
+  
+  .author-first-name
+    font-size: 0
+
+  .author-first-name::first-letter
+    font-size: $font-size * .8
+
+  .publication-title
+    width: 100%
+    margin-bottom: $font-size * .5
+    
+  .publication-abstract
+    display: none
+
+  .author-initials
+    display: none
+
+  .has_publication_thumb > .publication-figure
+    display: none
+
+
+@media only screen and (min-width: 1024px)
+
+  .publication-entry
+    max-width: 1000px
+
+  .publication__year-title
+    width: 95vw
+    margin: 0 auto
+    font-weight: 400
+
+  .publication-authors > *
+    display: inline-block
+
+  .publication_doi
+    margin: 0
+
+  .publication-title
+    font-size: $font-size * 1.4
+
+  .is__single-publication
+    margin-top: 20vh
+
+    .publication-meta
+      width: 100%
+
+      & > *
+        padding: 1rem 0
+
+  .is__publication-archive
+
+    .entry-content
+      margin-top: 15vh
+
+    .publication-entry
+      padding-bottom: 3rem
+
+    .publication-meta
+      width: 70%
+      font-size: $font-size
+
+      & > *
+        margin-bottom: $font-size * 1
+    
+    .author-first-name
+      font-size: $font-size
+    
+    .author-first-name::first-letter
+      font-size: $font-size
+
+    .publication-title
+      width: 100%
+      margin-bottom: $font-size * .5
+
+    .publication-abstract
+      display: inherit
+
+    .author-initials
+      display: inline-block
+
+    .has_publication_thumb > .publication-figure
+      display: inherit
+      width: 25%
+      max-height: 200px
+      display: flex
+      border-radius: 12px
+      border: solid 1px rgb(55, 79, 93)
+      overflow: hidden
+      box-shadow: 3px 3px 10px rgba(0,0,0,.2)
+      overflow: hidden
+      margin: 0
+
+      & > img
+        width: 100%
+        height: auto
+        object-fit: cover

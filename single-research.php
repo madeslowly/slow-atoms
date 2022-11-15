@@ -20,8 +20,6 @@ get_header('' , array( 'append_site-header_class' => 'is__light-background' ));
 
 			the_post();
 
-			//echo slow_atoms_custom_taxonomies_terms_links();
-
 			get_template_part( 'template-parts/content', get_post_type() );
 
 			slow_atoms_posts_nav('project' , 'true' , 'true');

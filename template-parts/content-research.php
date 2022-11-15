@@ -85,10 +85,10 @@ global $count_for_aos ;
 
 	} ?>
 
-	<div class="entry-content"> <?php
+	 <?php
 
 	if ( is_singular() ) :
-
+		echo '<div class="entry-content">';
 		the_content( );
 
 		wp_link_pages(
@@ -97,13 +97,83 @@ global $count_for_aos ;
 				'after'  => '</div>',
 			)
 		);
+		echo '</div><!-- .entry-content -->';
 
 	endif ; ?>
 
-	</div><!-- .entry-content -->
+	
 
-	<footer class="entry-footer">
+	<footer class="footer-edit-link">
 		<?php slow_atoms_entry_footer(); ?>
 	</footer><!-- .entry-footer -->
 
+	
 </article><!-- #post-<?php the_ID(); ?> -->
+
+
+<?php
+
+if ( is_singular() ) :
+// Get post type by post.
+$post_type = $post->post_type;
+
+// Get post type taxonomies.
+$taxonomies = get_object_taxonomies( $post_type, 'objects' );
+
+$term_IDs = array();
+
+$related_publications = '' ;
+
+// Loop each type of taxonomy
+foreach ( $taxonomies as $taxonomy_slug => $taxonomy ){
+	// Get the terms related to post
+	$terms = get_the_terms( $post->ID, $taxonomy_slug );
+
+	if ( ! empty( $terms ) ) {
+		// Loop over cataegories of current taxonomy add collect related post IDs
+		foreach ( $terms as $term ) {		
+			$term_IDs[] = $term -> term_id ;
+		}
+
+	}
+}
+
+$args = array(
+	'post_type' => 'publications',
+	'tax_query' => array(
+		array(
+		'taxonomy' => 'research-areas',
+		'field' => 'term_id',
+		'terms' => $term_IDs 
+		)
+	)
+	);
+
+$query = new WP_Query( $args );
+
+if( $query -> have_posts( ) ) :
+	$related_publications .= '<section class="related_publications">' ;
+	$related_publications .= '<h3 class="related_publications-header">Related Publications</h3>' ;
+	$related_publications .= '<ul class"related_publications-list">' ;
+	while( $query -> have_posts( ) ) :
+		$query -> the_post( );
+
+		
+		$related_publications .= '<li class="related_publications-entry" data-aos="fade-up">' ;
+		$related_publications .= the_title( sprintf( '<h5 class="related_publication-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h5>' , false ) ; 
+		//echo $publication_entry ;
+
+		$related_publications .= '</li>';
+
+
+
+	endwhile;
+	$related_publications .= '</ul>';
+	$related_publications .= '</section>' ;
+	echo $related_publications ;
+endif;
+
+wp_reset_postdata(); // Restore original Post Data
+endif;
+
+?>

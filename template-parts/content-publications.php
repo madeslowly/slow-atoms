@@ -28,7 +28,7 @@ while( $cnt <= 999 ):
 
 		$current_author =  $author_list[ $author ] ;
 
-		$tmp = $current_author['first_name'] . ' ' . $current_author['initials'] . ' ' . $current_author['last_name'] ;
+		$tmp = '<span class="author-first-name">' . $current_author['first_name'] . '</span> <span class="author-initials">' . $current_author['initials'] . '</span> <span class="author-last-name">' . $current_author['last_name'] . '</span>' ;
 
 		array_push( $author_list_array , $tmp ) ;
 
@@ -71,14 +71,16 @@ if ( is_singular() ) :
 
 	$publication_doi = sprintf( '<a href="%s" rel="bookmark">' , esc_url( 'doi.org/' . get_field('publication_doi') ) ) . 'doi</a>';
 
-else :
+	$data_aos = '' ;
 
-	$conditional_class = '';
+else :
 
 	$publication_entry = the_title( sprintf( '<h4 class="publication-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h4>' , false ) ; 
 	
 	// if we have a thumbnail, use it and set the abstract word count to 200
-	if ( $publication_thumb = get_field( 'publication_thumbnail' ) ) : 
+	if ( $publication_thumb = get_field( 'publication_thumbnail' ) ) :
+
+		$conditional_class = 'has_publication_thumb' ;
 		
 		$abstract_word_count = 200 ;
 		
@@ -86,8 +88,10 @@ else :
 	
 	else :
 		
+		$conditional_class = 'no_publication_thumb' ;
+
 		// No thumb so expand the word count for symetry
-		$abstract_word_count = 600 ;
+		$abstract_word_count = 300 ;
 	
 	endif ;
 
@@ -95,12 +99,13 @@ else :
 
 	$publication_doi = sprintf( '<a href="%s" rel="bookmark">' , esc_url( get_permalink() ) ) . 'Abstract</a>' .  ' | ' . sprintf( '<a href="%s" rel="bookmark">' , esc_url( 'doi.org/' . get_field('publication_doi') ) ) . 'doi</a>' ;
 
+	$data_aos = 'data-aos="fade-in"' ;
 
 endif ;
 
 ?>
 
-<article class="publication-entry <?php echo $conditional_class ; ?>">
+<article class="publication-entry <?php echo $conditional_class ; ?>" <?php echo $data_aos ?> >
 
 	<?php echo $publication_entry  ; echo $publication_thumb ; ?>
 
@@ -114,10 +119,10 @@ endif ;
 
 		<p class="publication-abstract"> <?php echo $publication_abstract ; ?> </p>
 
-		<p>	<?php echo $publication_doi ; ?> </p>
+		<p class="publication-doi">	<?php echo $publication_doi ; ?> </p>
 
 	</section>
 
-</article>
+	<?php slow_atoms_edit_post_link() ; ?>
 
-<?php edit_post_link(__('{Edit}')); ?>
+</article>

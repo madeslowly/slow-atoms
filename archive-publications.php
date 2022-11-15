@@ -47,6 +47,7 @@ get_header();
 				if ( have_posts() ) :
 				/* Start the Loop */
 				while ( have_posts() ) :
+					
 					the_post();
 
 					$previous_year = $year ;
@@ -56,8 +57,9 @@ get_header();
 						echo '<h2 class="publication__year-title">' .  $year . '</h2>' ;
 					endif ;
 
-					if ( ! isset( $years[ $year ] ) ) $years[ $year ] = array();
-      			$years[ $year ][] = array( 'title' => get_the_title(), 'permalink' => get_the_permalink() );
+					if ( ! isset( $years[ $year ] ) ) 
+						$years[ $year ] = array();
+      					$years[ $year ][] = array( 'title' => get_the_title(), 'permalink' => get_the_permalink() );
 
 					/*
 					 * Include the Post-Type-specific template for the content.
@@ -65,6 +67,7 @@ get_header();
 					 * called content-___.php (where ___ is the Post Type name) and that will be used instead.
 					 */
 					get_template_part( 'template-parts/content', get_post_type() );
+
 
 				endwhile;
 

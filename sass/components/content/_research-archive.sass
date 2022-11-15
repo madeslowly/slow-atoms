@@ -15,19 +15,18 @@
     row-gap: 15vh
 
   .is__research-archive-entry
-    width: 90vw
+    width: 95vw
     display: flex
     flex-direction: column-reverse
     margin: 0 auto
 
     .research__thumbnail-wrap
-      width: inherit
-      height: inherit
+      display: none
+      visibility: hidden
 
-  .research__project-excerpt-wrap
+  .footer-edit-link
     display: none
     visibility: hidden
-
 
 @media only screen and (min-width: 1024px)
 
@@ -48,18 +47,32 @@
 
   .is__research-archive
 
+    .footer-edit-link
+      display: inline-block
+      visibility: visible
+      position: absolute
+      bottom: 0
+      //transform: translateY(100px)
+      z-index: 9998
+
     .research__list
       flex-direction: row
       column-gap: 8.5vw
       row-gap: 20vh
       margin: 20vh 5vw
-      max-width: 1200px
+      //max-width: 1200px
 
     .is__research-archive-entry
       width: 37vw
       height: 32vh
       position: relative
+      //overflow: hidden
       @include default-box-shadow
+
+      .research__thumbnail-wrap
+        display: block
+        visibility: visible
+        overflow: hidden
 
     .research__project-copy-wrap
       display: flex
