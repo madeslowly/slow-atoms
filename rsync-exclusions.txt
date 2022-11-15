@@ -10,3 +10,5 @@ package-lock.json
 package.json
 rsync-exclusions.txt
 *.sql
+readme.txt
+README.md

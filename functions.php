@@ -423,114 +423,114 @@ return;
 // Using Thumbnails with Previous and Next Post Links
 
 function slow_atoms_posts_nav( $archive_name , $show_thumb , $show_title ) {
+	
 	$next_post = get_next_post() ;
-  $prev_post = get_previous_post() ;
+	$prev_post = get_previous_post() ;
+	
+	if ( $next_post || $prev_post ) : ?>
+	
+		<div class="slow-atoms-posts-nav">
+			<h2 class="screen-reader-text">Post navigation</h2>
+			<div> <?php
 
-  if ( $next_post || $prev_post ) : ?>
+				if ( ! empty( $prev_post ) ) : ?>
 
-	<div class="slow-atoms-posts-nav">
-		<h2 class="screen-reader-text">Post navigation</h2>
-		<div> <?php
+				<a href="<?php echo get_permalink( $prev_post ); ?>"> <?php
 
-			if ( ! empty( $prev_post ) ) : ?>
+					if ( $show_thumb == 'true' ) : ?>
 
-			<a href="<?php echo get_permalink( $prev_post ); ?>"> <?php
-
-			if ( $show_thumb == 'true' ) : ?>
-
-				<div>
-					<div class="slow-atoms-posts-nav__thumbnail slow-atoms-posts-nav__prev">
-						<?php echo get_the_post_thumbnail( $prev_post, [ 100, 100 ] ); ?>
-					</div>
-				</div> <?php
-
-			endif ; ?>
-
-
-				<div>
-					<strong>
-						<i class="fas fa-arrow-circle-left"></i>
-						<?php _e( 'Previous ' . $archive_name , 'textdomain' ) ?>
-          </strong> <?php
-
-					if( $show_title == 'true' ) : ?>
-
-					<h4><?php echo get_the_title( $prev_post ); ?></h4> <?php
+					<div>
+						<div class="slow-atoms-posts-nav__thumbnail slow-atoms-posts-nav__prev">
+							<?php echo get_the_post_thumbnail( $prev_post, [ 100, 100 ] ); ?>
+						</div>
+					</div> <?php
 
 					endif ; ?>
-				</div>
-      </a> <?php
 
-			endif; ?>
-    </div>
 
-    <div> <?php
+					<div>
+						<strong>
+							<i class="fas fa-arrow-circle-left"></i>
+							<?php _e( 'Previous ' . $archive_name , 'textdomain' ) ?>
+						</strong> <?php
 
-		if ( ! empty( $next_post ) ) : ?>
+						if( $show_title == 'true' ) : ?>
 
-		<a href="<?php echo get_permalink( $next_post ); ?>">
-			<div>
-				<strong>
-          <?php _e( 'Next ' . $archive_name , 'textdomain' ) ?>
-          <i class="fas fa-arrow-circle-right"></i>
-        </strong><?php
+						<h4><?php echo get_the_title( $prev_post ); ?></h4> <?php
 
-				if( $show_title == 'true' ) : ?>
+						endif ; ?>
+					</div>
 
-				<h4><?php echo get_the_title( $next_post ); ?></h4> <?php
+      			</a> <?php
 
-				endif ; ?>
+				endif; ?>
+    		</div>
 
-      </div>
+    		<div> <?php
 
-			<div>
-        <div class="slow-atoms-posts-nav__thumbnail slow-atoms-posts-nav__next">
-          <?php echo get_the_post_thumbnail( $next_post, [ 100, 100 ] ); ?>
-        </div>
-      </div>
-    </a> <?php
+				if ( ! empty( $next_post ) ) : ?>
 
-		endif; ?>
-  </div>
-</div> <!-- .slow-atoms-posts-nav --> <?php
+				<a href="<?php echo get_permalink( $next_post ); ?>">
+					<div>
+						<strong>
+							<?php _e( 'Next ' . $archive_name , 'textdomain' ) ?>
+							<i class="fas fa-arrow-circle-right"></i>
+						</strong><?php
 
-endif ; }
+						if( $show_title == 'true' ) : ?>
 
+						<h4><?php echo get_the_title( $next_post ); ?></h4> <?php
+
+						endif ; ?>
+
+					</div>
+
+					<div>
+						<div class="slow-atoms-posts-nav__thumbnail slow-atoms-posts-nav__next">
+							<?php echo get_the_post_thumbnail( $next_post, [ 100, 100 ] ); ?>
+						</div>
+					</div>
+   				</a> <?php
+
+				endif; ?>
+  			</div>
+		</div> <!-- .slow-atoms-posts-nav --> <?php
+
+	endif ; }
+
+function slow_atoms_edit_post_link() {
+
+	if ( get_edit_post_link() ) :
+
+		echo  '<footer class="page-footer">' ;
+
+		edit_post_link(
+			sprintf( wp_kses(
+				/* translators: %s: Name of current post. Only visible to screen readers */
+				__( 'Edit <span class="screen-reader-text">%s</span>', 'slow-atoms' ),
+				
+				array( 'span' => array( 'class' => array(), ), ) ),
+
+			wp_kses_post( get_the_title() )	), '<span class="edit-link">','</span>' );
+
+		echo ' </footer><!-- .page-footer -->' ;
+
+	endif ;
+}
 
 /**
-* Get custom taxonomies terms links.
-*
-* @see get_object_taxonomies()
-*/
-function slow_atoms_custom_taxonomies_terms_links() {
-	// Get post by post ID.
-	if ( ! $post = get_post() ) {
-		return '';
-	}
+ * 
+ * Order selected archives alphabeticcally
+ */
 
-	// Get post type by post.
-	$post_type = $post->post_type;
+add_action( 'pre_get_posts', 'slow_atoms_change_sort_order'); 
 
-	// Get post type taxonomies.
-	$taxonomies = get_object_taxonomies( $post_type, 'objects' );
-
-	$out = array();
-
-	foreach ( $taxonomies as $taxonomy_slug => $taxonomy ){
-
-		// Get the terms related to post.
-		$terms = get_the_terms( $post->ID, $taxonomy_slug );
-
-		if ( ! empty( $terms ) ) {
-				$out[] = "<h2>" . $taxonomy->label . "</h2>\n<ul>";
-				foreach ( $terms as $term ) {
-						$out[] = sprintf( '<li><a href="%1$s">%2$s</a></li>',
-								esc_url( get_term_link( $term->slug, $taxonomy_slug ) ),
-								esc_html( $term->name )
-						);
-				}
-				$out[] = "\n</ul>\n";
-		}
-	}
-	return implode( '', $out );
-}
+    function slow_atoms_change_sort_order($query){
+        if(is_post_type_archive($post_types = ['lab-wiki', 'research', 'people'])):
+         //If you wanted it for the archive of a custom post type use: is_post_type_archive( $post_type )
+           //Set the order ASC or DESC
+           $query->set( 'order', 'ASC' );
+           //Set the orderby
+           $query->set( 'orderby', 'title' );
+        endif;    
+    };	

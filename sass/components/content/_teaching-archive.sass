@@ -1,5 +1,5 @@
 .teaching__content
-    width: 95vw
+    width: 100vw
     max-width: 1000px
     margin: 10vh auto
 
@@ -24,8 +24,9 @@
     border-radius: 16px
 
 .teaching__content-overview
-    width: 100%
+    //width: 100%
     flex-basis: 100%
+    background-color: var(--theme-color-compliment)
 
 .teaching-list-nav
     display: flex
@@ -44,7 +45,13 @@
     &:visited
         color: $soft-white
 
+.teaching__content-row
+    border-bottom: solid 2px $soft-grey 
+
 @media only screen and (min-width: 1024px)
+
+    .teaching__content-row
+        border: none
 
     .teaching__content-list
         flex-direction: row
