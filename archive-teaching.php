@@ -82,7 +82,7 @@ get_header() ; ?>
 					
 				else :
 					// No unique name so get post title and append with "Notes"
-					$lecture_name =  the_title( '' , ' Notes' , false );
+					$lecture_name =  the_title( '' , ' Slides' , false );
 
 				endif ;
 				
