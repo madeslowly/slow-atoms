@@ -14,7 +14,7 @@ get_header();
 
 	<section class="error__content">
 		<header class="page-header">
-			<h1 class="page-title"><?php esc_html_e( 'Oops! You broke the internet.', 'slow-atoms' ); ?></h1>
+			<h1 class="page-title"><?php esc_html_e( 'Oops! Yosdagfadgu broke the internet.', 'slow-atoms' ); ?></h1>
 		</header><!-- .page-header -->
 
 		<div class="slow-atoms__page-content">
