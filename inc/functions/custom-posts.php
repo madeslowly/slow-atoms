@@ -205,9 +205,10 @@ function slow_atoms_people_post_type() {
 		'public'				=>	true,
 		'has_archive'		=>	true,
 		'supports'			=>	array('title' , 'thumbnail'),
-		'show_in_rest' => true,
+		'show_in_rest'  => true,
+    'rewrite'       => array('slug' => 'people'),
 	);
-	register_post_type('people', $args );
+	register_post_type('ms_people', $args );
 }
 
 
@@ -236,7 +237,7 @@ function slow_atoms_people_taxonomy() {
 		'show_admin_column'	=> true,
     'show_in_rest'  => true,
 	);
-	register_taxonomy('roles', array('people'), $args);
+	register_taxonomy('roles', array('ms_people'), $args);
 }
 
 /**
