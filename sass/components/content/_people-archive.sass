@@ -125,7 +125,7 @@
     height: 100%
     width: 100%
     object-fit: cover
-    filter: grayscale(.8)
+    filter: grayscale(.6)
 
   .person__name-header
     position: absolute
@@ -142,6 +142,7 @@
 
   .person__name
     color: $pure-white
+    font-size: 2.3rem // Keeps long names in field
 
   .person__office
     display: none
@@ -285,15 +286,15 @@
         left: 0
         width: 100%
         height: 100%
-        background-image: linear-gradient(120deg, var(--theme-color-dark), var(--theme-color-light ))
-        opacity: .2
+        //background-image: linear-gradient(120deg, var(--theme-color-dark), var(--theme-color-light ))
+        //opacity: .2
         z-index: 2
 
     .person__thumbnail
       height: 100%
       width: 100%
       object-fit: cover
-      filter: grayscale(.8)
+      //filter: grayscale(.8)
 
     .person__name-header
       position: absolute

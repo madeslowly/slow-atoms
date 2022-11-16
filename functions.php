@@ -526,11 +526,11 @@ function slow_atoms_edit_post_link() {
 add_action( 'pre_get_posts', 'slow_atoms_change_sort_order'); 
 
     function slow_atoms_change_sort_order($query){
-        if(is_post_type_archive($post_types = ['lab-wiki', 'research', 'people'])):
+        if(is_post_type_archive($post_types = ['lab-wiki', 'research', 'ms_people'])):
          //If you wanted it for the archive of a custom post type use: is_post_type_archive( $post_type )
            //Set the order ASC or DESC
            $query->set( 'order', 'ASC' );
            //Set the orderby
-           $query->set( 'orderby', 'title' );
+           $query->set( 'orderby', 'date' );
         endif;    
     };	
