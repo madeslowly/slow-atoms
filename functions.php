@@ -12,27 +12,6 @@ if ( ! defined( '_S_VERSION' ) ) {
 	define( '_S_VERSION', '2.0.0' );
 }
 
-$slow_atoms_func_dir = '/inc/functions/';
-$roots_includes = array(
-  	'custom-posts.php',
-	'enqueue-scripts-and-styles.php',
-	'acf-members.php',
-	'acf-publications.php',
-	'acf-hero-images.php',
-	'acf-teaching.php',
-	'slow-atoms-customise-colors.php',
-	'og-meta.php',
-	'structured-data.php',
-);
-
-foreach( $roots_includes as $file ){
-	if( ! $filepath = locate_template( $slow_atoms_func_dir . $file ) ) {
-		trigger_error("Error locating `$file` for inclusion!", E_USER_ERROR);
-	}
-	require_once $filepath;
-}
-unset($file, $filepath);
-
 /**
  * Sets up theme defaults and registers support for various WordPress features.
  *
@@ -41,32 +20,33 @@ unset($file, $filepath);
  * as indicating support for post thumbnails.
  */
 function slow_atoms_setup() {
+
 	/*
-		* Make theme available for translation.
-		* Translations can be filed in the /languages/ directory.
-		*/
+	* Make theme available for translation.
+	* Translations can be filed in the /languages/ directory.
+	*/
 	load_theme_textdomain( 'slow-atoms', get_template_directory() . '/languages' );
 
 	// Add default posts and comments RSS feed links to head.
 	add_theme_support( 'automatic-feed-links' );
 
 	/*
-		* Let WordPress manage the document title.
-		* By adding theme support, we declare that this theme does not use a
-		* hard-coded <title> tag in the document head, and expect WordPress to
-		* provide it for us.
-		*/
+	* Let WordPress manage the document title.
+	* By adding theme support, we declare that this theme does not use a
+	* hard-coded <title> tag in the document head, and expect WordPress to
+	* provide it for us.
+	*/
 	add_theme_support( 'title-tag' );
 
 	/*
-		* Enable support for Post Thumbnails on posts and pages.
-		*
-		* @link https://developer.wordpress.org/themes/functionality/featured-images-post-thumbnails/
-		*/
+	* Enable support for Post Thumbnails on posts and pages.
+	*
+	* @link https://developer.wordpress.org/themes/functionality/featured-images-post-thumbnails/
+	*/
 	add_theme_support( 'post-thumbnails' );
 
 
-	// This theme uses wp_nav_menu() in one location.
+	// This theme uses wp_nav_menu() in two location.
 		register_nav_menus(
 			array(
 				'priary-menu' => esc_html__( 'Primary', 'slow-atoms' ),
@@ -75,9 +55,9 @@ function slow_atoms_setup() {
 		);
 
 	/*
-		* Switch default core markup for search form, comment form, and comments
-		* to output valid HTML5.
-		*/
+	* Switch default core markup for search form, comment form, and comments
+	* to output valid HTML5.
+	*/
 	add_theme_support(
 		'html5',
 		array(
@@ -121,7 +101,68 @@ function slow_atoms_setup() {
 		)
 	);
 }
+
 add_action( 'after_setup_theme', 'slow_atoms_setup' );
+
+/**
+ * Load slow atoms functions such as custom posts
+ */
+
+$ms_theme_dir = get_template_directory() ;
+
+$ms_functions_dir = $ms_theme_dir . "/inc/functions/*";
+
+// glob the dir for files
+// https://www.php.net/manual/en/function.glob.php
+
+$ms_function_files = glob( $ms_functions_dir );
+
+foreach ( $ms_function_files as $ms_function_file ) {
+	if ( is_file( $ms_function_file ) ) {
+		require_once $ms_function_file ;
+	}
+}
+
+/**
+ * Provides a default menu featuring the custom post types of this theme, if not other menu has been provided.
+ * 
+ */
+function slow_atoms_default_menu() {
+
+	$ms_theme_dir = get_template_directory() ;
+
+	$html = '<div class="menu-navbar-container">';
+		$html .= '<ul id="primary-menu" class="navbar--list">';
+
+			$ms_custom_posts_dir = $ms_theme_dir . "/inc/functions/custom-posts/*";
+			// glob the dir for files
+			// https://www.php.net/manual/en/function.glob.php
+			$ms_custom_posts_files = glob( $ms_custom_posts_dir );
+
+			foreach ( $ms_custom_posts_files as $ms_custom_posts_file ) {
+				if ( is_file( $ms_custom_posts_file ) ) {
+					$ms_custom_posts_filename = basename( $ms_custom_posts_file , '.php' ) ;
+					$pieces	= explode( '-' , $ms_custom_posts_filename ) ;
+					$display = ucfirst( $pieces[1] );
+					$key	= $pieces[0] . '_' . $pieces[1] ;
+
+					$html .= '<li class="menu-item menu-item-type-post_type menu-item-object-page">';
+						$html .= '<a href="' . esc_url( get_post_type_archive_link( $key ) ) . '" title="' . __( $display, 'slow_atoms' ) . '">';
+							$html .= __( $display, 'slow_atoms' );
+						$html .= '</a>';
+					$html .= '</li>';
+				}
+				
+			} ;
+
+		$html .= '</ul>' ;
+
+	$html .= '</div>' ;
+
+	echo $html ;
+
+} // end slow_atoms_default_menu
+
 
 /**
  * Set the content width in pixels, based on the theme's design and stylesheet.
@@ -185,97 +226,6 @@ if ( defined( 'JETPACK__VERSION' ) ) {
 }
 
 
-//* Function to convert Hex colors to RGBA
-function hex2rgba( $color, $opacity = false ) {
-
-    $defaultColor = 'rgb(0,0,0)';
-
-    // Return default color if no color provided
-    if ( empty( $color ) ) {
-        return $defaultColor;
-    }
-
-    // Ignore "#" if provided
-    if ( $color[0] == '#' ) {
-        $color = substr( $color, 1 );
-    }
-
-    // Check if color has 6 or 3 characters, get values
-    if ( strlen($color) == 6 ) {
-        $hex = array( $color[0] . $color[1], $color[2] . $color[3], $color[4] . $color[5] );
-    } elseif ( strlen( $color ) == 3 ) {
-        $hex = array( $color[0] . $color[0], $color[1] . $color[1], $color[2] . $color[2] );
-    } else {
-        return $default;
-    }
-
-    // Convert hex values to rgb values
-    $rgb =  array_map( 'hexdec', $hex );
-
-    // Check if opacity is set(rgba or rgb)
-    if ( $opacity ) {
-        if( abs( $opacity ) > 1 ) {
-            $opacity = 1.0;
-        }
-        $output = 'rgba(' . implode( ",", $rgb ) . ',' . $opacity . ')';
-    } else {
-        $output = 'rgb(' . implode( ",", $rgb ) . ')';
-    }
-
-    // Return rgb(a) color string
-    return $output;
-
-}
-
-/*
- * Example Usage:
- * $mycolor = '#ff0000';
- * $rgb = hex2rgba($mycolor);
- * $rgba = hex2rgba($mycolor, 0.5);
- */
-
- function colourBrightness($hex, $percent)
- {
-     // Work out if hash given
-     $hash = '';
-     if (stristr($hex, '#')) {
-         $hex = str_replace('#', '', $hex);
-         $hash = '#';
-     }
-     /// HEX TO RGB
-     $rgb = [hexdec(substr($hex, 0, 2)), hexdec(substr($hex, 2, 2)), hexdec(substr($hex, 4, 2))];
-     //// CALCULATE
-     for ($i = 0; $i < 3; $i++) {
-         // See if brighter or darker
-         if ($percent > 0) {
-             // Lighter
-             $rgb[$i] = round($rgb[$i] * $percent) + round(255 * (1 - $percent));
-         } else {
-             // Darker
-             $positivePercent = $percent - ($percent * 2);
-             $rgb[$i] = round($rgb[$i] * (1 - $positivePercent)); // round($rgb[$i] * (1-$positivePercent));
-         }
-         // In case rounding up causes us to go to 256
-         if ($rgb[$i] > 255) {
-             $rgb[$i] = 255;
-         }
-     }
-     //// RBG to Hex
-     $hex = '';
-     for ($i = 0; $i < 3; $i++) {
-         // Convert the decimal digit to hex
-         $hexDigit = dechex($rgb[$i]);
-         // Add a leading zero if necessary
-         if (strlen($hexDigit) == 1) {
-             $hexDigit = "0" . $hexDigit;
-         }
-         // Append to the hex string
-         $hex .= $hexDigit;
-     }
-     return $hash . $hex;
- }
-
-
 // Wrap a container round sub menus for css reasons
 
 class submenu_wrap extends Walker_Nav_Menu {
@@ -325,9 +275,6 @@ function slow_atoms_archive_title( $title ) {
 add_filter( 'get_the_archive_title', 'slow_atoms_archive_title' );
 
 
-
-
-
 // Allow Registration Only from @ru.nl and @science.ru.nl email addresses
 
 function is_valid_email_domain($login, $email, $errors ){
@@ -342,80 +289,69 @@ function is_valid_email_domain($login, $email, $errors ){
 			break;
 		}
  }
- // Return error messlow_atomsge for invalid domains
+ // Return error message for invalid domains
  if( $valid === false ){
 
-$errors->add('domain_whitelist_error',__('<strong>ERROR</strong>: Registration is only allowed from approved domains. If you think you are seeing this in error, please contact the <a href="mailto:arran.curran@ru.nl?subject=Dullenslab Registration Error">system administrator</a>.' ));
+$errors->add('domain_whitelist_error',__('<strong>Error</strong>: Registration is only allowed from approved domains. If you think you are seeing this in error, please contact the <a href="mailto:arran.curran@ru.nl?subject=Dullenslab Registration Error">system administrator</a>.' ));
  }
 }
 add_action('register_post', 'is_valid_email_domain',10,3 );
 
-// Convert hex to hsl and rotate by 180
-function slow_atoms_180_hue_rot( $hex ) {
-
-    $red		= hexdec( substr( $hex, 0, 2 ) ) / 255;
-    $green	= hexdec( substr( $hex, 2, 2 ) ) / 255;
-    $blue		= hexdec( substr( $hex, 4, 2 ) ) / 255;
-
-    $cmin = min($red, $green, $blue);
-    $cmax = max($red, $green, $blue);
-    $delta = $cmax - $cmin;
-
-    if ($delta === 0) {
-        $hue = 0;
-    } elseif ($cmax === $red) {
-        $hue = (($green - $blue) / $delta) % 6;
-    } elseif ($cmax === $green) {
-        $hue = ($blue - $red) / $delta + 2;
-    } else {
-        $hue = ($red - $green) / $delta + 4;
-    }
-
-		$hue = round($hue * 60);
-
-		if ($hue < 0) {
-        $hue += 360;
-    }
-		$hue += 180 ;
-
-		if ( $hue > 360 ){
-			$hue -= 360;
-		}
-
-    $lightness = (($cmax + $cmin) / 2);
-    $saturation = $delta === 0 ? 0 : ($delta / (1 - abs(2 * $lightness - 1)));
-    if ($saturation < 0) {
-        $saturation += 1;
-    }
-
-    $lightness = round($lightness  * 100);
-    $saturation = round($saturation  * 100);
-
-    return array( $hue, $saturation, $lightness );
-}
 /*
  * Get random image from homepage ACF hero image fields
- * NOTE: Need a way to count populated fields so we can rand with that number.
- * Workarround is we force user to populate all 5 fields.
+ * - Count number of possible fields then loop until field is empty. Then use this to generate a random selctor.
+ * 
  */
 
 function slow_atoms_get_random_hero( $wrapper_class , $image_class ) {
-		$home_page_ID   = get_option('page_on_front');
-		$image_label    = 'image_' . rand( 1 , 5 ) ;
+	
+	$home_page_ID		=	get_option( 'page_on_front' ) ;
+	$home_page_fields	=	get_fields( $home_page_ID , true ) ;
 
-		if ( get_field($image_label, $home_page_ID, false) ) {
-			$image_ID       = get_field($image_label, $home_page_ID, false);
-			$image_srcset   = wp_get_attachment_image_srcset( $image_ID, 'full' );
-			$image_url      = wp_get_attachment_image_src($image_ID)[0]; ?>
+	// Count the number of populated fields
+	// Number of fields set in inc/custom-fields/acf-hero-images.php
+	$possible_fields	=	count( $home_page_fields ) ;
+	// Number of user populated fields
+	$populated_feilds	=	1 ;
 
-			<div class="<?php echo $wrapper_class ?>">
-				<img class="<?php echo $image_class ?>"src="<?php echo $image_url ;  ?>" srcset="<?php echo esc_attr( $image_srcset ); ?>" />
-			</div><!-- .<?php echo $wrapper_class ?> --><?php
-		} else {
-			echo '<span style="display:flex;width:20vw;">No image found. Edit home page and select images under "Hero Images"</span> ';
-		};
+	while( $populated_feilds <= $possible_fields ) : 
+		// Odly doesnt work with image_key
+		$image_name = 'ms_acf_hero_image_' . $populated_feilds  ;
+		
+		if ( empty( $home_page_fields[ $image_name ] ) ) :
+			// Break as sson as we get an empty field and reduce populated_feilds by one.
+			$populated_feilds = $populated_feilds - 1  ;
+			break ;
 
-return;
+		else :
+			$populated_feilds++ ;
+		endif ;
+	endwhile;
+
+	$image_key			=	'ms_acf_hero_images_field_' . rand( 1 , $populated_feilds ) ;
+
+	if ( get_field( $image_key , $home_page_ID ) ) :
+
+		$image_ID		=	get_field( $image_key , $home_page_ID , false ) ;
+		$image_srcset	=	wp_get_attachment_image_srcset( $image_ID , 'full' );
+		$image_url		=	wp_get_attachment_image_src( $image_ID )[ 0 ] ;
+
+		$image_markup = 
+		'<div class="' . $wrapper_class . '">
+			<img class="' . $image_class . '"src="' . $image_url . '" srcset="' . esc_attr( $image_srcset ) . '" />
+		</div><!-- .' . $wrapper_class . '-->' ;
+	else :
+
+		$image_markup = 
+		'<span style="display:flex;width:100vw;">
+			No image found. Edit home page and select images under "Hero Images"
+		</span>';
+	endif ;
+
+	echo $image_markup ;	
+
+	// return to caller
+	return;
 
 }
 
@@ -520,17 +456,65 @@ function slow_atoms_edit_post_link() {
 
 /**
  * 
- * Order selected archives alphabeticcally
+ * Order selected archives alphabetically
+ * NOTE: it would be better to have a func we can call from the archive tem[plate instead of a hard coded func here
  */
 
 add_action( 'pre_get_posts', 'slow_atoms_change_sort_order'); 
 
-    function slow_atoms_change_sort_order($query){
-        if(is_post_type_archive($post_types = ['lab-wiki', 'research', 'ms_people'])):
-         //If you wanted it for the archive of a custom post type use: is_post_type_archive( $post_type )
-           //Set the order ASC or DESC
-           $query->set( 'order', 'ASC' );
-           //Set the orderby
-           $query->set( 'orderby', 'date' );
-        endif;    
-    };	
+function slow_atoms_change_sort_order( $query ) {
+	if( is_post_type_archive( $post_types = ['ms_labwiki', 'ms_research', 'ms_people'])):
+		//If you wanted it for the archive of a custom post type use: is_post_type_archive( $post_type )
+		//Set the order ASC or DESC
+		$query->set( 'order', 'ASC' );
+		//Set the orderby
+		$query->set( 'orderby', 'date' );
+	endif;    
+};	
+
+
+
+function slow_atoms_login_styles() { ?>
+
+	<style type="text/css">
+		.login {
+			background: rgba(40, 100, 160, 1);
+		}
+		.login > * {
+			color: rgb( 240, 240, 240) ;
+		}
+		#login h1 a {
+			display: none ;
+			visibility: hidden ;
+		}
+		#login #nav a, #login #backtoblog a {
+			color: rgb( 240, 240, 240) ;
+		}
+		#login h1::before {
+			content:"<?php echo get_bloginfo() ; ?> Login";
+		}
+		#login form {
+			border: none ;
+		}
+		#login * {
+			background: none ;
+		}
+		#login input {
+			border: solid 1px white
+		}
+		#login p.message.register {
+			display: none
+		}
+		#login_error {
+			color: black ;
+		}
+		#language-switcher {
+			display: none
+		}
+		.wp-pwd .dashicons.dashicons-visibility {
+			color: rgb( 240, 240, 240) 
+		}
+	</style>
+<?php }
+
+add_action( 'login_enqueue_scripts', 'slow_atoms_login_styles' );
