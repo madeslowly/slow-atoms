@@ -356,9 +356,9 @@ if ( function_exists( 'acf_add_local_field_group' ) ) :
 
     acf_add_local_field_group(
         array(
-            'key' => 'ms_acf_pub_group',
-            'title' => 'Publication Details',
-            'fields' => array(
+            'key'       => 'ms_acf_pub_group',
+            'title'     => 'Publication Details',
+            'fields'    => array(
                 $ms_acf_pub_abstract_args,
                 // array(
                 //     'key' => 'ms_acf_pub_abstract_key',

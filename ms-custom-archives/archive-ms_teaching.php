@@ -76,9 +76,9 @@ get_header() ; ?>
 				 * dont bother getting the content or post title
 				 */ 
 
-				if ( get_field('lecture_notes_lecture_name', $post->ID) ) :
+				if ( get_field('ms_acf_teach_slides_name_ms_acf_teach_title_name', $post->ID) ) :
 					// User has given a unique name so use it.
-					$lecture_name =  get_field('lecture_notes_lecture_name', $post->ID) ;
+					$lecture_name =  get_field('ms_acf_teach_slides_name_ms_acf_teach_title_name', $post->ID) ;
 					
 				else :
 					// No unique name so get post title and append with "Notes"
@@ -88,12 +88,12 @@ get_header() ; ?>
 				
 				// get URLs for teaching material
 				// Get sub field directly get_field('GROUP FIELD NAME_SUB FIELD NAME');
-				$lecture_notes_url	= get_field('lecture_notes_lecture_notes_url', $post->ID);
-				$problems_url		= get_field('problems_and_solutions_problems', $post->ID);
-				$solutions_url		= get_field('problems_and_solutions_solutions', $post->ID); 
+				$ms_acf_teach_slide_URL_name	= get_field('ms_acf_teach_slides_name_ms_acf_teach_slide_URL_name', $post->ID);
+				$problems_url		= get_field('ms_acf_teach_prob_group_name_ms_acf_teach_prob_name', $post->ID);
+				$solutions_url		= get_field('ms_acf_teach_prob_group_name_ms_acf_teach_sol_name', $post->ID); 
 				
 				// Array of urls to loop through
-				$urls = array($lecture_notes_url , $problems_url , $solutions_url); 
+				$urls = array($ms_acf_teach_slide_URL_name , $problems_url , $solutions_url); 
 				
 				// Array of file names
 				$names = array( $lecture_name , the_title( '' , ' Problems' , false ) , the_title( '' , ' Solutions' , false ) )?>
