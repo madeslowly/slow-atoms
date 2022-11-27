@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * slow atoms scripts and styles
  *
@@ -16,7 +15,7 @@ add_action( 'wp_enqueue_scripts', 'slow_atoms_stylesheets' );
 
 function slow_atoms_stylesheets() {
 
-	wp_enqueue_style( 'aos-stylesheet', 'https://unpkg.com/aos@next/dist/aos.css' );
+	wp_enqueue_style( 'michalsnik-aos', get_template_directory_uri() . '/aos/aos.css', array(), _S_VERSION );
 
 	wp_enqueue_style( 'slow-atoms-style', get_stylesheet_uri(), array(), _S_VERSION );
 
@@ -42,17 +41,14 @@ function slow_atoms_javascripts() {
 
 	wp_enqueue_script( 'mathjax', 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js', array('polyfill'), '', true);
 
-	wp_enqueue_script( 'aos', 'https://unpkg.com/aos@next/dist/aos.js', array(), '', true);
+	wp_enqueue_script( 'michalsnik-aos', get_template_directory_uri() . '/aos/aos.js', array(), _S_VERSION, true );
 
-	wp_enqueue_script( 'slow-atoms-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true );
+	wp_enqueue_script( 'slow-atoms-navigation', get_template_directory_uri() . '/inc/js/navigation.js', array(), _S_VERSION, true );
 
-	wp_enqueue_script( 'slow-atoms-nav-scrolled', get_template_directory_uri() . '/js/navBarScroll.js', array(), _S_VERSION, true);
+	wp_enqueue_script( 'slow-atoms-nav-scrolled', get_template_directory_uri() . '/inc/js/navBarScroll.js', array(), _S_VERSION, true);
 
 
 }
-
-
-
 
 add_action( 'wp_enqueue_scripts', 'remove_global_styles' );
 
@@ -67,5 +63,3 @@ remove_action('wp_print_styles', 'print_emoji_styles');
 remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
 remove_action( 'admin_print_styles', 'print_emoji_styles' );
 
-
-?>

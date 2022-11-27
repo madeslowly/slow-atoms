@@ -7,8 +7,19 @@
  * @package slow_atoms
  */
 
-get_header();
-?>
+/**
+ * 
+ * redirect known singles else, fallback template
+ * 
+ */
+
+ if ( is_singular( array ( 'ms_labwiki' , 'ms_people' , 'ms_research' , 'ms_teaching' , 'ms_publications' ) ) ) :
+
+	get_template_part( 'ms-custom-singles/single', get_post_type() );
+
+else : // Currently just wp native posts
+
+	get_header(); ?>
 
 	<main id="primary" class="site-main">
 
@@ -38,3 +49,5 @@ get_header();
 <?php
 get_sidebar();
 get_footer();
+
+endif ;
