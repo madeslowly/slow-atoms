@@ -41,10 +41,17 @@
 
 			<?php the_title( '<h1 class="person__name">', '</h1>' );
 
-			$post_role = get_the_terms( get_the_ID(), 'roles' );
+			$post_roles = get_the_terms( get_the_ID(), 'ms_taxonomy_people' );
 
-			echo "<div class='person__meta-entry'><p class='person__role'>" . $post_role[0]->name . "</p></div>";
+			echo "<div class='person__meta-entry'> " ;
 
+			foreach ( $post_roles as $post_role ) {
+				//NOTE: need to get taxonomy from post so its not hard coded here.
+				echo "<p class='person__role'>" . $post_role -> name . "</p>";
+			};
+
+			echo "</div>" ;
+			
 		else : // archive page so wrap each header in href ?>
 
 			><a href="<?php the_permalink() ; ?>" rel="bookmark">
@@ -57,20 +64,20 @@
 
 			<?php
 
-			$bio								= get_field('bio', $post->ID);
-			$email_address			= get_field('email_address', $post->ID);
-			$phone_number				= get_field('phone_number', $post->ID);
-			$office							= get_field('office', $post->ID);
-			$internal_postcode	= get_field('internal_postcode', $post->ID);
+			$bio				= get_field('ms_acf_people_bio_name', $post->ID);
+			$email_address		= get_field('ms_acf_people_email_name', $post->ID);
+			$phone_number		= get_field('ms_acf_people_tel_name', $post->ID);
+			$office				= get_field('ms_acf_people_office_name', $post->ID);
+			$internal_postcode	= get_field('ms_acf_people_postcode_name', $post->ID);
 
 
 
-			while( have_rows('field_62a82bb7b3e30') ): the_row();
+			while( have_rows('ms_acf_people_socials_group') ): the_row();
 
-				$twitter						= get_sub_field('twitter', $post->ID);
-				$LinkedIn						= get_sub_field('LinkedIn', $post->ID);
-				$google_scholar			= get_sub_field('google_scholar', $post->ID);
-				$personal_website		= get_sub_field('personal_website', $post->ID);
+				$twitter			= get_sub_field('ms_acf_people_socials_twitter_name', $post->ID);
+				$LinkedIn			= get_sub_field('ms_acf_people_socials_linkedin_name', $post->ID);
+				$google_scholar		= get_sub_field('ms_acf_people_socials_scholar_name', $post->ID);
+				$personal_website	= get_sub_field('ms_acf_people_socials_www_name', $post->ID);
 
 			endwhile ;
 

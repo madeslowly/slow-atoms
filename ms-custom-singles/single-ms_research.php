@@ -8,11 +8,10 @@
  */
 
 get_header('' , array( 'append_site-header_class' => 'is__light-background' ));
+
 ?>
 
 	<main id="primary" class="site-main">
-
-
 
 		<?php
 

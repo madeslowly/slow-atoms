@@ -19,7 +19,7 @@ get_header() ; ?>
 
 		if ( get_theme_mod('slow_atoms_theme_research_hero') ) :
 
-			$image_url			= get_theme_mod('slow_atoms_theme_research_hero') ;
+			$image_url		= get_theme_mod('slow_atoms_theme_research_hero') ;
 			$image_ID       = attachment_url_to_postid( $image_url );
 			$image_srcset   = wp_get_attachment_image_srcset( $image_ID, 'full' ); ?>
 
@@ -43,6 +43,7 @@ get_header() ; ?>
 			while ( have_posts() ) :
 				
 				$count_for_aos ++ ;
+				// set global to pickup from template part
 				global $count_for_aos ;
 
 				the_post();
@@ -51,10 +52,7 @@ get_header() ; ?>
 				 * If you want to override this in a child theme, then include a file
 				 * called content-___.php (where ___ is the Post Type name) and that will be used instead.
 				 */
-				 get_template_part( 'template-parts/content', get_post_type() );
-
-				 $wp_query->current_post 	;
-				 echo $index_query ;
+				get_template_part( 'template-parts/content', get_post_type() );
 
 			 endwhile;
 

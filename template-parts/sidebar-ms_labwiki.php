@@ -10,7 +10,7 @@ echo '<section class="wiki__sidebar">' ;
 $cat_terms = get_terms(
   // Wiki taxonomy
   array(
-    'wiki-subjects'),
+    'ms_taxonomy_labwiki'),
   array(
     'hide_empty'    => false,
     'orderby'       => 'name',
@@ -30,14 +30,14 @@ if( $cat_terms ) :
     $args = array(
     
       // Wiki post type 
-      'post_type'             => 'lab-wiki',
+      'post_type'             => 'ms_labwiki',
       'posts_per_page'        => 10,
       'post_status'           => 'publish',
       'orderby'               => 'title' ,
       'order'                 => 'DESC' ,
       'tax_query'             =>  array(
                                     array(
-                                      'taxonomy'            => 'wiki-subjects',
+                                      'taxonomy'            => 'ms_taxonomy_labwiki',
                                       'field'               => 'slug',
                                       'terms'               => $term -> slug, 
                                     ), 

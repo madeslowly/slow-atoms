@@ -18,9 +18,10 @@ global $count_for_aos ;
 		data-aos="fade-in"  data-aos-anchor-placement="top-bottom" <?php
 
 		// delay aos on .is__research-archive-entry on the right
-		if ( $count_for_aos % 2 == 0 && !is_singular() ) { ?>
+		// if post is archive (NOT single) and post is on the right (not even) then delay aos
+		if ( $count_for_aos % 2 != 0 && !is_singular() ) { ?>
 
-			data-aos-delay="400" <?php
+			data-aos-delay="300" <?php
 
 		}
 	}
@@ -139,10 +140,10 @@ foreach ( $taxonomies as $taxonomy_slug => $taxonomy ){
 }
 
 $args = array(
-	'post_type' => 'publications',
+	'post_type' => 'ms_publications',
 	'tax_query' => array(
 		array(
-		'taxonomy' => 'research-areas',
+		'taxonomy' => 'ms_taxonomy_research',
 		'field' => 'term_id',
 		'terms' => $term_IDs 
 		)

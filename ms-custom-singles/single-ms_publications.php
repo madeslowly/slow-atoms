@@ -45,10 +45,10 @@ get_header('' , array( 'append_site-header_class' => 'is__light-background' )) ;
 		}
 
 		$args = array(
-			'post_type' => 'publications',
+			'post_type' => 'ms_publications',
 			'tax_query' => array(
 				array(
-				'taxonomy' => 'research-areas',
+				'taxonomy' => 'ms_taxonomy_research',
 				'field' => 'term_id',
 				'terms' => $term_IDs 
 				)

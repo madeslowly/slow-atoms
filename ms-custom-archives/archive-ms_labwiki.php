@@ -7,22 +7,15 @@
  * @package slow_atoms
  */
 
- if ( !is_user_logged_in() ) {
-     auth_redirect();
- }
+if ( !is_user_logged_in() ) {
+	auth_redirect();
+}
 
- get_header('' , array( 'append_site-header_class' => 'is__light-background' )); ?>
+
+get_header('' , array( 'append_site-header_class' => 'is__light-background' )); ?>
 
 
 <main id="primary" class="is__wiki-archive">
-
- <!--
-  <section class="slow-atoms__page-hero">
-    <header class="page-header is__theme-background-transparent">  
-      <h1 class="page-title">Lab Wiki</h1>
-    </header>
-    <?php //slow_atoms_get_random_hero('post-thumbnail' ,'attachment-post-thumbnail size-post-thumbnail wp-post-image'); ?>
-  </section> --> <!-- .slow-atoms__page-hero -->
 
   <section class="wiki__content is__wiki_archive">
 
