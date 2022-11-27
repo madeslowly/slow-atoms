@@ -10,14 +10,24 @@
  */
 
 ?>
-<!doctype html>
+<!DOCTYPE html>
 	<html <?php language_attributes(); ?> >
-
 		<head>
 			<meta charset="<?php bloginfo('charset'); ?>">
 			<meta name="viewport" content="width=device-width, initial-scale=1">
 
 			<link rel="profile" href="https://gmpg.org/xfn/11">
+
+			<!-- Google tag (gtag.js) -->
+			<!-- NOTE: move to functions and create theme input for gkey -->
+			<script async src="https://www.googletagmanager.com/gtag/js?id=G-G9PN5MCKE0"></script>
+			<script>
+				window.dataLayer = window.dataLayer || [];
+				function gtag(){dataLayer.push(arguments);}
+				gtag('js', new Date());
+
+				gtag('config', 'G-G9PN5MCKE0');
+			</script>
 
 			<?php 
 			slow_atoms_og() ;
@@ -77,10 +87,11 @@
 
 			            wp_nav_menu(
 			                array(
-			                    'menu'					=> '4',
-			                    'menu_id'       => 'primary-menu',
-			                    'menu_class'    => 'navbar--list' . $new_menu_class,
-			                    'walker' => new submenu_wrap(),
+			                    'menu'			=>	'4',
+			                    'menu_id'       =>	'primary-menu',
+			                    'menu_class'	=>	'navbar--list' . $new_menu_class,
+			                    'walker'		=>	new submenu_wrap(),
+								'fallback_cb'	=>	'slow_atoms_default_menu',
 			            )
 			            ) ; ?>
 
