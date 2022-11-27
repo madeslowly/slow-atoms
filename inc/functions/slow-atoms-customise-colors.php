@@ -18,13 +18,13 @@ function slow_atoms_customise_colors() {
 
 	$slow_atoms_theme_color_lighter = colourBrightness( $slow_atoms_theme_color, .8);
 
-  $slow_atoms_theme_color_darker = colourBrightness( $slow_atoms_theme_color, -.3);
+	$slow_atoms_theme_color_darker = colourBrightness( $slow_atoms_theme_color, -.3);
 
-  $slow_atoms_theme_color_alpha_005 = hex2rgba( $slow_atoms_theme_color , .05) ;
-  $slow_atoms_theme_color_alpha_010 = hex2rgba( $slow_atoms_theme_color , .1) ;
-  $slow_atoms_theme_color_alpha_020 = hex2rgba( $slow_atoms_theme_color , .2) ;
-  $slow_atoms_theme_color_alpha_030 = hex2rgba( $slow_atoms_theme_color , .3) ;
-  $slow_atoms_theme_color_alpha_040 = hex2rgba( $slow_atoms_theme_color , .4) ;
+	$slow_atoms_theme_color_alpha_005 = hex2rgba( $slow_atoms_theme_color , .05) ;
+	$slow_atoms_theme_color_alpha_010 = hex2rgba( $slow_atoms_theme_color , .1) ;
+	$slow_atoms_theme_color_alpha_020 = hex2rgba( $slow_atoms_theme_color , .2) ;
+	$slow_atoms_theme_color_alpha_030 = hex2rgba( $slow_atoms_theme_color , .3) ;
+	$slow_atoms_theme_color_alpha_040 = hex2rgba( $slow_atoms_theme_color , .4) ;
 	$slow_atoms_theme_color_alpha_060 = hex2rgba( $slow_atoms_theme_color , .6) ;
 	$slow_atoms_theme_color_alpha_070 = hex2rgba( $slow_atoms_theme_color , .7) ;
 	$slow_atoms_theme_color_alpha_080 = hex2rgba( $slow_atoms_theme_color , .8) ;
@@ -35,10 +35,10 @@ function slow_atoms_customise_colors() {
 	<style type="text/css">
 
 		:root {
-			--theme-color: 						<?php echo $slow_atoms_theme_color; 						?>;
-			--theme-color-compliment: <?php echo $slow_atoms_secondary_theme_color; 	?>;
-			--theme-color-dark: 			<?php echo $slow_atoms_theme_color_darker;	 		?>;
-      --theme-color-light: 			<?php echo $slow_atoms_theme_color_lighter;	 		?>;
+			--theme-color: 				<?php echo $slow_atoms_theme_color; 				?>;
+			--theme-color-compliment: 	<?php echo $slow_atoms_secondary_theme_color; 		?>;
+			--theme-color-dark: 		<?php echo $slow_atoms_theme_color_darker;	 		?>;
+			--theme-color-light: 		<?php echo $slow_atoms_theme_color_lighter;	 		?>;
 			--theme-color-alpha-005: 	<?php echo $slow_atoms_theme_color_alpha_005;	 	?>;
 			--theme-color-alpha-010: 	<?php echo $slow_atoms_theme_color_alpha_010;	 	?>;
 			--theme-color-alpha-020: 	<?php echo $slow_atoms_theme_color_alpha_020;	 	?>;
