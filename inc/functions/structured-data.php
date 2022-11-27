@@ -2,7 +2,7 @@
 /**
  * Google optimisation using og meta https://ogp.me/
  *
- * This template is added to our  <head> section using slow
+ * This template is added to our  <head> section using slow slow_atoms_structured_data()
  *
  * @link https://developer.wordpress.org/themes/basics/template-files/#template-partials
  *
@@ -162,4 +162,4 @@ function slow_atoms_structured_data() {
 
     {% endif %}
 
-<?php } ?>
+<?php }

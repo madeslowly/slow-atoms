@@ -87,4 +87,4 @@ function slow_atoms_og() {
     <meta property="og:site_name" content="<?php echo $og_title ?>" />
 
     <!-- *** END OG *** -->
-    <?php } ?>
+    <?php }
