@@ -8,20 +8,41 @@
  */
 
 get_header();
+
+$cat_terms = get_the_terms( get_the_ID(), 'ms_taxonomy_people' );
+
+// NOTE: in the event the selected posts all contain 2 or more taxonomies the selected tax might not match the url
+$tax_name = $cat_terms[0]->name ;
+
 ?>
 
 	<main id="primary" class="site-main is__people-archive">
 
 		<section class="slow-atoms__page-hero">
+
 			<header class="page-header is__theme-background-transparent">
 				<!-- Needs moving to theme control -->
-				<h1 class="page-title"><?php echo get_the_archive_title() ?></h1>
+				<h1 class="page-title"><?php echo $tax_name ; ?> </h1>
+			</header><!-- .page-header --> <?php
 
-			</header><!-- .page-header -->
+			if ( get_theme_mod('slow_atoms_theme_people_hero') ) :
 
-			<div class="post-thumbnail">
-				<img class="attachment-post-thumbnail size-post-thumbnail wp-post-image" src="<?php echo get_theme_mod('slow_atoms_theme_people_hero'); ?>" />
-			</div><!-- .post-thumbnail -->
+					$image_url		= get_theme_mod('slow_atoms_theme_people_hero') ;
+					$image_ID       = attachment_url_to_postid( $image_url );
+					$image_srcset   = wp_get_attachment_image_srcset( $image_ID, 'full' );
+					//$image_url      = wp_get_attachment_image_src($image_ID)[0];
+					?>
+
+					<div class="post-thumbnail">
+						<img class="attachment-post-thumbnail size-post-thumbnail wp-post-image" src="<?php echo $image_url ; ?>" srcset="<?php echo esc_attr( $image_srcset ); ?>" />
+					</div><!-- .post-thumbnail --> <?php
+
+				else :
+
+						slow_atoms_get_random_hero('post-thumbnail' ,'attachment-post-thumbnail size-post-thumbnail wp-post-image');
+
+				endif ; ?>
+
 		</section><!-- .slow-atoms__page-hero -->
 
 		<section class="people__list">
