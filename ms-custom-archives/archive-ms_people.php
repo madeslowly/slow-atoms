@@ -20,7 +20,7 @@ get_header() ; ?>
 
 		if ( get_theme_mod('slow_atoms_theme_people_hero') ) :
 
-				$image_url			= get_theme_mod('slow_atoms_theme_people_hero') ;
+				$image_url		= get_theme_mod('slow_atoms_theme_people_hero') ;
 				$image_ID       = attachment_url_to_postid( $image_url );
 				$image_srcset   = wp_get_attachment_image_srcset( $image_ID, 'full' );
 				//$image_url      = wp_get_attachment_image_src($image_ID)[0];
