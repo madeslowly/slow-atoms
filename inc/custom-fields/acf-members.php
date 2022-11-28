@@ -190,7 +190,7 @@ if( function_exists( 'acf_add_local_field_group' ) ) :
 					'step' => 1,
 				),
 				array(
-					'key' => 'ms_acf_people_socials_group_key',
+					'key' => 'ms_acf_people_socials_group',
 					'label' => 'Online Profiles',
 					'name' => '',
 					'type' => 'group',
@@ -205,9 +205,9 @@ if( function_exists( 'acf_add_local_field_group' ) ) :
 					'layout' => 'block',
 					'sub_fields' => array(
 						array(
-							'key' => 'field_62a36cbbfe667',
+							'key' => 'ms_acf_people_socials_twitter_key',
 							'label' => 'Twitter',
-							'name' => 'twitter',
+							'name' => 'ms_acf_people_socials_twitter_name',
 							'type' => 'url',
 							'instructions' => '',
 							'required' => 0,
