@@ -73,7 +73,7 @@
             <p class="contact-details__options-header">
               General enquiries
             </p>
-            <a href="mailto:m.speijers@ru.nl">Magda Speijers</a>
+            <a href="mailto:magda.speijers@ru.nl">Magda Speijers</a>
           </span>
         </li>
 
