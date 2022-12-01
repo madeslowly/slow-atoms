@@ -11,7 +11,7 @@
  * People
  */
 
-add_action( 'init' , 'slow_atoms_people_post_type');
+//add_action( 'init' , 'slow_atoms_people_post_type');
 
 function slow_atoms_people_post_type() {
 
@@ -42,7 +42,7 @@ function slow_atoms_people_post_type() {
 }
 
 
-add_action( 'init' , 'slow_atoms_people_taxonomy');
+//add_action( 'init' , 'slow_atoms_people_taxonomy');
 
 function slow_atoms_people_taxonomy() {
 

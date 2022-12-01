@@ -10,7 +10,7 @@
 /**
  * Lab-Wiki
  */
-add_action( 'init' , 'slow_atoms_wiki_post_type');
+//add_action( 'init' , 'slow_atoms_wiki_post_type');
 
 function slow_atoms_wiki_post_type() {
 
@@ -40,7 +40,7 @@ function slow_atoms_wiki_post_type() {
 	register_post_type('ms_labwiki', $args );
 }
 
-add_action( 'init' , 'slow_atoms_wiki_taxonomy');
+//add_action( 'init' , 'slow_atoms_wiki_taxonomy');
 
 function slow_atoms_wiki_taxonomy() {
 

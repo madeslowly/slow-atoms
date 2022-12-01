@@ -10,7 +10,7 @@
 /**
  * Publications
  */
-add_action( 'init' , 'slow_atoms_publications_post_type');
+//add_action( 'init' , 'slow_atoms_publications_post_type');
 
 function slow_atoms_publications_post_type() {
 

@@ -10,7 +10,7 @@
 /**
  * Research
  */
-add_action( 'init' , 'slow_atoms_research_post_type');
+//add_action( 'init' , 'slow_atoms_research_post_type');
 
 function slow_atoms_research_post_type() {
 
@@ -42,7 +42,7 @@ function slow_atoms_research_post_type() {
 	register_post_type('ms_research', $args );
 }
 
-add_action( 'init' , 'slow_atoms_research_taxonomy');
+//add_action( 'init' , 'slow_atoms_research_taxonomy');
 
 function slow_atoms_research_taxonomy() {
 

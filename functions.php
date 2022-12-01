@@ -12,54 +12,62 @@ if ( ! defined( '_S_VERSION' ) ) {
 	define( '_S_VERSION', '2.0.0' );
 }
 
+$ms_theme_dir = get_template_directory() ;
+
+$ms_functions_dir = $ms_theme_dir . '/inc/functions/';
+
 /**
- * Sets up theme defaults and registers support for various WordPress features.
- *
- * Note that this function is hooked into the after_setup_theme hook, which
- * runs before the init hook. The init hook is too late for some features, such
- * as indicating support for post thumbnails.
+ * **************		ACTIVATION		**************
+ */
+require_once $ms_functions_dir . 'activation/register-db-tables.php';
+
+add_action('after_switch_theme', 'slow_atoms_lreg_table_creation');
+
+/**
+ * **************		SETUP		**************
+ * 
+ * Sets up theme defaults, registers support for various WordPress features and enques scripts and styles.
  */
 function slow_atoms_setup() {
 
-	/*
-	* Make theme available for translation.
-	* Translations can be filed in the /languages/ directory.
-	*/
+	// Load files from /inc/functions/setup/
+	global $ms_theme_dir ;
+
+	global $ms_functions_dir ;
+
+	$ms_setup_files = glob( $ms_functions_dir . 'setup/*' );
+
+	foreach ( $ms_setup_files as $ms_setup_file ) {
+		// Ignore sub dirs
+		if ( is_file( $ms_setup_file ) ) {
+			require_once $ms_setup_file ; 
+		}
+	}
+	
+	// Make theme available for translation.
+	// Translations can be filed in the /languages/ directory.
 	load_theme_textdomain( 'slow-atoms', get_template_directory() . '/languages' );
 
 	// Add default posts and comments RSS feed links to head.
 	add_theme_support( 'automatic-feed-links' );
 
-	/*
-	* Let WordPress manage the document title.
-	* By adding theme support, we declare that this theme does not use a
-	* hard-coded <title> tag in the document head, and expect WordPress to
-	* provide it for us.
-	*/
+	// Let WordPress manage the document title.
 	add_theme_support( 'title-tag' );
 
-	/*
-	* Enable support for Post Thumbnails on posts and pages.
-	*
-	* @link https://developer.wordpress.org/themes/functionality/featured-images-post-thumbnails/
-	*/
+	// Enable support for Post Thumbnails on posts and pages.
+	// @link https://developer.wordpress.org/themes/functionality/featured-images-post-thumbnails/
 	add_theme_support( 'post-thumbnails' );
 
-
 	// This theme uses wp_nav_menu() in two location.
-		register_nav_menus(
-			array(
-				'priary-menu' => esc_html__( 'Primary', 'slow-atoms' ),
-				'useful-links' => __( 'Useful Links' )
-			)
-		);
+	register_nav_menus(
+		array(
+			'priary-menu' => esc_html__( 'Primary', 'slow-atoms' ),
+			'useful-links' => esc_html__( 'Useful Links', 'slow-atoms' ),
+		) 
+	) ;
 
-	/*
-	* Switch default core markup for search form, comment form, and comments
-	* to output valid HTML5.
-	*/
-	add_theme_support(
-		'html5',
+	// Switch default core markup for search form, comment form, and comments to output valid HTML5.
+	add_theme_support( 'html5',
 		array(
 			'search-form',
 			'comment-form',
@@ -67,102 +75,56 @@ function slow_atoms_setup() {
 			'gallery',
 			'caption',
 			'style',
-			'script',
+			'script', 
 		)
-	);
+	) ;
 
 	// Set up the WordPress core custom background feature.
-	add_theme_support(
-		'custom-background',
+	add_theme_support( 'custom-background',
 		apply_filters(
 			'slow_atoms_custom_background_args',
 			array(
 				'default-color' => 'ffffff',
-				'default-image' => '',
-			)
-		)
-	);
+				'default-image' => '', ) ) ) ;
 
 	// Add theme support for selective refresh for widgets.
 	add_theme_support( 'customize-selective-refresh-widgets' );
 
-	/**
-	 * Add support for core custom logo.
-	 *
-	 * @link https://codex.wordpress.org/Theme_Logo
-	 */
-	add_theme_support(
-		'custom-logo',
+
+	 // Add support for core custom logo.
+	 // @link https://codex.wordpress.org/Theme_Logo
+	add_theme_support( 'custom-logo',
 		array(
 			'height'      => 250,
 			'width'       => 250,
 			'flex-width'  => true,
-			'flex-height' => true,
+			'flex-height' => true, 
 		)
-	);
-}
+	) ;
 
+}
 add_action( 'after_setup_theme', 'slow_atoms_setup' );
 
 /**
- * Load slow atoms functions such as custom posts
- */
-
-$ms_theme_dir = get_template_directory() ;
-
-$ms_functions_dir = $ms_theme_dir . "/inc/functions/*";
-
-// glob the dir for files
-// https://www.php.net/manual/en/function.glob.php
-
-$ms_function_files = glob( $ms_functions_dir );
-
-foreach ( $ms_function_files as $ms_function_file ) {
-	if ( is_file( $ms_function_file ) ) {
-		require_once $ms_function_file ;
-	}
-}
-
-/**
- * Provides a default menu featuring the custom post types of this theme, if not other menu has been provided.
+ * **************		CALLBACKS		**************
  * 
+ * Register functions that are called from various theme files 
  */
-function slow_atoms_default_menu() {
+function slow_atoms_callbacks() {
 
-	$ms_theme_dir = get_template_directory() ;
+	global $ms_theme_dir ;
+	global $ms_functions_dir ;
 
-	$html = '<div class="menu-navbar-container">';
-		$html .= '<ul id="primary-menu" class="navbar--list">';
+	$ms_callback_files = glob( $ms_functions_dir . 'callbacks/*' );
 
-			$ms_custom_posts_dir = $ms_theme_dir . "/inc/functions/custom-posts/*";
-			// glob the dir for files
-			// https://www.php.net/manual/en/function.glob.php
-			$ms_custom_posts_files = glob( $ms_custom_posts_dir );
+	foreach ( $ms_callback_files as $ms_callback_file ) {
+		// ignore sub dirs
+		if ( is_file( $ms_callback_file ) ) {
+			//echo '$ms_function_file';
+			require_once $ms_callback_file ; } }
 
-			foreach ( $ms_custom_posts_files as $ms_custom_posts_file ) {
-				if ( is_file( $ms_custom_posts_file ) ) {
-					$ms_custom_posts_filename = basename( $ms_custom_posts_file , '.php' ) ;
-					$pieces	= explode( '-' , $ms_custom_posts_filename ) ;
-					$display = ucfirst( $pieces[1] );
-					$key	= $pieces[0] . '_' . $pieces[1] ;
-
-					$html .= '<li class="menu-item menu-item-type-post_type menu-item-object-page">';
-						$html .= '<a href="' . esc_url( get_post_type_archive_link( $key ) ) . '" title="' . __( $display, 'slow_atoms' ) . '">';
-							$html .= __( $display, 'slow_atoms' );
-						$html .= '</a>';
-					$html .= '</li>';
-				}
-				
-			} ;
-
-		$html .= '</ul>' ;
-
-	$html .= '</div>' ;
-
-	echo $html ;
-
-} // end slow_atoms_default_menu
-
+}
+add_action( 'init', 'slow_atoms_callbacks' );
 
 /**
  * Set the content width in pixels, based on the theme's design and stylesheet.
@@ -196,8 +158,6 @@ function slow_atoms_widgets_init() {
 }
 add_action( 'widgets_init', 'slow_atoms_widgets_init' );
 
-
-
 /**
  * Implement the Custom Header feature.
  */
@@ -225,7 +185,6 @@ if ( defined( 'JETPACK__VERSION' ) ) {
 	require get_template_directory() . '/inc/jetpack.php';
 }
 
-
 // Wrap a container round sub menus for css reasons
 
 class submenu_wrap extends Walker_Nav_Menu {
@@ -240,7 +199,6 @@ class submenu_wrap extends Walker_Nav_Menu {
 }
 
 /*
- *
  * Change 'Posts' to 'News'
  *
  */
@@ -274,9 +232,7 @@ function slow_atoms_archive_title( $title ) {
 
 add_filter( 'get_the_archive_title', 'slow_atoms_archive_title' );
 
-
 // Allow Registration Only from @ru.nl and @science.ru.nl email addresses
-
 function is_valid_email_domain($login, $email, $errors ){
 	$valid_email_domains = array("ru.nl","science.ru.nl");// allowed domains
 	$valid = false; // sets default validation to false

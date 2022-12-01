@@ -10,7 +10,7 @@
 /**
  * Teaching
  */
-add_action( 'init' , 'slow_atoms_teaching_post_type');
+//add_action( 'init' , 'slow_atoms_teaching_post_type');
 
 function slow_atoms_teaching_post_type() {
 
@@ -40,7 +40,7 @@ function slow_atoms_teaching_post_type() {
 	register_post_type('ms_teaching', $args );
 }
 
-add_action( 'init' , 'slow_atoms_teaching_taxonomy');
+//add_action( 'init' , 'slow_atoms_teaching_taxonomy');
 
 function slow_atoms_teaching_taxonomy() {
 

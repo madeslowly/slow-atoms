@@ -1,6 +1,14 @@
 <?php
 
-$ms_custom_fields_dir = $ms_theme_dir . "/inc/custom-fields/*";
+/**
+ * 
+ * Load all acf custom fields from custom-fields dir
+ * 
+ * This file is then loaded from functions.php
+ * 
+ */
+
+$ms_custom_fields_dir = $ms_theme_dir . "/inc/functions/setup/custom-fields/*";
 
 // glob the dir for files
 // https://www.php.net/manual/en/function.glob.php
