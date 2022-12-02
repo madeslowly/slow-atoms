@@ -19,9 +19,9 @@ $ms_functions_dir = $ms_theme_dir . '/inc/functions/';
 /**
  * **************		ACTIVATION		**************
  */
-require_once $ms_functions_dir . 'activation/register-db-tables.php';
+//require_once $ms_functions_dir . 'activation/register-db-tables.php';
 
-add_action('after_switch_theme', 'slow_atoms_lreg_table_creation');
+//add_action('after_switch_theme', 'slow_atoms_lreg_table_creation');
 
 /**
  * **************		SETUP		**************
