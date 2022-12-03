@@ -23,7 +23,7 @@ remove_action( 'admin_print_styles', 'print_emoji_styles' );
 
 function slow_atoms_stylesheets() {
 
-	wp_enqueue_style( 'michalsnik-aos', get_template_directory_uri() . '/aos/aos.css', array(), _S_VERSION );
+	wp_enqueue_style( 'michalsnik-aos', get_template_directory_uri() . '/inc/vendor/aos/aos.css', array(), _S_VERSION ); 
 
 	wp_enqueue_style( 'fontawesome-free-5.15.3', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css' ) ;
 
@@ -42,7 +42,7 @@ function slow_atoms_scripts() {
 	//wp_enqueue_script( 'polyfill', 'https://polyfill.io/v3/polyfill.min.js?features=es6', array(), '', true);
 	//wp_enqueue_script( 'mathjax', 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js', array('polyfill'), '', true);
 
-	wp_enqueue_script( 'michalsnik-aos', get_template_directory_uri() . '/aos/aos.js', array(), _S_VERSION, true );
+	wp_enqueue_script( 'michalsnik-aos', get_template_directory_uri() . '/inc/vendor/aos/aos.js', array(), _S_VERSION, true );
 
 	wp_enqueue_script( 'slow-atoms-navigation', get_template_directory_uri() . '/inc/js/navigation.js', array(), _S_VERSION, true );
 
