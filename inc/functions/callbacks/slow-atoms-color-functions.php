@@ -94,27 +94,27 @@ function colourBrightness($hex, $percent)
 // Convert hex to hsl and rotate by 180
 function slow_atoms_180_hue_rot( $hex ) {
 
-    $red		= hexdec( substr( $hex, 0, 2 ) ) / 255;
-    $green	= hexdec( substr( $hex, 2, 2 ) ) / 255;
-    $blue		= hexdec( substr( $hex, 4, 2 ) ) / 255;
+    $red    = hexdec( substr( $hex, 0, 2 ) ) / 255;
+    $green  = hexdec( substr( $hex, 2, 2 ) ) / 255;
+    $blue	= hexdec( substr( $hex, 4, 2 ) ) / 255;
 
-    $cmin = min($red, $green, $blue);
-    $cmax = max($red, $green, $blue);
-    $delta = $cmax - $cmin;
+    $cmin   = min($red, $green, $blue);
+    $cmax   = max($red, $green, $blue);
+    $delta  = $cmax - $cmin;
 
-    if ($delta === 0) {
+    if ( $delta === 0 ) {
         $hue = 0;
-    } elseif ($cmax === $red) {
-        $hue = (($green - $blue) / $delta) % 6;
-    } elseif ($cmax === $green) {
-        $hue = ($blue - $red) / $delta + 2;
+    } elseif ( $cmax === $red ) {
+        $hue = ( ( $green - $blue ) / $delta ) % 6;
+    } elseif ( $cmax === $green ) {
+        $hue = ( $blue - $red ) / $delta + 2;
     } else {
-        $hue = ($red - $green) / $delta + 4;
+        $hue = ( $red - $green ) / $delta + 4;
     }
 
-		$hue = round($hue * 60);
+		$hue = round( $hue * 60 );
 
-		if ($hue < 0) {
+		if ( $hue < 0 ) {
         $hue += 360;
     }
 		$hue += 180 ;
