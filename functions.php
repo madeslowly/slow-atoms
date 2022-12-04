@@ -105,6 +105,28 @@ function slow_atoms_setup() {
 }
 add_action( 'after_setup_theme', 'slow_atoms_setup' );
 
+
+/**
+ * 
+ * **************		WP_FOOTER		**************
+ * 
+ */
+
+add_action( 'wp_footer', 'slow_atoms_footer' );
+
+function slow_atoms_footer() { ?>
+
+	<!-- run the navBarScroll() on load to check if page if already scrolled -->
+	<script type="text/javascript">
+		function windowOnload(){
+		/* run the navBarScroll() on load to check if page if already scrolled */
+		navBarScroll();
+		}
+		window.onload = windowOnload;
+	</script><?php
+
+}
+
 /**
  * **************		CALLBACKS		**************
  * 
@@ -294,7 +316,7 @@ function slow_atoms_get_random_hero( $wrapper_class , $image_class ) {
 
 		$image_markup = 
 		'<div class="' . $wrapper_class . '">
-			<img class="' . $image_class . '"src="' . $image_url . '" srcset="' . esc_attr( $image_srcset ) . '" />
+			<img class="' . $image_class . '" loading="lazy" src="' . $image_url . '" srcset="' . esc_attr( $image_srcset ) . '" />
 		</div><!-- .' . $wrapper_class . '-->' ;
 	else :
 
