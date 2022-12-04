@@ -5,8 +5,9 @@
  * navigation support for dropdown menus.
  */
 
-const mediaQuery = window.matchMedia('(max-width: 768px)')
 
+const mediaQuery = window.matchMedia('(max-width: 768px)')
+// Only load if we are on mobile
 if (mediaQuery.matches) {
   
   const navSlide = ()=>{
