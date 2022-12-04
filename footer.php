@@ -49,23 +49,13 @@
 
 
 <script>
-
 	AOS.init({
 	duration: 600,
 	easing: 'ease-in-sine',
 	disable: 'mobile'
 	});
-
 </script>
 
-<!-- run the navBarScroll() on load to check if page if already scrolled -->
-<script type="text/javascript">
-  function windowOnload(){
-    /* run the navBarScroll() on load to check if page if already scrolled */
-    navBarScroll();
-  }
-  window.onload = windowOnload;
-</script>
 
 </body>
 </html>
