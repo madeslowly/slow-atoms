@@ -56,6 +56,11 @@
 	});
 </script>
 
+<script>
+	setTimeout( function() {
+		document.querySelector( '#masthead' ).classList.remove( 'no-anim' ) ;
+	} , 600 ) ;
+</script>
 
 </body>
 </html>
