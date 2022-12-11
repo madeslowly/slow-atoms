@@ -11,7 +11,7 @@
   width: 100%
   object-fit: cover
   object-position: top
-  border: solid 1px var(--theme-color)
+  border: solid 1px var(--theme-color-primary)
 
 .person__name-header
   display: flex
@@ -27,7 +27,7 @@
   margin: 0 auto
   padding: 15vh 0
   width: 100vw
-  background-color: var(--theme-color)
+  background-color: var(--theme-color-primary)
 
   .person__name-header
     border-radius: 5vw 0 5vw
@@ -95,7 +95,7 @@
     position: absolute
     bottom: -20px
     left: 20px
-    background-color: var(--theme-color-alpha-090)
+    background-color: var(--theme-color-primary-alpha-090)
     width: 100%
     padding: 1rem 10px 0rem 2rem
     @include default-trans
@@ -142,14 +142,14 @@
       width: 60vw
       margin: 0
       padding: 2rem 3rem
-      border: solid 1px var(--theme-color)
+      border: solid 1px var(--theme-color-primary)
       background-color: rgba($pure-white , .95)
       //border-radius: 2rem 0 0
       z-index: 3
       box-shadow: 3px 3px 10px rgba(0,0,0,.2)
 
     .person__name
-      color: var(--theme-color)
+      color: var(--theme-color-primary)
 
     .person__meta
       position: relative
@@ -170,7 +170,7 @@
         font-size: $font-size
 
       & > *
-        color: var(--theme-color)
+        color: var(--theme-color-primary)
 
     .person__meta-entry
       display: flex
@@ -181,10 +181,10 @@
 
       & > p
         margin: 0
-        color: var(--theme-color)
+        color: var(--theme-color-primary)
 
     .person__bio-wrap
-      color: var(--theme-color)
+      color: var(--theme-color-primary)
 
   .is__people-archive
 
@@ -229,7 +229,6 @@
         left: 0
         width: 100%
         height: 100%
-        //background-image: linear-gradient(120deg, var(--theme-color-dark), var(--theme-color-light ))
         //opacity: .2
         z-index: 2
 
@@ -243,7 +242,7 @@
       position: absolute
       bottom: -20px
       left: 20px
-      background-color: var(--theme-color-alpha-090)
+      background-color: var(--theme-color-primary-alpha-090)
       width: 100%
       padding: 1rem 10px 0rem 2rem
       @include default-trans

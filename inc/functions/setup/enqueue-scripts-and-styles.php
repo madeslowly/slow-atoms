@@ -9,9 +9,11 @@
  */
 add_action( 'wp_enqueue_scripts', 'slow_atoms_stylesheets' );
 
+add_action( 'wp_enqueue_scripts', 'slow_atoms_enqueue_inline_styles' );
+
 add_action( 'wp_enqueue_scripts', 'slow_atoms_scripts' );
 
-// NOTE: eventually we should remove wp styling and replace with our own
+// TODO: eventually we should remove wp styling and replace with our own
 //add_action( 'wp_enqueue_scripts', 'remove_global_styles' );
 
 // REMOVE WP EMOJI
@@ -34,6 +36,13 @@ function slow_atoms_stylesheets() {
 	wp_style_add_data( 'slow-atoms-style-', 'rtl', 'replace' );
 }
 
+function slow_atoms_enqueue_inline_styles() {
+
+	$custom_css = slow_atoms_customise_colors() ;//output_css() ;
+	
+	wp_add_inline_style( 'slow-atoms-style', slow_atoms_customise_colors() ) ;
+}	
+
 function slow_atoms_scripts() {
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
@@ -48,6 +57,9 @@ function slow_atoms_scripts() {
 
 	wp_enqueue_script( 'slow-atoms-nav-scrolled', get_template_directory_uri() . '/inc/js/navBarScroll.js', array(), _S_VERSION, true);
 
+	// TODO: do we need this wp_enqueue_script( 'slow-atoms-color-scheme-preview', get_template_directory_uri() . '/inc/js/color-scheme-preview.js', array( 'customize-preview' ), '', true );
+
+
 }
 
 function remove_global_styles(){
@@ -59,4 +71,3 @@ function remove_global_styles(){
 	wp_dequeue_style( 'classic-theme-styles' );
     //wp_dequeue_style( 'wc-block-style' );
 }
-
