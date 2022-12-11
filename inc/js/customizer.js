@@ -14,6 +14,13 @@
 			$( '.site-title a' ).text( to );
 		} );
 	} );
+	// Site title and description.
+	wp.customize( 'slow_atoms_front_page_title', function( value ) {
+		value.bind( function( to ) {
+			$( '.front__page-title' ).text( to );
+		} );
+	} );
+
 	wp.customize( 'blogdescription', function( value ) {
 		value.bind( function( to ) {
 			$( '.site-description' ).text( to );
