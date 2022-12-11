@@ -1,6 +1,6 @@
 <?php
 /**
- * slow atoms Theme Customizer
+ * Slow Atoms Theme Customizer
  *
  * @package slow_atoms
  */
@@ -10,10 +10,12 @@
  *
  * @param WP_Customize_Manager $wp_customize Theme Customizer object.
  */
+
 function slow_atoms_blog_customize_register( $wp_customize ) {
-	$wp_customize->get_setting( 'blogname' )->transport         = 'postMessage';
-	$wp_customize->get_setting( 'blogdescription' )->transport  = 'postMessage';
-	$wp_customize->get_setting( 'header_textcolor' )->transport = 'postMessage';
+
+	$wp_customize	-> get_setting( 'blogname' )		->transport	= 'postMessage';
+	$wp_customize	-> get_setting( 'blogdescription' )	->transport	= 'postMessage';
+	$wp_customize	-> get_setting( 'header_textcolor' )->transport	= 'postMessage';
 
 	if ( isset( $wp_customize->selective_refresh ) ) {
 		$wp_customize->selective_refresh->add_partial(
@@ -32,6 +34,7 @@ function slow_atoms_blog_customize_register( $wp_customize ) {
 		);
 	}
 }
+
 add_action( 'customize_register', 'slow_atoms_blog_customize_register' );
 
 /**
@@ -61,6 +64,85 @@ function slow_atoms_customize_preview_js() {
 add_action( 'customize_preview_init', 'slow_atoms_customize_preview_js' );
 
 
+function slow_atoms_customize_register_2( $wp_customize ) {
+
+	/**
+ 	* **************		STRAPLINE		**************
+ 	*/
+	/****************		Section		**************/
+	$wp_customize	-> add_section('slow_atoms_theme_front_page', array(
+		'title' 			=> __('Front Page Strapline', 'slow-atoms'),
+		'priority' 			=> 1,
+	) ) ;
+	/****************		Setting		**************/
+	$wp_customize	-> add_setting( 'slow_atoms_front_page_title', array(
+		'default'      		=> __( 'Snappy strapline.', 'slow-atoms' ),
+		'sanitize_callback' => 'sanitize_text',
+		'transport' => 'postMessage',
+	) ) ;
+	/****************		Control		**************/
+	$wp_customize	-> add_control( new WP_Customize_Control( $wp_customize , 'slow_atoms_front_page_title_control', array(
+		'label'    			=> __( 'Homepage Title', 'slow-atoms' ),
+		'description' 		=> __( 'Title above the homepage content. Site title and tagline are found under "Site Identity"' ),
+		'section' 			=> 'slow_atoms_theme_front_page',
+		'settings' 			=> 'slow_atoms_front_page_title',
+		'type'     			=> 'text'
+	) ) );
+
+	/**
+ 	* **************		COLORS		**************
+ 	*/
+	$obj = new slow_atoms_Color_Scheme();
+
+	$options = array(
+		'slow_atoms_primary_theme_color'			=> __( 'Primary', 'slow_atoms' ),
+		'slow_atoms_secondary_theme_color' 		=> __( 'Secondary', 'slow_atoms' ),
+		'slow_atoms_navbar_link_color' => __( 'Menu Links', 'slow_atoms' ),
+		'slow_atoms_accent_color' => __( 'Accent', 'slow_atoms' ),
+		'footer_bg_color'	 	=> __( 'Footer background color', 'slow_atoms' ),
+		'highlight_color' 		=> __( 'Hightlight color', 'slow_atoms' ),
+	);
+	
+	foreach ( $options as $key => $label ) {
+		$wp_customize	-> add_setting( $key, array(
+			'sanitize_callback'	=> 'sanitize_hex_color',
+			//'transport'			=> 'postMessage',
+		) );
+		$wp_customize	->	add_control( new WP_Customize_Color_Control( $wp_customize, $key, array(
+			'label' 			=> $label,
+			'section' 			=> 'slow_atoms_colors',
+		) ) );
+	}
+	
+	$wp_customize	-> add_section( 'slow_atoms_colors', array(
+		'title'		=> __( 'Colors', 'slow_atoms' ),
+	) );
+	
+	$wp_customize	-> add_setting( 'color_scheme', array(
+		'default'	=> 'default',
+		//'transport' => 'postMessage',
+	) );
+	
+	$color_schemes = $obj -> get_color_schemes();
+	$choices = array();
+	foreach ( $color_schemes as $color_scheme => $value ) {
+		$choices[$color_scheme] = $value['label'];
+	}
+	$wp_customize	-> add_control( 'color_scheme', array(
+		'label'   	=> __( 'Palettes', 'slow_atoms' ),
+		'section'	=> 'slow_atoms_colors',
+		'type'    	=> 'select',
+		'choices' 	=> $choices,
+		'priority'	=> '1',
+	) );
+
+	
+}
+
+add_action('customize_register', 'slow_atoms_customize_register_2');
+
+
+
 function slow_atoms_customize_register( $wp_customize ) {
 
 	/**************************** PANELS ****************************/
@@ -76,18 +158,6 @@ function slow_atoms_customize_register( $wp_customize ) {
 
 	/**************************** SECTIONS ****************************/
 
-	// Homepage strapline
-	$wp_customize 		-> add_section('slow_atoms_theme_front_page', array(
-		'title' 				=> __('Homepage Settings', 'slow-atoms'),
-		'priority' 			=> 1,
-		'panel' 				=> 'slow_atoms_theme_panel',
-	) ) ;
-	// Theme wide colors
-	$wp_customize 		-> add_section( 'slow_atoms_theme_colors', array(
-		'title' 				=> __('Theme Colors', 'slow-atoms'),
-		'priority' 			=> 2,
-		'panel' 				=> 'slow_atoms_theme_panel',
-	));
 	// Featured images !front-page
 	$wp_customize 		-> add_section('slow_atoms_theme_archive_page_heros', array(
 		'title' 				=> __('Featured Images', 'slow-atoms'),
@@ -109,17 +179,7 @@ function slow_atoms_customize_register( $wp_customize ) {
 
 	/**************************** SETTINGS ****************************/
 
-	// Primary color
-	$wp_customize 		-> add_setting( 'slow_atoms_primary_theme_color' , array(
-		'default' 			=> '#730E04',
-		'transport' 		=> 'refresh',
-	));
-	// Homepage strapline
-	$wp_customize 		-> add_setting( 'slow_atoms_front_page_title', array(
-		'default'       => __( 'Snappy strapline saying how awesome everything is', 'slow-atoms' ),
-		'sanitize_callback' => 'sanitize_text',
-		'transport' 		=> 'refresh',
-	) ) ;
+
 	// Research featured image
 	$wp_customize			-> add_setting( 'slow_atoms_theme_research_hero', array(
 		'default'				=> get_theme_file_uri('assets/image/logo.jpg'), // Add Default Image URL
@@ -181,20 +241,7 @@ function slow_atoms_customize_register( $wp_customize ) {
   
 	/**************************** CONTROLS ****************************/
 
-	// Primary color
-	$wp_customize 		-> add_control( new WP_Customize_Color_Control( $wp_customize, 'slow_atoms_link_color_control',array(
-		'label' 				=> __('Primary Theme Color' , 'slow-atoms'),
-		'section' 			=> 'slow_atoms_theme_colors',
-		'settings' 			=> 'slow_atoms_primary_theme_color',
-	)));
-	// Homepage strapline
-	$wp_customize 		-> add_control( new WP_Customize_Control( $wp_customize , 'slow_atoms_front_page_title_control', array(
-		'label'    			=> __( 'Homepage Title', 'slow-atoms' ),
-		'description' 	=> __( 'Title above the homepage content. Site title and strapline are found under "Site Identity"' ),
-		'section' 			=> 'slow_atoms_theme_front_page',
-		'settings' 			=> 'slow_atoms_front_page_title',
-		'type'     			=> 'text'
-	) ) );
+
 	// Research archive hero image
   $wp_customize			-> add_control( new WP_Customize_Image_Control( $wp_customize, 'slow_atoms_featured_image_research_control', array(
 		'label' 				=> 'Research Page Image',
@@ -288,3 +335,19 @@ function slow_atoms_customize_register( $wp_customize ) {
 }
 
 add_action('customize_register', 'slow_atoms_customize_register');
+
+/**
+ * Hide some of the sections
+ */
+function hide_customizer_sections( $wp_customize ) {
+    //$wp_customize->remove_section( 'title_tagline' ); // Site identity
+    //$wp_customize->remove_section( 'static_front_page' ); // Homepage settings
+    $wp_customize->remove_section( 'colors' ); // Colors
+    //$wp_customize->remove_panel( 'nav_menus'); // Menus
+    $wp_customize->remove_panel( 'widgets' ); // Widgets
+    $wp_customize->remove_section( 'header_image' ); // Header imagen
+    $wp_customize->remove_section( 'background_image' ); // Background image
+    //$wp_customize->remove_section( 'themes' ); // Themes
+    $wp_customize->remove_control( 'custom_css' ); // Custom CSS 
+}
+add_action( 'customize_register', 'hide_customizer_sections', 30);

@@ -104,14 +104,11 @@ function slow_atoms_setup() {
 
 }
 add_action( 'after_setup_theme', 'slow_atoms_setup' );
-
-
 /**
  * 
  * **************		WP_FOOTER		**************
  * 
  */
-
 add_action( 'wp_footer', 'slow_atoms_footer' );
 
 function slow_atoms_footer() { ?>
@@ -126,7 +123,6 @@ function slow_atoms_footer() { ?>
 	</script><?php
 
 }
-
 /**
  * **************		CALLBACKS		**************
  * 
@@ -147,7 +143,6 @@ function slow_atoms_callbacks() {
 
 }
 add_action( 'init', 'slow_atoms_callbacks' );
-
 /**
  * Set the content width in pixels, based on the theme's design and stylesheet.
  *
@@ -159,7 +154,6 @@ function slow_atoms_content_width() {
 	$GLOBALS['content_width'] = apply_filters( 'slow_atoms_content_width', 640 );
 }
 add_action( 'after_setup_theme', 'slow_atoms_content_width', 0 );
-
 /**
  * Register widget area.
  *
@@ -179,36 +173,29 @@ function slow_atoms_widgets_init() {
 	);
 }
 add_action( 'widgets_init', 'slow_atoms_widgets_init' );
-
 /**
  * Implement the Custom Header feature.
  */
 require get_template_directory() . '/inc/custom-header.php';
-
 /**
  * Custom template tags for this theme.
  */
 require get_template_directory() . '/inc/template-tags.php';
-
 /**
  * Functions which enhance the theme by hooking into WordPress.
  */
 require get_template_directory() . '/inc/template-functions.php';
-
 /**
  * Customizer additions.
  */
 require get_template_directory() . '/inc/customizer.php';
-
 /**
  * Load Jetpack compatibility file.
  */
 if ( defined( 'JETPACK__VERSION' ) ) {
 	require get_template_directory() . '/inc/jetpack.php';
 }
-
 // Wrap a container round sub menus for css reasons
-
 class submenu_wrap extends Walker_Nav_Menu {
     function start_lvl( &$output, $depth = 0, $args = array() ) {
         $indent = str_repeat("\t", $depth);
@@ -219,7 +206,6 @@ class submenu_wrap extends Walker_Nav_Menu {
         $output .= "$indent</ul></div>\n";
     }
 }
-
 /*
  * Change 'Posts' to 'News'
  *
@@ -232,9 +218,7 @@ function change_post_menu_label() {
 	$submenu['edit.php'][10][0] = 'Add news item';
 	echo '';
 }
-
 add_action( 'admin_menu', 'change_post_menu_label' );
-
 
 function slow_atoms_archive_title( $title ) {
     if ( is_category() ) {
@@ -332,7 +316,6 @@ function slow_atoms_get_random_hero( $wrapper_class , $image_class ) {
 	return;
 
 }
-
 
 // Using Thumbnails with Previous and Next Post Links
 
@@ -448,9 +431,7 @@ function slow_atoms_change_sort_order( $query ) {
 		//Set the orderby
 		$query->set( 'orderby', 'date' );
 	endif;    
-};	
-
-
+};
 
 function slow_atoms_login_styles() { ?>
 
@@ -496,3 +477,17 @@ function slow_atoms_login_styles() { ?>
 <?php }
 
 add_action( 'login_enqueue_scripts', 'slow_atoms_login_styles' );
+
+
+require get_template_directory() . '/color-scheme.php';
+
+
+
+function output_css() {
+	$obj = new slow_atoms_Color_Scheme() ;
+	$colors = $obj	-> get_color_scheme();
+	if ( $obj->is_custom ) {
+		wp_add_inline_style( 'slow-atoms-style', $obj->get_css( $colors ) );
+	}
+
+}
