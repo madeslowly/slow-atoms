@@ -13,26 +13,21 @@
 <!DOCTYPE html>
 	<html <?php language_attributes(); ?> >
 		<head>
-			<meta charset="<?php bloginfo('charset'); ?>">
-			<meta name="viewport" content="width=device-width, initial-scale=1">
-
-			<link rel="profile" href="https://gmpg.org/xfn/11">
-
-			<!-- Google tag (gtag.js) -->
-			<!-- NOTE: move to functions and create theme input for gkey -->
-			<script async src="https://www.googletagmanager.com/gtag/js?id=G-G9PN5MCKE0"></script>
-			<script>
-				window.dataLayer = window.dataLayer || [];
-				function gtag(){dataLayer.push(arguments);}
-				gtag('js', new Date());
-
-				gtag('config', 'G-G9PN5MCKE0');
-			</script>
 
 			<?php 
-			slow_atoms_og() ;
-			//slow_atoms_structured_data() ;
-			?>
+			$gtag = get_theme_mod( 'slow_atoms_gtag_setting'); 
+			if ( $gtag ) { ?>
+				<!-- Google tag (gtag.js) -->
+				<script async src='<?php echo "https://www.googletagmanager.com/gtag/js?id=" . $gtag ?>' ></script>
+				<script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', '<?php echo $gtag ?>'); </script> 
+			<?php } ; ?>
+		
+			<meta charset="<?php bloginfo('charset'); ?>">
+			<meta name="viewport" content="width=device-width, initial-scale=1">
+			<link rel="profile" href="https://gmpg.org/xfn/11">
+			
+			<!-- slow_atoms_structured_data() ; -->
+			<?php slow_atoms_og() ; ?>
 
 			<?php wp_head(); ?>
 			
