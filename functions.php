@@ -478,10 +478,7 @@ function slow_atoms_login_styles() { ?>
 
 add_action( 'login_enqueue_scripts', 'slow_atoms_login_styles' );
 
-
 require get_template_directory() . '/color-scheme.php';
-
-
 
 function output_css() {
 	$obj = new slow_atoms_Color_Scheme() ;
@@ -491,3 +488,80 @@ function output_css() {
 	}
 
 }
+
+//G-G9PN5MCKE0
+function slow_atoms_gtag($gtag) {
+
+	if ($gtag) :
+
+		wp_enqueue_script( 'google', 'https://www.googletagmanager.com/gtag/js?id=' . $gtag , array(), _S_VERSION, false );
+		
+		$gtag_script = "
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+		
+		gtag('config', '$gtag');
+		";
+
+		return $gtag_script ;
+
+	endif ;
+}
+/**
+ * Templates and Page IDs without editor
+ *
+ */
+function slow_atoms_disable_editor( $id = false ) {
+
+	$excluded_templates = array(
+		'page-templates/contact-page.php'
+	);
+
+	$excluded_ids = array(
+		// get_option( 'page_on_front' )
+	);
+
+	if( empty( $id ) )
+		return false;
+
+	$id = intval( $id );
+	$template = get_page_template_slug( $id );
+
+	return in_array( $id, $excluded_ids ) || in_array( $template, $excluded_templates );
+}
+
+/**
+ * Disable Gutenberg by template
+ *
+ */
+function slow_atoms_disable_gutenberg( $can_edit, $post_type ) {
+
+	if( ! ( is_admin() && !empty( $_GET['post'] ) ) )
+		return $can_edit;
+
+	if( slow_atoms_disable_editor( $_GET['post'] ) )
+		$can_edit = false;
+
+	return $can_edit;
+
+}
+add_filter( 'gutenberg_can_edit_post_type', 'slow_atoms_disable_gutenberg', 10, 2 );
+add_filter( 'use_block_editor_for_post_type', 'slow_atoms_disable_gutenberg', 10, 2 );
+
+/**
+ * Disable Classic Editor by template
+ *
+ */
+function slow_atoms_disable_classic_editor() {
+
+	$screen = get_current_screen();
+	if( 'page' !== $screen->id || ! isset( $_GET['post']) )
+		return;
+
+	if( slow_atoms_disable_editor( $_GET['post'] ) ) {
+		remove_post_type_support( 'page', 'editor' );
+	}
+
+}
+add_action( 'admin_head', 'slow_atoms_disable_classic_editor' );
