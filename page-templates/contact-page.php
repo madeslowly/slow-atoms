@@ -11,112 +11,78 @@
 
 
 <main id="primary" class="site-main is__contact-page">
-
-  <section class="slow-atoms__page-hero">
-
-    <!--
-    <header class="page-header is__theme-background-transparent">
-      <?php
-      the_title( '<h1 class="page-title">', '</h1>' );
-      ?>
-    </header>
-
-    --><!-- .page-header -->
-    <!--
-    <div class="post-thumbnail">
-      <?php if ( has_post_thumbnail() ) :
-
-      			the_post_thumbnail('full', array());
-
-      		else :
-
-      			// Grab random image from front page
-      			$rand_img = 'image_' . rand( 1 , 5 ) ;
-      			$pageID = get_option('page_on_front'); ?>
-      			<!-- Needs improving so we get the same markup as the_post_thumbnail(); -->
-      			<img class="attachment-post-thumbnail size-post-thumbnail wp-post-image" src="<?php the_field($rand_img, $pageID); ?> "/>
-
-      		<?php	endif; ?>
-    </div>
-      --><!-- .post-thumbnail -->
-
-  </section><!-- .slow-atoms__page-hero -->
-
+  
   <section class="slow-atoms__page-content">
 
-    <div class="page-content__contact-form">
-      <h3 class="contact-form__header">Contact Us</h3>
-  		<?php $cf7_shortcode = get_theme_mod( 'slow_atoms_contact_form_shortcode') ;
-      echo do_shortcode($cf7_shortcode) ; ?>
-
+    <div class="page-content__contact-form is__theme-background">
+      <?php the_title( '<h3 class="">', '</h3>' ) ;
+      $contact_form_shorcode =  get_field('ms_acf_contact_shortcode_name' ) ; 
+      echo do_shortcode($contact_form_shorcode) ; ?>
     </div>
 
     <div class="page-content__contact-details">
-
       <h3 class="contact-form__header">Not a Form Fan?</h3>
 
       <ul class="contact-details__options">
 
-        <li class="contact-details__options-science">
-          <i class="fas fa-microscope"></i>
-          <span>
-            <p class="contact-details__options-header">
-              Scientific enquiries
-            </p>
-            <a href="mailto:roel.dullens@ru.nl">Roel Dullens</a>
-          </span>
-        </li>
+        <?php
+          $icons            = array( 'microscope', 'info', 'globe' );
+          $class            = array( 'science', 'general', 'website' );
+          $headers          = array( 'Scientific enquiries', 'General enquiries', ' Website issues') ;
+          $output_list      = '' ;
+          $cnt              = 0 ;
+          $direct_contacts  = array() ;
+          while( have_rows('ms_acf_contact_directs_group_name') ): the_row() ;
+            $direct_contacts += [ get_sub_field('ms_acf_contact_directs_sciname_name') => get_sub_field('ms_acf_contact_directs_sciemail_name')  ] ;
+            $direct_contacts += [ get_sub_field('ms_acf_contact_directs_genname_name') => get_sub_field('ms_acf_contact_directs_genemail_name')  ] ;
+            $direct_contacts += [ get_sub_field('ms_acf_contact_directs_webname_name') => get_sub_field('ms_acf_contact_directs_webemail_name')  ] ;          
+          endwhile ;
+          foreach( $direct_contacts as $name => $email ) {
+            if ( $email ) :
+              $output_list .= '
+              <li class="contact-details__options-' . $class[ $cnt ] . '">
+                <i class="fas fa-' . $icons[ $cnt ] . '"></i>
+                <span>
+                  <p class="contact-details__options-header">' . $headers[ $cnt ] . '</p>
+                  <a href="mailto:' . $email . '">' . $name . '</a>
+                </span>
+              </li>' ;
+            endif ;
+            $cnt++ ;
+          }
+          echo $output_list ; 
 
-        <li class="contact-details__options-administrive">
-          <i class="fas fa-info"></i>
-          <span>
-            <p class="contact-details__options-header">
-              General enquiries
-            </p>
-            <a href="mailto:magda.speijers@ru.nl">Magda Speijers</a>
-          </span>
-        </li>
-
-        <li class="contact-details__options-website">
-          <i class="fas fa-globe"></i>
-          <span>
-            <p class="contact-details__options-header">
-              Website issues
-            </p>
-            <a href="mailto:arran.curran@ru.nl">Arran Curran</a>
-          </span>
-        </li>
+          if ( get_sub_field('ms_acf_contact_directs_sciemail_name') ) :
+          echo 'hello' ;
+          endif ;
+        ?>
 
       </ul><!-- .contact-details__options -->
 
-      <ul class="contact-details__address">
+      <ul class="contact-details__address-list">
 
-        <li class="contact-details__address-department">
-          <p class="contact-details__address-entry">
-            <?php echo get_bloginfo( 'description', 'display' ); ?>
-          </p>
-        </li>
-
-        <li class="contact-details__address-building">
-          <p class="contact-details__address-entry">
-            <?php echo get_theme_mod( 'slow_atoms_contact_building_name') ; ?>
-          </p>
-        </li>
-        <li class="contact-details__address-street">
-          <p class="contact-details__address-entry">
-            <?php echo get_theme_mod( 'slow_atoms_contact_street_name') . ' ' . get_theme_mod( 'slow_atoms_contact_street_number') ; ?>
-          </p>
-        </li>
-        <li class="contact-details__address-postcode">
-          <p class="contact-details__address-entry">
-            <?php echo get_theme_mod( 'slow_atoms_contact_postcode') . ' ' . get_theme_mod( 'slow_atoms_contact_city') ; ?>
-          </p>
-        </li>
-        <li class="contact-details__address-country">
-          <p class="contact-details__address-entry">
-            <?php echo get_theme_mod( 'slow_atoms_contact_country'); ?>
-          </p>
-        </li>
+        <?php        
+          $postal_address = array() ;
+          while( have_rows('ms_acf_contact_add_group_name') ): the_row() ;
+            $check = get_sub_field('ms_acf_contact_department_name') ;
+            if ( $check ) :
+              $postal_address += ['department'  => get_sub_field('ms_acf_contact_department_name')] ;
+            else :
+              $postal_address += ['department'  => get_bloginfo( 'description', 'display' ) ];
+            endif ; 
+            $postal_address += ['building'  => get_sub_field('ms_acf_contact_building_name')  ] ;
+            $postal_address += ['street'    => get_sub_field('ms_acf_contact_street_name') . ' ' . get_sub_field('ms_acf_contact_street_number_name') ] ;
+            $postal_address += ['city'      => get_sub_field('ms_acf_contact_postcode_name') . ' ' . get_sub_field('ms_acf_contact_city_name') ] ;
+            $postal_address += ['country'   => get_sub_field('ms_acf_contact_country_name')   ] ;
+          endwhile ;
+          $output_list = '' ;
+          foreach( $postal_address as $key => $value ) {
+            if ( $value ) :
+              $output_list .= '<li class="contact-details__address-' . $key . '"><p class="contact-details__address-entry">' . $value . '</p></li>' ;
+            endif ;
+          }
+          echo $output_list ; 
+        ?>
 
       </ul>
     </div>
