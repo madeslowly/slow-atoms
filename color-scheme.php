@@ -1,5 +1,7 @@
 <?php
 
+// https://deluxeblogtips.com/add-color-schemes-wordpress-theme/
+
 class slow_atoms_Color_Scheme {
     public function __construct() {    
         add_action( 'customize_register', array( $this, 'customizer_register' ) );
@@ -57,7 +59,7 @@ class slow_atoms_Color_Scheme {
                 'label'  => __( 'Classic', 'slow_atoms' ),
                 'colors' => array(
                     '#333342',
-                    '#416ea3',
+                    '#003882',
                     '#ffffff',
                     '#ff00ee',
                     '#222b30',
@@ -70,7 +72,29 @@ class slow_atoms_Color_Scheme {
                     '#334c32',
                     '#845a50',
                     '#ffffff',
-                    '#0da500',
+                    '#22e500',
+                    '#9d5f00',
+                    '#dd8500',
+                ),
+            ),
+            'orange'    => array(
+                'label'  => __( 'Orange', 'slow_atoms' ),
+                'colors' => array(
+                    '#dd8500',
+                    '#845a50',
+                    '#ffffff',
+                    '#890024',
+                    '#9d5f00',
+                    '#dd8500',
+                ),
+            ),
+            'red'    => array(
+                'label'  => __( 'Red', 'slow_atoms' ),
+                'colors' => array(
+                    '#7f2a2a',
+                    '#000033',
+                    '#ffffff',
+                    '#ff0044',
                     '#9d5f00',
                     '#dd8500',
                 ),
