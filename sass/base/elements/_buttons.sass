@@ -2,25 +2,28 @@
 
 .slow-atoms__button
 	appearance: none
-	border: 1px solid var(--theme-color-primary-alpha-040)
+	border: none
 	border-radius: 6px
-	box-shadow: var(--theme-color-primary-alpha-020) 0 1px 0, var(--theme-color-primary-alpha-020) 0 1px 0 inset
+	box-shadow: rgba( $pure-white , .2 ) 8px 8px 0
 	color: var(--theme-color-primary)
 	cursor: pointer
 	display: inline-block
 	list-style: none
 	padding: 2rem
 	position: relative
-	transition: box-shadow 0.4s cubic-bezier(0.3, 0, 0.5, 1)
+	transition: all .3s cubic-bezier(0.3, 0, 0.5, 1)
 	user-select: none
 	touch-action: manipulation
 	vertical-align: middle
 	white-space: nowrap
 	word-wrap: break-word
-
+	min-width: 200px
+	width: 100%
+	transform: translateY(0)
 
 	&:hover
-		box-shadow: var(--theme-color-primary-alpha-030) 0 6px 6px, var(--theme-color-primary-alpha-030) 0 1px 0 inset
+		box-shadow: rgba( $pure-white , .3 ) 4px 4px 0
+		transform: translateY(2px)
 
 	&:disabled
 		background-color: #FAFBFC
@@ -34,14 +37,11 @@
 		box-shadow: rgba(225, 228, 232, 0.2) 0 1px 0 inset
 		transition: none 0s
 
-
 	&:focus
 		outline: 1px transparent
 
-
 	&:before
 		display: none
-
 
 	&:-webkit-details-marker
 		display: none
