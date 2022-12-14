@@ -64,8 +64,33 @@ function slow_atoms_customize_preview_js() {
 add_action( 'customize_preview_init', 'slow_atoms_customize_preview_js' );
 
 
-function slow_atoms_customize_register_2( $wp_customize ) {
+function slow_atoms_gtag_customize( $wp_customize ) {
+	/**
+ 	* **************  Google Analytics  **************
+ 	*/
+	/****************		Section		**************/
+	$wp_customize	-> add_section('slow_atoms_gtag_section', array(
+		'title' 			=> __('Google Analytics', 'slow-atoms'),
+		'priority' 			=> 1,
+	) ) ;
+	/****************		Setting		**************/
+	$wp_customize	-> add_setting( 'slow_atoms_gtag_setting', array(
+		'default'      		=> __( '', 'slow-atoms' ),
+		'sanitize_callback' => 'sanitize_text',
+	) ) ;
+	/****************		Control		**************/
+	$wp_customize	-> add_control( new WP_Customize_Control( $wp_customize , 'slow_atoms_gtag_control', array(
+		'label'    			=> __( 'Google Tag', 'slow-atoms' ),
+		'description' 		=> __( 'Set up Google Analytics for your website.' ),
+		'section' 			=> 'slow_atoms_gtag_section',
+		'settings' 			=> 'slow_atoms_gtag_setting',
+		'type'     			=> 'text'
+	) ) );
+}
 
+add_action('customize_register', 'slow_atoms_gtag_customize');
+
+function slow_atoms_customize_register_2( $wp_customize ) {
 	/**
  	* **************		STRAPLINE		**************
  	*/
@@ -88,7 +113,6 @@ function slow_atoms_customize_register_2( $wp_customize ) {
 		'settings' 			=> 'slow_atoms_front_page_title',
 		'type'     			=> 'text'
 	) ) );
-
 	/**
  	* **************		COLORS		**************
  	*/
@@ -135,12 +159,9 @@ function slow_atoms_customize_register_2( $wp_customize ) {
 		'choices' 	=> $choices,
 		'priority'	=> '1',
 	) );
-
-	
 }
 
 add_action('customize_register', 'slow_atoms_customize_register_2');
-
 
 
 function slow_atoms_customize_register( $wp_customize ) {
