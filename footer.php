@@ -22,7 +22,8 @@
 				<?php
 					wp_nav_menu(
 						array(
-							'theme_location' => 'useful-links'
+							'theme_location' => 'useful-links',
+							'menu_class'	=>	'footer--list'
 						)
 					);
 				?>
@@ -50,8 +51,8 @@
 
 <script>
 	AOS.init({
-	duration: 600,
-	easing: 'ease-in-sine',
+	duration: 700,
+	easing: 'ease-out-back',
 	disable: 'mobile'
 	});
 </script>
