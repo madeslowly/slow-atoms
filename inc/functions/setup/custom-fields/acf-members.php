@@ -45,11 +45,11 @@ if( function_exists( 'acf_add_local_field_group' ) ) :
 					'label' => 'Status',
 					'name' => 'ms_acf_people_status_name',
 					'type' => 'true_false',
-					'instructions' => 'Is this person a new addition to the group or are they leaving the group? If the person is leaving the group and becoming a visitor, select \'Alumni\' and add them the \'Visitor\' category.',
+					'instructions' => 'Is this person a new addition to the group or are they leaving the group? If the person is leaving the group and becoming a visitor, select \'Alumni\' below and then add them to the \'Visitor\' category under \'Team Roles\'.',
 					'required' => 0,
 					'conditional_logic' => 0,
 					'wrapper' => array(
-						'width' => '60',
+						'width' => '100',
 						'class' => '',
 						'id' => '',
 					),
@@ -64,7 +64,26 @@ if( function_exists( 'acf_add_local_field_group' ) ) :
 					'label' => 'Bio',
 					'name' => 'ms_acf_people_bio_name',
 					'type' => 'textarea',
-					'instructions' => '',
+					'instructions' => 'Background information and/or what they like doing outside the lab.',
+					'required' => 0,
+					'conditional_logic' => 0,
+					'wrapper' => array(
+						'width' => '',
+						'class' => '',
+						'id' => '',
+					),
+					'default_value' => '',
+					'placeholder' => '',
+					'maxlength' => '',
+					'rows' => 6,
+					'new_lines' => '',
+				),
+				array(
+					'key' => 'ms_acf_people_assignment_key',
+					'label' => 'Assignment',
+					'name' => 'ms_acf_people_assignment_name',
+					'type' => 'textarea',
+					'instructions' => 'Short description of what this person will be doing in the group.',
 					'required' => 0,
 					'conditional_logic' => 0,
 					'wrapper' => array(
@@ -84,7 +103,7 @@ if( function_exists( 'acf_add_local_field_group' ) ) :
 					'name' => 'ms_acf_people_email_name',
 					'type' => 'email',
 					'instructions' => '',
-					'required' => 0,
+					'required' => 1,
 					'conditional_logic' => array(
 						array(
 							array(
