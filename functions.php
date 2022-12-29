@@ -9,7 +9,7 @@
 
 if ( ! defined( '_S_VERSION' ) ) {
 	// Replace the version number of the theme on each release.
-	define( '_S_VERSION', '2.0.0' );
+	define( '_S_VERSION', '3.0.0' );
 }
 
 $ms_theme_dir = get_template_directory() ;
@@ -19,7 +19,8 @@ $ms_functions_dir = $ms_theme_dir . '/inc/functions/';
 /**
  * **************		ACTIVATION		**************
  */
-//require_once $ms_functions_dir . 'activation/register-db-tables.php';
+// require_once $ms_functions_dir . 'activation/register-db-tables.php';
+require_once $ms_functions_dir . 'activation/create-taxonomies.php';
 
 //add_action('after_switch_theme', 'slow_atoms_lreg_table_creation');
 
@@ -143,6 +144,27 @@ function slow_atoms_callbacks() {
 
 }
 add_action( 'init', 'slow_atoms_callbacks' );
+/**
+ * **************			APPS		**************
+ * 
+ * Register functions that are based on vendor APIs
+ */
+function slow_atoms_apps() {
+
+	global $ms_theme_dir ;
+	global $ms_functions_dir ;
+
+	$ms_callback_files = glob( $ms_functions_dir . 'apps/*' );
+
+	foreach ( $ms_callback_files as $ms_callback_file ) {
+		// ignore sub dirs
+		if ( is_file( $ms_callback_file ) ) {
+			//echo '$ms_function_file';
+			require_once $ms_callback_file ; } }
+
+}
+add_action( 'init', 'slow_atoms_apps' );
+
 /**
  * Set the content width in pixels, based on the theme's design and stylesheet.
  *
@@ -489,7 +511,6 @@ function output_css() {
 
 }
 
-//G-G9PN5MCKE0
 function slow_atoms_gtag($gtag) {
 
 	if ($gtag) :
@@ -565,3 +586,49 @@ function slow_atoms_disable_classic_editor() {
 
 }
 add_action( 'admin_head', 'slow_atoms_disable_classic_editor' );
+
+
+
+add_filter( 'wp_new_user_notification_email', 'custom_wp_new_user_notification_email', 10, 3 );
+
+function custom_wp_new_user_notification_email( $wp_new_user_notification_email, $user, $blogname ) {
+	$key = get_password_reset_key( $user );
+	$pwd_reset_url	= network_site_url("wp-login.php?action=rp&key=$key&login=" . rawurlencode($user->user_login), 'login');
+	$domain = parse_url( get_site_url() , PHP_URL_HOST ) ;
+	
+	$headers = array(
+		'Content-Type: text/html; charset=UTF-8',
+		'From:' . get_bloginfo('name') . '<no-reply@' . $domain . '>',
+		'Reply-To: Site Admin<' . get_bloginfo('admin_email') . '>',
+	);
+
+	$subject  = 'Welcome to ' . $domain ;
+
+	// Check if user is a group member
+	if ( get_user_meta( $user -> ID , 'ms_user_status' , true ) == 'group_member' ) :
+		$lab_wiki_url			= network_site_url( "labwiki" ) ;
+		$user_public_profile	= network_site_url( "people/" . rawurlencode( $user -> user_nicename ) ) ;
+		$user_private_profile	= network_site_url( "wp-admin/user-edit.php?user_id=" . rawurlencode( $user -> ID) ) ;
+
+		$greeting 				= $user -> first_name ;
+		$profile_edits			= 'After this you can login and edit your <a href="' . $user_public_profile . '">public</a> and <a href="' . $user_private_profile . '">private</a> profile pages.<br>' ;
+	
+	else :
+		$greeting 				= $user -> login_name ;
+		$profile_edits			= '';
+
+	endif ;
+
+	$message  = 'Hello ' . $greeting . ',<br><br>' ;
+	$message .= 'To complete your registration create your password, <a href="' . $pwd_reset_url . '">here</a>' ;
+	$message .= '<br><br>' ;
+	$message .= $profile_edits ;
+	$message .= 'You will also be able to view our <a href="' . $lab_wiki_url . '">lab wiki</a>. If you would like to contribute to our lab wiki send an email to ' . get_bloginfo('admin_email') ;
+	$message .= '<br><br>' ;
+
+	$wp_new_user_notification_email[ 'headers' ] = $headers ;
+	$wp_new_user_notification_email[ 'subject' ] = $subject ;
+	$wp_new_user_notification_email[ 'message' ] = $message ;
+	
+    return $wp_new_user_notification_email;
+}
