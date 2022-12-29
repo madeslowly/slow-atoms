@@ -28,7 +28,11 @@ while( $cnt <= 999 ):
 
 		$current_author =  $ms_acf_pub_alist[ $author ] ;
 
-		$tmp = '<span class="author-first-name">' . $current_author['ms_acf_alist_fname'] . '</span> <span class="author-initials">' . $current_author['ms_acf_alist_initials'] . '</span> <span class="author-last-name">' . $current_author['ms_acf_alist_lname'] . '</span>' ;
+		$tmp = '<span class="author-first-name">' . $current_author['ms_acf_alist_fname'] . '</span> ' ;
+		if ($current_author['ms_acf_alist_initials'] ) :
+			$tmp .= '<span class="author-initials">' . $current_author['ms_acf_alist_initials'] . '</span> ' ;
+		endif ;
+		$tmp .= '<span class="author-last-name">' . $current_author['ms_acf_alist_lname'] . '</span>' ;
 
 		array_push( $ms_acf_pub_alist_array , $tmp ) ;
 
