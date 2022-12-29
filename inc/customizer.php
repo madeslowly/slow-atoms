@@ -32,6 +32,21 @@ function slow_atoms_blog_customize_register( $wp_customize ) {
 				'render_callback' => 'slow_atoms_customize_partial_blogdescription',
 			)
 		);
+		$wp_customize->selective_refresh->add_partial( 'slow_atoms_front_page_blurb', array(
+			'selector' => '.sa__collage--card-blurb p',
+		) );
+		$wp_customize->selective_refresh->add_partial( 'blogname', array(
+			'selector' => '.is__front-page > section > header > h1',
+		) );
+		$wp_customize->selective_refresh->add_partial( 'blogdescription', array(
+			'selector' => '.page-description',
+		) );
+		$wp_customize->selective_refresh->add_partial( 'slow_atoms_front_page_desc', array(
+			'selector' => '.sa__collage--research-desc p',
+		) );
+		$wp_customize->selective_refresh->add_partial( 'slow_atoms_archives_research', array(
+			'selector' => '.sa__archive-blurb-text',
+		) );
 	}
 }
 
@@ -64,55 +79,8 @@ function slow_atoms_customize_preview_js() {
 add_action( 'customize_preview_init', 'slow_atoms_customize_preview_js' );
 
 
-function slow_atoms_gtag_customize( $wp_customize ) {
-	/**
- 	* **************  Google Analytics  **************
- 	*/
-	/****************		Section		**************/
-	$wp_customize	-> add_section('slow_atoms_gtag_section', array(
-		'title' 			=> __('Google Analytics', 'slow-atoms'),
-		'priority' 			=> 1,
-	) ) ;
-	/****************		Setting		**************/
-	$wp_customize	-> add_setting( 'slow_atoms_gtag_setting', array(
-		'default'      		=> __( '', 'slow-atoms' ),
-		'sanitize_callback' => 'sanitize_text',
-	) ) ;
-	/****************		Control		**************/
-	$wp_customize	-> add_control( new WP_Customize_Control( $wp_customize , 'slow_atoms_gtag_control', array(
-		'label'    			=> __( 'Google Tag', 'slow-atoms' ),
-		'description' 		=> __( 'Set up Google Analytics for your website.' ),
-		'section' 			=> 'slow_atoms_gtag_section',
-		'settings' 			=> 'slow_atoms_gtag_setting',
-		'type'     			=> 'text'
-	) ) );
-}
 
-add_action('customize_register', 'slow_atoms_gtag_customize');
-
-function slow_atoms_customize_register_2( $wp_customize ) {
-	/**
- 	* **************		STRAPLINE		**************
- 	*/
-	/****************		Section		**************/
-	$wp_customize	-> add_section('slow_atoms_theme_front_page', array(
-		'title' 			=> __('Front Page Strapline', 'slow-atoms'),
-		'priority' 			=> 1,
-	) ) ;
-	/****************		Setting		**************/
-	$wp_customize	-> add_setting( 'slow_atoms_front_page_title', array(
-		'default'      		=> __( 'Snappy strapline.', 'slow-atoms' ),
-		'sanitize_callback' => 'sanitize_text',
-		'transport' => 'postMessage',
-	) ) ;
-	/****************		Control		**************/
-	$wp_customize	-> add_control( new WP_Customize_Control( $wp_customize , 'slow_atoms_front_page_title_control', array(
-		'label'    			=> __( 'Homepage Title', 'slow-atoms' ),
-		'description' 		=> __( 'Title above the homepage content. Site title and tagline are found under "Site Identity"' ),
-		'section' 			=> 'slow_atoms_theme_front_page',
-		'settings' 			=> 'slow_atoms_front_page_title',
-		'type'     			=> 'text'
-	) ) );
+function slow_atoms_theme_colors( $wp_customize ) {
 	/**
  	* **************		COLORS		**************
  	*/
@@ -130,21 +98,20 @@ function slow_atoms_customize_register_2( $wp_customize ) {
 	foreach ( $options as $key => $label ) {
 		$wp_customize	-> add_setting( $key, array(
 			'sanitize_callback'	=> 'sanitize_hex_color',
-			//'transport'			=> 'postMessage',
 		) );
 		$wp_customize	->	add_control( new WP_Customize_Color_Control( $wp_customize, $key, array(
 			'label' 			=> $label,
 			'section' 			=> 'slow_atoms_colors',
 		) ) );
 	}
-	
+	/****************		Section		**************/
 	$wp_customize	-> add_section( 'slow_atoms_colors', array(
 		'title'		=> __( 'Colors', 'slow_atoms' ),
+		'priority'	=> '1',
 	) );
-	
+	/****************		Setting		**************/
 	$wp_customize	-> add_setting( 'color_scheme', array(
-		'default'	=> 'default',
-		//'transport' => 'postMessage',
+		'default'	=> 'classic',
 	) );
 	
 	$color_schemes = $obj -> get_color_schemes();
@@ -157,198 +124,190 @@ function slow_atoms_customize_register_2( $wp_customize ) {
 		'section'	=> 'slow_atoms_colors',
 		'type'    	=> 'select',
 		'choices' 	=> $choices,
-		'priority'	=> '1',
+		'priority'	=> 1,
 	) );
 }
 
-add_action('customize_register', 'slow_atoms_customize_register_2');
-
+add_action('customize_register', 'slow_atoms_theme_colors');
 
 function slow_atoms_customize_register( $wp_customize ) {
-
-	/**************************** PANELS ****************************/
-
-
-	// Theme Settings Panel
-	$wp_customize 		-> add_panel( 'slow_atoms_theme_panel' , array(
-		'title'			=> __('Theme Settings', 'slow-atoms'),
-		'priority' 		=> 1,
-		'capability'    => 'edit_theme_options',
-		'description'   => __('Several settings pertaining to Slow Atoms theme', 'slow-atoms'),
-	));
-
-	/**************************** SECTIONS ****************************/
-
-	// Featured images !front-page
-	$wp_customize 		-> add_section('slow_atoms_theme_archive_page_heros', array(
-		'title' 				=> __('Featured Images', 'slow-atoms'),
-		'priority' 			=> 3,
-		'panel' 				=> 'slow_atoms_theme_panel',
-	) ) ;
-	// Contact page details
-	$wp_customize 		-> add_section('slow_atoms_theme_contact_page_details', array(
-		'title' 				=> __('Contact Details', 'slow-atoms'),
+	/**
+ 	* **************  Google Analytics  **************
+ 	*/
+	/****************		Section		**************/
+	$wp_customize	-> add_section('slow_atoms_gtag_section', array(
+		'title' 			=> __('Google Analytics', 'slow-atoms'),
 		'priority' 			=> 4,
-		'panel' 				=> 'slow_atoms_theme_panel',
 	) ) ;
-	// Teaching Content
+	/****************		Setting		**************/
+	$wp_customize	-> add_setting( 'slow_atoms_gtag_setting', array(
+		'default'      		=> __( '', 'slow-atoms' ),
+		'sanitize_callback' => 'sanitize_text',
+	) ) ;
+	/****************		Control		**************/
+	$wp_customize	-> add_control( new WP_Customize_Control( $wp_customize , 'slow_atoms_gtag_control', array(
+		'label'    			=> __( 'Google Tag', 'slow-atoms' ),
+		'description' 		=> __( 'Set up Google Analytics for your website. ' ),
+		'section' 			=> 'slow_atoms_gtag_section',
+		'settings' 			=> 'slow_atoms_gtag_setting',
+		'type'     			=> 'text'
+	) ) );
+	/**
+ 	* **************  	Twitter API	  	**************
+ 	*/
+	/****************	Sections		**************/
+	$wp_customize	-> add_section('slow_atoms_twitter_section', array(
+		'title' 			=> __('Twitter API', 'slow-atoms'),
+		'description'		=> 'Integrate Twitter with your website. Create a Twitter app at developer.twitter.com to get your Keys and Access Tokens.',
+		'priority' 			=> 4,
+	) ) ;
+	/****************	Settings		**************/
+	$wp_customize->add_setting( 'slow_atoms_twitter_enable_setting', array(
+		'default' => false,
+		//'sanitize_callback' => 'themeslug_customizer_sanitize_radio',
+	  ) );
+	$wp_customize	-> add_setting( 'slow_atoms_twitter_consumerKey_setting', array(
+		'default'      		=> __( '', 'slow-atoms' ),
+		'sanitize_callback' => 'sanitize_text',
+	) ) ;
+	$wp_customize	-> add_setting( 'slow_atoms_twitter_consumerSecret_setting', array(
+		'default'      		=> __( '', 'slow-atoms' ),
+		'sanitize_callback' => 'sanitize_text',
+	) ) ;
+	$wp_customize	-> add_setting( 'slow_atoms_twitter_token_setting', array(
+		'default'      		=> __( '', 'slow-atoms' ),
+		'sanitize_callback' => 'sanitize_text',
+	) ) ;
+	$wp_customize	-> add_setting( 'slow_atoms_twitter_tokenSecret_setting', array(
+		'default'      		=> __( '', 'slow-atoms' ),
+		'sanitize_callback' => 'sanitize_text',
+	) ) ;
+	/****************	Controls		**************/
+	$wp_customize	-> add_control( new WP_Customize_Control( $wp_customize , 'slow_atoms_twitter_enable_control', array(
+		'label'    			=> __( 'Enable Twitter API', 'slow-atoms' ),
+		'section' 			=> 'slow_atoms_twitter_section',
+		'settings' 			=> 'slow_atoms_twitter_enable_setting',
+		'type'     			=> 'checkbox',
+		'choices' => array(
+			false => __( 'No' ),
+			true => __( 'Yes' ),
+		)
+			
+	) ) );
+	$wp_customize	-> add_control( new WP_Customize_Control( $wp_customize , 'slow_atoms_twitter_consumerKey_control', array(
+		'label'    			=> __( 'Consumer Key (API Key)', 'slow-atoms' ),
+		'section' 			=> 'slow_atoms_twitter_section',
+		'settings' 			=> 'slow_atoms_twitter_consumerKey_setting',
+		'type'     			=> 'text'
+	) ) );
+	$wp_customize	-> add_control( new WP_Customize_Control( $wp_customize , 'slow_atoms_twitter_consumerSecret_control', array(
+		'label'    			=> __( 'Consumer Secret (API Secret)', 'slow-atoms' ),
+		'section' 			=> 'slow_atoms_twitter_section',
+		'settings' 			=> 'slow_atoms_twitter_consumerSecret_setting',
+		'type'     			=> 'text'
+	) ) );
+	$wp_customize	-> add_control( new WP_Customize_Control( $wp_customize , 'slow_atoms_twitter_token_control', array(
+		'label'    			=> __( 'Access Token', 'slow-atoms' ),
+		'section' 			=> 'slow_atoms_twitter_section',
+		'settings' 			=> 'slow_atoms_twitter_token_setting',
+		'type'     			=> 'text'
+	) ) );
+	$wp_customize	-> add_control( new WP_Customize_Control( $wp_customize , 'slow_atoms_twitter_tokenSecret_control', array(
+		'label'    			=> __( 'Access Token Secret', 'slow-atoms' ),
+		'section' 			=> 'slow_atoms_twitter_section',
+		'settings' 			=> 'slow_atoms_twitter_tokenSecret_setting',
+		'type'     			=> 'text'
+	) ) );
+	/**
+ 	* **************	FRONT PAGE		**************
+ 	*/
+	/****************		Section		**************/
+	$wp_customize	-> add_section('slow_atoms_theme_front_page', array(
+		'title' 			=> __('Front Page', 'slow-atoms'),
+		'priority' 			=> 2,
+	) ) ;
+	/****************	Setting Strap	**************/
+	$wp_customize	-> add_setting( 'slow_atoms_front_page_title', array(
+		'default'      		=> __( 'Snappy strapline.', 'slow-atoms' ),
+		'sanitize_callback' => 'sanitize_text',
+		'transport' 		=> 'postMessage',
+	) ) ;
+	/****************	Control	Strap	**************/
+	$wp_customize	-> add_control( new WP_Customize_Control( $wp_customize , 'slow_atoms_front_page_title_control', array(
+		'label'    			=> __( 'Homepage Title', 'slow-atoms' ),
+		'description' 		=> __( 'Title above the homepage content. Site title and tagline are found under "Site Identity"' ),
+		'section' 			=> 'slow_atoms_theme_front_page',
+		'settings' 			=> 'slow_atoms_front_page_title',
+		'type'     			=> 'text'
+	) ) );
+	/****************	Setting	Blurb	**************/
+	$wp_customize	-> add_setting( 'slow_atoms_front_page_blurb', array(
+		//'default'      		=> __( 'Overview of the research .', 'slow-atoms' ),
+		'sanitize_callback' => 'sanitize_text',
+		'transport' 		=> 'postMessage',
+	) ) ;
+	/****************	Control	Blurb	**************/
+	$wp_customize	-> add_control( new WP_Customize_Control( $wp_customize , 'slow_atoms_front_page_blurb_control', array(
+		'label'    			=> __( 'Research Overview', 'slow-atoms' ),
+		'description' 		=> __( 'Short overview of your research.' ),
+		'section' 			=> 'slow_atoms_theme_front_page',
+		'settings' 			=> 'slow_atoms_front_page_blurb',
+		'type'     			=> 'textarea'
+	) ) );
+	/****************	Setting	Desc	**************/
+	$wp_customize	-> add_setting( 'slow_atoms_front_page_desc', array(
+		//'default'      		=> __( 'Overview of the research .', 'slow-atoms' ),
+		'sanitize_callback' => 'sanitize_text',
+		'transport' 		=> 'postMessage',
+	) ) ;
+	/****************	Control Desc		**************/
+	$wp_customize	-> add_control( new WP_Customize_Control( $wp_customize , 'slow_atoms_front_page_desc_control', array(
+		'label'    			=> __( 'Research Description', 'slow-atoms' ),
+		'description' 		=> __( 'Short description of your research.' ),
+		'section' 			=> 'slow_atoms_theme_front_page',
+		'settings' 			=> 'slow_atoms_front_page_desc',
+		'type'     			=> 'textarea'
+	) ) );
+	/**
+ 	* **************		ARCHIVES	**************
+ 	*/
+	/****************		Section		**************/
+	$wp_customize	-> add_section('slow_atoms_theme_archives', array(
+		'title' 			=> __('Archive Pages', 'slow-atoms'),
+		'priority' 			=> 3,
+	) ) ;
+	/**************** Setting Research	**************/
+	$wp_customize	-> add_setting( 'slow_atoms_archives_research', array(
+		'default'      		=> __( '', 'slow-atoms' ),
+		'sanitize_callback' => 'sanitize_text',
+		'transport' 		=> 'postMessage',
+	) ) ;
+	/**************** Control Research	**************/
+	$wp_customize	-> add_control( new WP_Customize_Control( $wp_customize , 'slow_atoms_archives_research_control', array(
+		'label'    			=> __( 'Research Description', 'slow-atoms' ),
+		'description' 		=> __( 'A more technical description of your research.' ),
+		'section' 			=> 'slow_atoms_theme_archives',
+		'settings' 			=> 'slow_atoms_archives_research',
+		'type'     			=> 'textarea'
+	) ) );
+	/**
+ 	* **************	TEACHING GUIDE	**************
+ 	*/
+	/****************		Section		**************/
 	$wp_customize 		-> add_section('slow_atoms_theme_teaching_material', array(
 		'title' 				=> __('Teaching Guide', 'slow-atoms'),
 		'priority' 			=> 5,
-		'panel' 				=> 'slow_atoms_theme_panel',
 	) ) ;
-
-	/**************************** SETTINGS ****************************/
-
-
-	// Research featured image
-	$wp_customize			-> add_setting( 'slow_atoms_theme_research_hero', array(
-		'default'				=> get_theme_file_uri('assets/image/logo.jpg'), // Add Default Image URL
-    'sanitize_callback' => 'esc_url_raw',
-		'transport' 		=> 'refresh',
-	));
-	// People featured image
-	$wp_customize			-> add_setting( 'slow_atoms_theme_people_hero', array(
-		'default'				=> get_theme_file_uri('assets/image/logo.jpg'), // Add Default Image URL
-    'sanitize_callback' => 'esc_url_raw',
-		'transport' 		=> 'refresh',
-	));
-	// Contact form shortcode
-	$wp_customize 		-> add_setting( 'slow_atoms_contact_form_shortcode', array(
-		'default'       => __( '[contact-form-7 id="" title=""]', 'slow-atoms' ),
-		'sanitize_callback' => 'sanitize_text',
-		'transport' 		=> 'refresh',
-	) ) ;
-	// Contact form building
-	$wp_customize 		-> add_setting( 'slow_atoms_contact_building_name', array(
-		'default'       => __( 'Building', 'slow-atoms' ),
-		'sanitize_callback' => 'sanitize_text',
-		'transport' 		=> 'refresh',
-	) ) ;
-	// Contact form street
-	$wp_customize 		-> add_setting( 'slow_atoms_contact_street_name', array(
-		'default'       => __( 'Street', 'slow-atoms' ),
-		'sanitize_callback' => 'sanitize_text',
-		'transport' 		=> 'refresh',
-	) ) ;
-	// Contact form street number
-	$wp_customize 		-> add_setting( 'slow_atoms_contact_street_number', array(
-		'default'       => __( '123', 'slow-atoms' ),
-		'sanitize_callback' => 'sanitize_text',
-		'transport' 		=> 'refresh',
-	) ) ;
-	// Contact form postcode
-	$wp_customize 		-> add_setting( 'slow_atoms_contact_postcode', array(
-		'default'       => __( '1234AB', 'slow-atoms' ),
-		'sanitize_callback' => 'sanitize_text',
-		'transport' 		=> 'refresh',
-	) ) ;
-	// Contact form city
-	$wp_customize 		-> add_setting( 'slow_atoms_contact_city', array(
-		'default'       => __( 'City', 'slow-atoms' ),
-		'sanitize_callback' => 'sanitize_text',
-		'transport' 		=> 'refresh',
-	) ) ;
-	// Contact form country
-	$wp_customize 		-> add_setting( 'slow_atoms_contact_country', array(
-		'default'       => __( 'Country', 'slow-atoms' ),
-		'sanitize_callback' => 'sanitize_text',
-		'transport' 		=> 'refresh',
-	) ) ;
-	// Teaching guide upload
+	/****************		Setting		**************/
 	$wp_customize		-> add_setting( 'slow_atoms_theme_pdf_upload_settings', array(
         'transport'         => 'refresh'
     ));
-  
-	/**************************** CONTROLS ****************************/
-
-
-	// Research archive hero image
-  $wp_customize			-> add_control( new WP_Customize_Image_Control( $wp_customize, 'slow_atoms_featured_image_research_control', array(
-		'label' 				=> 'Research Page Image',
-    'priority' 			=> 1,
-    'section' 			=> 'slow_atoms_theme_archive_page_heros',
-    'settings' 			=> 'slow_atoms_theme_research_hero',
-    'button_labels' => array(// All These labels are optional
-			'select' => 'Select Image',
-      'remove' => 'Remove Image',
-      'change' => 'Change Image',
-    ) ) ) );
-	// People archive hero image
-	$wp_customize			-> add_control( new WP_Customize_Image_Control( $wp_customize, 'slow_atoms_featured_image_people_control', array(
-		'label' 				=> 'People Page Image',
-    'priority' 			=> 2,
-    'section' 			=> 'slow_atoms_theme_archive_page_heros',
-    'settings' 			=> 'slow_atoms_theme_people_hero',
-    'button_labels' => array(// All These labels are optional
-			'select' => 'Select Image',
-      'remove' => 'Remove Image',
-      'change' => 'Change Image',
-    ) ) ) );
-	// Contact form shortcode
-	$wp_customize 		-> add_control( new WP_Customize_Control( $wp_customize , 'slow_atoms_contact_form_shortcode_control', array(
-		'label'    			=> __( 'Contact Form 7 Shortcode', 'slow-atoms' ),
-		'description' 	=> __( 'Shortcode to your contact form.' ),
-		'priority' 			=> 1,
-		'section' 			=> 'slow_atoms_theme_contact_page_details',
-		'settings' 			=> 'slow_atoms_contact_form_shortcode',
-		'type'     			=> 'text'
-	) ) );
-	// Contact form shortcode
-	$wp_customize 		-> add_control( new WP_Customize_Control( $wp_customize , 'slow_atoms_contact_building_name_control', array(
-		'label'    			=> __( 'Building Name', 'slow-atoms' ),
-		'priority' 			=> 2,
-		'section' 			=> 'slow_atoms_theme_contact_page_details',
-		'settings' 			=> 'slow_atoms_contact_building_name',
-		'type'     			=> 'text'
-	) ) );
-	// Contact form shortcode
-	$wp_customize 		-> add_control( new WP_Customize_Control( $wp_customize , 'slow_atoms_contact_street_name_control', array(
-		'label'    			=> __( 'Street Name', 'slow-atoms' ),
-		'priority' 			=> 3,
-		'section' 			=> 'slow_atoms_theme_contact_page_details',
-		'settings' 			=> 'slow_atoms_contact_street_name',
-		'type'     			=> 'text'
-	) ) );
-	// Contact form shortcode
-	$wp_customize 		-> add_control( new WP_Customize_Control( $wp_customize , 'slow_atoms_contact_street_number_control', array(
-		'label'    			=> __( 'Street Number', 'slow-atoms' ),
-		'priority' 			=> 4,
-		'section' 			=> 'slow_atoms_theme_contact_page_details',
-		'settings' 			=> 'slow_atoms_contact_street_number',
-		'type'     			=> 'text'
-	) ) );
-	// Contact form shortcode
-	$wp_customize 		-> add_control( new WP_Customize_Control( $wp_customize , 'slow_atoms_contact_postcode_control', array(
-		'label'    			=> __( 'Postcode', 'slow-atoms' ),
-		'priority' 			=> 4,
-		'section' 			=> 'slow_atoms_theme_contact_page_details',
-		'settings' 			=> 'slow_atoms_contact_postcode',
-		'type'     			=> 'text'
-	) ) );
-	// Contact form shortcode
-	$wp_customize 		-> add_control( new WP_Customize_Control( $wp_customize , 'slow_atoms_contact_city_control', array(
-		'label'    			=> __( 'City', 'slow-atoms' ),
-		'priority' 			=> 5,
-		'section' 			=> 'slow_atoms_theme_contact_page_details',
-		'settings' 			=> 'slow_atoms_contact_city',
-		'type'     			=> 'text'
-	) ) );
-	// Contact form shortcode
-	$wp_customize 		-> add_control( new WP_Customize_Control( $wp_customize , 'slow_atoms_contact_country_control', array(
-		'label'    			=> __( 'Country', 'slow-atoms' ),
-		'priority' 			=> 6,
-		'section' 			=> 'slow_atoms_theme_contact_page_details',
-		'settings' 			=> 'slow_atoms_contact_country',
-		'type'     			=> 'text'
-	) ) );
-	// Teaching guide upload
+	/****************		Control		**************/
 	$wp_customize		-> add_control( new WP_Customize_Upload_Control( $wp_customize, 'slow_atoms_theme_pdf_upload_settings', array(
         'label'             => __('PDF Upload', 'name-theme'),
         'section'           => 'slow_atoms_theme_teaching_material',
         'settings'          => 'slow_atoms_theme_pdf_upload_settings',    
     )));
-
 	// Sanitize text
 	function sanitize_text( $text ) {
 			return sanitize_text_field( $text );
