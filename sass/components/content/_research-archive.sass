@@ -6,6 +6,8 @@
 
 .is__research-archive
 
+  //background-color: var(--theme-color-primary-alpha-020)
+
   .research__list
     display: flex
     flex-wrap: wrap
@@ -13,6 +15,18 @@
     justify-content: space-between
     margin: 15vh auto
     row-gap: 15vh
+
+    .sa__archive-blurb-wrap
+      width: 90vw
+      text-align: justify
+      margin: 0 auto
+      & > .sa__archive-blurb-text
+        max-width: 800px
+        margin: 0 auto
+        padding: 0 2rem
+        color: var(--theme-color-primary)
+        border-left: 3px solid var(--theme-color-accent)
+        //border-top: 3px solid var(--theme-color-accent)
 
   .is__research-archive-entry
     width: 95vw
@@ -27,6 +41,7 @@
   .footer-edit-link
     display: none
     visibility: hidden
+  
 
 @media only screen and (min-width: 1024px)
 
@@ -87,7 +102,7 @@
       @include default-trans
       height: 32vh
       width: 20vw
-      background-color: var(--theme-color-primary-alpha-080)
+      background-color: var(--theme-color-secondary-alpha-080)
       padding: 3rem 3rem 0 3rem
 
       .research__project-title
@@ -104,7 +119,7 @@
       height: 32  vh
       width: 17vw
       bottom: 0
-      background-color: var(--theme-color-primary-alpha-080)
+      background-color: var(--theme-color-secondary-alpha-080)
       padding: 2rem 1rem 0 10px
       visibility: visible
 
