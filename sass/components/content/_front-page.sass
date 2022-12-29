@@ -1,3 +1,8 @@
+
+$collage_width: 95vw
+$collage_max_width: 1500px 
+$collage_card_height: 40vh
+	
 .is__front-page,
 .is__people-archive
 
@@ -13,3 +18,219 @@
 
 	.wp-block-columns
 		flex-direction: column-reverse
+
+
+// New front page template
+
+.sa__collage
+	width: 100vw
+	
+.sa__collage--card
+	position: relative
+	margin: 0
+	transition: opacity .3s
+
+.sa__collage-background-img
+	height: 100%
+	position: absolute
+	z-index: 1
+	background-repeat: no-repeat
+	background-size: cover
+	background-position: top
+	//filter: grayscale(70%)
+	background-blend-mode: darken
+	filter: contrast(120%) saturate(120%) //sepia(0%)
+
+.sa__collage--card-person,
+.sa__collage--card-research,
+.sa__collage--card-publication,
+.sa__collage--card-news
+	display: flex
+	overflow: visible
+
+.sa__collage--card-person
+	display: none
+
+.sa__collage--card-blurb
+	grid-area: blurb
+	display: flex
+	min-height: $collage_card_height
+	align-items: center
+	padding: 10vh 6vw
+	background-color: var(--theme-color-secondary)
+
+	& > .sa__collage--blurb-text
+		color: $soft-white
+		font-size: 3.2rem
+
+.sa__collage--card-research,
+.sa__collage--card-publication,
+.sa__collage--card-news
+	height: $collage_card_height
+
+.sa__collage--card-research
+	& > .sa__collage-background-img
+		background-color: var(--theme-color-accent)
+		
+.sa__collage--card-publication
+	& > .sa__collage-background-img
+		background-color: var(--theme-color-primary-alpha-040)
+
+.sa__collage--card-news
+	& > .sa__collage-background-img
+		background-color: var(--theme-color-secondary-alpha-040)
+
+.sa__collage-header
+	color: $pure-white
+	font-size: $collage_card_height / 10
+	word-spacing: $collage_card_height
+	display: flex
+	text-transform: lowercase
+	font-weight: 600
+	margin: 0
+	z-index: 2
+	padding: 1vh 2vw
+
+.sa__collage--person-title
+	text-align: right
+	font-size: $collage_card_height / 1
+
+.sa__collage--person-name
+	font-size: 3.1vw
+	font-weight: 600
+
+.sa__collage--popup
+	display: flex
+	flex-wrap: wrap
+	flex-direction: column
+	justify-content: center
+	position: absolute
+	padding: 0 2vw
+	margin: 0
+	color: $pure-white
+	z-index: 3
+	background-color: var(--theme-color-primary)
+	transition: transform .6s
+
+.sa--hover-up
+	height: 100%
+	width: 60%
+	transform: translateX(100%)
+
+	& > a
+		color: $pure-white
+		& > i
+			transition: transform .6s
+			transform: translateX(3px)
+	
+	& > a:hover
+		color: var(--theme-color-accent)
+		& > i
+			transform: translateX(8px)
+
+.sa__link,
+.sa__link:visited
+	color: $pure-white
+	font-size: 1.4vw
+	padding-bottom: 2rem
+	
+	&:hover,
+	&:focus,
+	&:active
+		color: var(--theme-color-accent)
+
+.sa__collage--research-desc
+	font-size: 2vw
+
+.sa__collage--publication-link
+	font-size: 10vw
+
+.sa--hover-left
+	width: 100%
+	height: 100%
+	bottom: 0
+	transform: translateX(100%)
+
+.sa__collage:hover
+	& > .sa__collage--card
+		opacity: .95
+
+	& > .sa__collage--card:hover
+		opacity: 1
+		& > .sa__collage--popup
+			transform: none
+
+@media screen and (min-width: 768px)
+	.sa__collage
+		display: grid
+		width: 95vw
+		max-width: 1500px
+		grid-template-columns: 1fr 1fr 1fr
+		grid-template-rows: auto
+		grid-template-areas: "blurb blurb person"	"research publication news"
+		gap: 6px
+		margin: 5vw auto
+
+	.sa__collage-background-img
+		width: 100%
+
+	.sa__collage--card
+		overflow: hidden
+
+	.sa--hover-up
+		height: 100%
+		width: 100%
+		transform: translateY(40vh)
+	
+	.sa__collage--card-research
+		grid-area: research
+
+	.sa__collage--card-publication
+		grid-area: publication
+
+	.sa__collage--card-news
+		grid-area: news
+
+	.sa__collage--card-person
+		display: flex
+		grid-area: person
+		position: relative
+		justify-content: flex-end
+
+		& > .sa__collage-background-img
+			background-color: var(--theme-color-secondary)
+			filter: contrast(120%) saturate(120%) //sepia(0%)
+			background-blend-mode: luminosity
+
+$break_min: calc($collage_max_width * $collage_width / 100vw )
+$break_card_width: $collage_max_width / 3
+$break_header_font: $break_card_width / 10
+@media screen and (min-width: $break_min )//1425px)
+
+	.sa__collage-header
+		font-size: $break_header_font // if we count sa__collage-header length with php we can set this more precisely
+		word-spacing: $break_card_width
+		line-height: 1.2
+	
+	.sa__collage--person-title
+		font-size: $break_header_font * 1.2
+		
+	
+	.sa__collage--research-desc
+		font-size: $break_header_font / 2
+
+	.sa__collage--publication-link,
+	.sa__collage--news-link
+		font-size: $break_header_font / 1.5
+
+	
+	.sa__collage--popup,
+	.sa__collage-header,
+	.sa__collage--popup.sa--hover-left
+		padding: 32px
+
+	.sa__collage--card-blurb
+		padding: 76px 76px
+
+	.sa__collage--person-name
+		font-size: $break_header_font
