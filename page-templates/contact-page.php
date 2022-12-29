@@ -14,14 +14,20 @@
   
   <section class="slow-atoms__page-content">
 
-    <div class="page-content__contact-form is__theme-background">
-      <?php the_title( '<h3 class="">', '</h3>' ) ;
-      $contact_form_shorcode =  get_field('ms_acf_contact_shortcode_name' ) ; 
-      echo do_shortcode($contact_form_shorcode) ; ?>
-    </div>
+    <?php
+    $contact_form_shorcode =  get_field('ms_acf_contact_shortcode_name' ) ; 
+    if ( $contact_form_shorcode ) : ?>
+      <div class="page-content__contact-form is__theme-background">
+        <?php the_title( '<h3 class="">', '</h3>' ) ; echo do_shortcode($contact_form_shorcode) ; ?>
+      </div>
+    <?php endif ; ?>
 
     <div class="page-content__contact-details">
+    <?php if ( ! $contact_form_shorcode ) : 
+        the_title( '<h3 class="contact-form__header">', '</h3>' ) ; 
+      else : ?>
       <h3 class="contact-form__header">Not a Form Fan?</h3>
+      <?php endif ; ?>
 
       <ul class="contact-details__options">
 
@@ -37,6 +43,7 @@
             $direct_contacts += [ get_sub_field('ms_acf_contact_directs_genname_name') => get_sub_field('ms_acf_contact_directs_genemail_name')  ] ;
             $direct_contacts += [ get_sub_field('ms_acf_contact_directs_webname_name') => get_sub_field('ms_acf_contact_directs_webemail_name')  ] ;          
           endwhile ;
+          // TODO: this doesnt work on theme install as the foreach only loops the default values, if updated
           foreach( $direct_contacts as $name => $email ) {
             if ( $email ) :
               $output_list .= '
