@@ -17,24 +17,9 @@ get_header();
 
 			<header class="page-header is__theme-background-transparent"> <?php
 				the_archive_title( '<h1 class="page-title">', '</h1>' );	?>
-			</header><!-- .page-header --> <?php
-
-			if ( get_theme_mod('slow_atoms_theme_people_hero') ) :
-
-				$image_url			= get_theme_mod('slow_atoms_theme_people_hero') ;
-				$image_ID       = attachment_url_to_postid( $image_url );
-				$image_srcset   = wp_get_attachment_image_srcset( $image_ID, 'full' ); ?>
-
-				<div class="post-thumbnail">
-					<img class="attachment-post-thumbnail size-post-thumbnail wp-post-image"
-					src="<?php echo $image_url ; ?>" srcset="<?php echo esc_attr( $image_srcset ); ?>" />
-				</div><!-- .post-thumbnail --> <?php
-
-			else :
-
-				slow_atoms_get_random_hero('post-thumbnail' ,'attachment-post-thumbnail size-post-thumbnail wp-post-image');
-
-			endif ; ?>
+			</header><!-- .page-header -->
+			
+			<?php slow_atoms_get_random_hero('post-thumbnail' ,'attachment-post-thumbnail size-post-thumbnail wp-post-image'); ?>
 
 		</section><!-- .slow-atoms__page-hero -->
 
