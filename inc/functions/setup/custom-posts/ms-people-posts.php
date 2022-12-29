@@ -34,7 +34,7 @@ function slow_atoms_people_post_type() {
     'menu_position' =>  29,
 		'public'				=>	true,
 		'has_archive'		=>	true,
-		'supports'			=>	array('title' , 'thumbnail'),
+		'supports'			=>	array('title' , 'thumbnail' , 'author'),
 		'show_in_rest'  => true,
     'rewrite'       => array('slug' => 'people'),
 	);
