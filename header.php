@@ -55,9 +55,7 @@
 				?>
 				"
 
-				<?php if ( is_user_logged_in() ) : ?>
-					style="top:32px;"
-				<?php endif ; ?>
+
 				>
 				<div class="site-branding">
 					<?php the_custom_logo();
