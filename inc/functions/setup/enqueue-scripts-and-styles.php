@@ -34,10 +34,6 @@ function slow_atoms_stylesheets() {
 }	
 
 function slow_atoms_scripts() {
-
-	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
-		wp_enqueue_script( 'comment-reply' ) ; 
-	}
 	
 	//wp_enqueue_script( 'polyfill', 'https://polyfill.io/v3/polyfill.min.js?features=es6', array(), '', true);
 	//wp_enqueue_script( 'mathjax', 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js', array('polyfill'), '', true);

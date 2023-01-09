@@ -14,3 +14,5 @@ rsync-exclusions.txt
 *.sql
 readme.txt
 README.md
+functions-removed.php
+LICENSE

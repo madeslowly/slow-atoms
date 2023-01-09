@@ -35,7 +35,7 @@ add_theme_support( 'slow_atoms_hooks', array(
 	 * Please make sure you then actually reference all the hooks in this file,
 	 * Plugin developers depend on it!
 	 */
-	'all',
+	//'all',
 
 	/**
 	 * Themes can also choose to only support certain hook types.
@@ -51,7 +51,7 @@ add_theme_support( 'slow_atoms_hooks', array(
 	'header',
 	'content',
 	'entry',
-	'comments',
+	//'comments',
 	'sidebars',
 	'sidebar',
 	'footer',
@@ -191,19 +191,6 @@ function slow_atoms_entry_top() {
 
 function slow_atoms_entry_bottom() {
 	do_action( 'slow_atoms_entry_bottom' );
-}
-
-/**
- * Comments block hooks
- *
- * $slow_atoms_supports[] = 'comments';
- */
-function slow_atoms_comments_before() {
-	do_action( 'slow_atoms_comments_before' );
-}
-
-function slow_atoms_comments_after() {
-	do_action( 'slow_atoms_comments_after' );
 }
 
 /**
