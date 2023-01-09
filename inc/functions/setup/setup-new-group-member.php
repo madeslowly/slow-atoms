@@ -28,6 +28,7 @@
  * Calls
  *  create_wp_user_for_ms_people()
  *  new_post_for_new_person()
+ * 
  */
 
 add_action('acf/save_post' , 'setup_new_group_member' , 11 , 1 ) ;
@@ -67,6 +68,6 @@ function setup_new_group_member( $ms_people_id ) {
     // Create a news posts about the new group member
     $news_post_id = new_post_for_new_person( $fields ) ;
 
-    file_put_contents( "vardump-userID.txt" ,  json_encode($fields) );
+    //file_put_contents( "vardump-userID.txt" ,  json_encode($fields) );
 
 }

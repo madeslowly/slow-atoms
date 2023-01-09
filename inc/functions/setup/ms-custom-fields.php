@@ -2,23 +2,22 @@
 
 /**
  * 
- * Load all acf custom fields from custom-fields dir
+ * Load all acf from custom-fields dir
  * 
- * This file is then loaded from functions.php
+ * This file is then loaded by functions.php
  * 
  */
 
-$ms_custom_fields_dir = $ms_theme_dir . "/inc/functions/setup/custom-fields/*";
+if( function_exists('acf_add_local_field_group') ):
 
-// glob the dir for files
-// https://www.php.net/manual/en/function.glob.php
+	require_once SLOW_ATOMS_SETUP_DIR . 'custom-fields/acf-contacts.php' ;
 
-$ms_custom_fileds_files = glob( $ms_custom_fields_dir );
+	require_once SLOW_ATOMS_SETUP_DIR . 'custom-fields/acf-hero-images.php' ;
 
-foreach ( $ms_custom_fileds_files as $ms_custom_fileds_file ) {
-	if ( is_file( $ms_custom_fileds_file ) ) {
-		require_once $ms_custom_fileds_file ;
-	}
-	
-}
+	require_once SLOW_ATOMS_SETUP_DIR . 'custom-fields/acf-members.php' ;
 
+	require_once SLOW_ATOMS_SETUP_DIR . 'custom-fields/acf-publications.php' ;
+
+	require_once SLOW_ATOMS_SETUP_DIR . 'custom-fields/acf-teaching.php' ;
+
+endif ;

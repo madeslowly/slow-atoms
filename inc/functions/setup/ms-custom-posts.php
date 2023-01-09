@@ -1,41 +1,25 @@
 <?php
 
 /**
- * 
- * Load all custom posts and taxonomies from custom-posts dir
- * 
- * This file is then loaded from functions.php
+ * Slow Atoms custom posts and taxonomies
+ *
+ * @link https://developer.wordpress.org/themes/basics/categories-tags-custom-taxonomies/
+ *
+ * @package slow_atoms
  * 
  */
 
-$ms_custom_posts_dir = $ms_theme_dir . "/inc/functions/setup/custom-posts/*";
+add_action('init' , 'slow_atoms_custom_posts');
 
-// glob the dir for files
-// https://www.php.net/manual/en/function.glob.php
+function slow_atoms_custom_posts(){
 
-$ms_custom_posts_files = glob( $ms_custom_posts_dir );
+	require_once SLOW_ATOMS_SETUP_DIR . 'custom-posts/ms-labwiki-posts.php' ;
 
-foreach ( $ms_custom_posts_files as $ms_custom_posts_file ) {
-	if ( is_file( $ms_custom_posts_file ) ) {
-		require_once $ms_custom_posts_file ;
-	}
-	
+	require_once SLOW_ATOMS_SETUP_DIR . 'custom-posts/ms-people-posts.php' ;
+
+	require_once SLOW_ATOMS_SETUP_DIR . 'custom-posts/ms-publications-posts.php' ;
+
+	require_once SLOW_ATOMS_SETUP_DIR . 'custom-posts/ms-research-posts.php' ;
+
+	require_once SLOW_ATOMS_SETUP_DIR . 'custom-posts/ms-teaching-posts.php' ;
 }
-
-add_action( 'init' , 'slow_atoms_wiki_post_type');
-
-add_action( 'init' , 'slow_atoms_wiki_taxonomy');
-
-add_action( 'init' , 'slow_atoms_people_post_type');
-
-add_action( 'init' , 'slow_atoms_people_taxonomy');
-
-add_action( 'init' , 'slow_atoms_publications_post_type');
-
-add_action( 'init' , 'slow_atoms_research_post_type');
-
-add_action( 'init' , 'slow_atoms_research_taxonomy');
-
-add_action( 'init' , 'slow_atoms_teaching_post_type');
-
-add_action( 'init' , 'slow_atoms_teaching_taxonomy');

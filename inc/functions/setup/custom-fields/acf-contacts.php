@@ -2,54 +2,53 @@
 
 /**
  * 
- * Register ACF fields for images to be randomly displayed on the homepage.
- * 
- * NOTE: should we replace this with a theme galleery mod?
+ * Register ACF contact details used to build the Contact Page.
  * 
  */
 
-if( function_exists('acf_add_local_field_group') ):
-
 acf_add_local_field_group(array(
-	'key' => 'ms_acf_contact_group',
-	'title' => 'Contact Details',
-	'fields' => array(
+	'key'		=> 'ms_acf_contact_group',
+	'title'		=> 'Contact Details',
+	'fields'	=> array(
 		array(
-			'key' => 'ms_acf_contact_add_group_key',
-			'label' => 'Address',
-			'name' => 'ms_acf_contact_add_group_name',
-			'aria-label' => '',
-			'type' => 'group',
-			'instructions' => '',
-			'required' => 0,
+			'key'			=> 'ms_acf_contact_add_group_key',
+			'label' 		=> 'Address',
+			'name' 			=> 'ms_acf_contact_add_group_name',
+			'aria-label' 	=> '',
+			'type' 			=> 'group',
+			'instructions' 	=> '',
+			'required' 		=> 0,
 			'conditional_logic' => 0,
-			'wrapper' => array(
-				'width' => '',
-				'class' => '',
-				'id' => '',
+			'wrapper' 		=> array(
+				'width'	=> '',
+				'class'	=> '',
+				'id'	=> '',
 			),
-			'layout' => 'block',
-			'sub_fields' => array(
+
+			'layout'		=> 'block',
+			'sub_fields'	=> array(
 				array(
-					'key' => 'ms_acf_contact_department_key',
-					'label' => 'Department or Group Name',
-					'name' => 'ms_acf_contact_department_name',
-					'aria-label' => '',
-					'type' => 'text',
-					'instructions' => 'Defaults to site tagline if left blank.',
-					'required' => 0,
+					'key'			=> 'ms_acf_contact_department_key',
+					'label'			=> 'Department or Group Name',
+					'name' 			=> 'ms_acf_contact_department_name',
+					'aria-label'	=> '',
+					'type' 			=> 'text',
+					'instructions' 	=> 'Defaults to site tagline if left blank.',
+					'required' 		=> 0,
 					'conditional_logic' => 0,
-					'wrapper' => array(
+					'wrapper' 		=> array(
 						'width' => '',
 						'class' => '',
-						'id' => '',
+						'id' 	=> '',
 					),
-					'default_value' => '',
-					'maxlength' => '',
-					'placeholder' => '',
-					'prepend' => '',
-					'append' => '',
+
+					'default_value'	=> '',
+					'maxlength'		=> '',
+					'placeholder'	=> '',
+					'prepend'		=> '',
+					'append'		=> '',
 				),
+
 				array(
 					'key' => 'ms_acf_contact_building_key',
 					'label' => 'Building or Department Name',
@@ -360,5 +359,3 @@ acf_add_local_field_group(array(
 	'description' => '',
 	'show_in_rest' => 0,
 ));
-
-endif;		

@@ -9,90 +9,72 @@
  * @package slow_atoms
  */
 
+if ( ! defined( 'ABSPATH' ) ) { exit; }
+
+
+/**
+ * Get any classes that may be being passed from template with 
+ * get_header('' , array( 'append_site-header_class' => array('new-class','new-class-2) ));
+ * 
+ * OR
+ * 
+ * get_header('' , array( 'append_site-header_class' => 'new-class' ));
+ */
+if ( $args['append_site-header_class'] ) {
+
+	$new_classes_args = $args['append_site-header_class'];
+
+	// Add space to start of string
+	$new_classes = ' ' ;
+
+	if( is_array( $new_classes_args ) ) {
+	
+		foreach ( $new_classes_args as $class ) {
+			$new_classes .= $class . ' ' ;
+		}
+	} else {
+		$new_classes .= $new_classes_args ;
+	} ;
+};
+
+$nav_menu = wp_nav_menu( array(
+	'menu'			=> '4',
+	'menu_id'       => 'primary-menu',
+	'menu_class'	=> 'navbar--list' . $new_classes,
+	'walker'		=> new Sub_Menu_Wrap(),
+	'echo'			=> false,
+	'fallback_cb'	=> 'slow_atoms_default_menu',
+) ) ; 
+			
 ?>
+
 <!DOCTYPE html>
-	<html <?php language_attributes(); ?> >
-		<head>
+<html <?php language_attributes(); ?> >
 
-			<?php 
-			$gtag = get_theme_mod( 'slow_atoms_gtag_setting'); 
-			if ( $gtag ) { ?>
-				<!-- Google tag (gtag.js) -->
-				<script async src='<?php echo "https://www.googletagmanager.com/gtag/js?id=" . $gtag ?>' ></script>
-				<script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', '<?php echo $gtag ?>'); </script> 
-			<?php } ; ?>
-		
-			<meta charset="<?php bloginfo('charset'); ?>">
-			<meta name="viewport" content="width=device-width, initial-scale=1">
-			<link rel="profile" href="https://gmpg.org/xfn/11">
-			
-			<!-- slow_atoms_structured_data() ; -->
-			<?php slow_atoms_og() ; ?>
+<head>
+<?php slow_atoms_head_top(); ?>
+<meta charset="<?php bloginfo('charset'); ?>">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="profile" href="https://gmpg.org/xfn/11">
+<?php wp_head(); ?>
+<?php slow_atoms_head_bottom(); ?>
+</head>
 
-			<?php wp_head(); ?>
-			
-		</head>
+<body <?php body_class(); ?> >
+<?php wp_body_open(); ?>
+<div id="page" class="site">
+<a class="skip-link screen-reader-text" href="#primary"><?php esc_html_e('Skip to content', 'slow-atoms'); ?></a>
 
-		<body <?php body_class(); ?> >
+<header id="masthead" class="site-header no-anim <?php echo $new_classes ; ?>">
 
-			<?php wp_body_open(); ?>
+<div class="site-branding">	<?php the_custom_logo(); ?>	</div><!-- .site-branding -->
 
-			<div id="page" class="site">
+<nav id="site-navigation" class="main-navigation">
+<?php echo $nav_menu ; ?>
 
-				<a class="skip-link screen-reader-text" href="#primary"><?php esc_html_e('Skip to content', 'slow-atoms'); ?></a>
+<div class="burger"><div class="burger-line-1"></div><div class="burger-line-2"></div><div class="burger-line-3"></div></div>
 
-				<header id="masthead" class="site-header no-anim
+</nav><!-- #site-navigation -->
+</header><!-- #masthead -->
 
-				<?php
-					/*
-			     * If we pass a new class from a template with get_header('' , array( 'append_site-header_class' => 'new-class' )); check it exists then append to menu_class
-			     */
-
-					if ($args['append_site-header_class']) :
-						$new_menu_class = ' ' . $args['append_site-header_class'];
-						echo $new_menu_class ;
-					endif;
-				?>
-				"
-
-
-				>
-				<div class="site-branding">
-					<?php the_custom_logo();
-
-					if (is_front_page() && is_home()) : ?>
-
-					<h1 class="site-title"><?php bloginfo('name'); ?></h1>
-					<?php else : ?>
-						<p class="site-title"><?php bloginfo('name'); ?></p>
-					<?php endif ;
-
-					$slow_atoms_description = get_bloginfo('description', 'display');
-
-					if ($slow_atoms_description || is_customize_preview()) : ?>
-
-					<p class="site-description"><?php echo $slow_atoms_description; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped?></p>
-						<?php endif; ?>
-					</div><!-- .site-branding -->
-
-					<nav id="site-navigation" class="main-navigation">
-						<?php
-
-			            wp_nav_menu(
-			                array(
-			                    'menu'			=>	'4',
-			                    'menu_id'       =>	'primary-menu',
-			                    'menu_class'	=>	'navbar--list' . $new_menu_class,
-			                    'walker'		=>	new submenu_wrap(),
-								'fallback_cb'	=>	'slow_atoms_default_menu',
-			            )
-			            ) ; ?>
-
-						<div class="burger">
-							<div class="burger-line-1"></div>
-							<div class="burger-line-2"></div>
-							<div class="burger-line-3"></div>
-						</div>
-
-					</nav><!-- #site-navigation -->
-				</header><!-- #masthead -->
+<?php

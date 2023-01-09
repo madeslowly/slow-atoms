@@ -2,7 +2,7 @@
 /**
  * Create a news post ($post) whenever a new group member is added ($ms_people)
  * 
- * @param $fields array(
+ * @param $fields	(array)
  *	ms_people_role					(str)
  *	ms_people_name					(str)
  *	ms_people_url   				(str|false)
@@ -15,7 +15,6 @@
  *	ms_acf_people_office_name		(str)
  *	ms_acf_people_postcode_name		(int)
  *	wp_user_id						(int)
- * )
  * 
  * @return $news_post_id	(int)
  * 

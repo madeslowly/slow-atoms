@@ -36,5 +36,3 @@ function slow_atoms_default_menu() {
 	echo $default_menu ;
 
 } // end slow_atoms_default_menu
-
-?>

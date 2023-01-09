@@ -9,47 +9,45 @@
  * @package slow_atoms
  */
 
+add_action('slow_atoms_head_bottom' , 'slow_atoms_og') ;
 
 function slow_atoms_og() {
     
-    $site_title = get_bloginfo();
-    $site_description = get_bloginfo('description');
-    $site_url = get_site_url() ;
+    $site_title         = get_bloginfo();
+    $site_description   = get_bloginfo('description');
+    $site_url           = get_site_url() ;
     $current_page_title = wp_title('&raquo;',FALSE) ;
-    $post_ID = get_the_ID() ;
+    $post_ID            = get_the_ID() ;
 
     // Get current url
     global $wp;
-    $current_page_url = home_url( $wp->request ) ;
+    $current_page_url   = home_url( $wp->request ) ;
     
     // Get featured image url
-    $post_thumb_url = get_the_post_thumbnail_url() ;
-    $post_thumb_type = end( explode('.', $post_thumb_url ) );
+    $post_thumb_url     = get_the_post_thumbnail_url() ;
+    $post_thumb_type    = end( explode('.', $post_thumb_url ) );
     // Get featured image alt text
-    $post_thumb_id = get_post_thumbnail_id();
-    $post_thumb_alt = get_post_meta($post_thumb_id, '_wp_attachment_image_alt', true);
+    $post_thumb_id      = get_post_thumbnail_id();
+    $post_thumb_alt     = get_post_meta($post_thumb_id, '_wp_attachment_image_alt', true);
     
     if ( is_front_page() ) :
         $og_title = $site_title . ' &raquo; ' . $site_description ;
     else : 
         $og_title = $site_title .  $current_page_title ;
-        
     endif ;
 
     if ( is_single() ) :
 
-        $og_type = 'article' ;
-
+        $og_type            = 'article' ;
         // Retrieve all taxonomy names for the given post.
-        $post_taxonomies = get_post_taxonomies();
-
-        $term_obj_list = get_the_terms( $post_ID, $post_taxonomies[0] );
+        $post_taxonomies    = get_post_taxonomies();
+        $term_obj_list      = get_the_terms( $post_ID, $post_taxonomies[0] );
         // All tags for current post 
-        $terms_string = join(', ', wp_list_pluck($term_obj_list, 'name'));        
+        $terms_string       = join(', ', wp_list_pluck($term_obj_list, 'name'));        
 
     else :
     
-        $og_type = 'website' ;
+        $og_type            = 'website' ;
 
     endif ;
 
@@ -87,4 +85,5 @@ function slow_atoms_og() {
     <meta property="og:site_name" content="<?php echo $og_title ?>" />
 
     <!-- *** END OG *** -->
-    <?php }
+    <?php 
+}

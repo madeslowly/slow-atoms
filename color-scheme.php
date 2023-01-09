@@ -20,12 +20,12 @@ class slow_atoms_Color_Scheme {
     }
     public function color_scheme_template() {
         $colors = array(
-            'slow_atoms_primary_theme_color'            => '{{ data.slow_atoms_primary_theme_color }}',
-            'slow_atoms_secondary_theme_color'       => '{{ data.slow_atoms_secondary_theme_color }}',
-            'slow_atoms_navbar_link_color' => '{{ data.slow_atoms_navbar_link_color }}',
-            'slow_atoms_accent_color' => '{{ data.slow_atoms_accent_color }}',
-            'footer_bg_color'       => '{{ data.footer_bg_color }}',
-            'highlight_color'       => '{{ data.highlight_color }}',
+            'slow_atoms_primary_theme_color'    => '{{ data.slow_atoms_primary_theme_color }}',
+            'slow_atoms_secondary_theme_color'  => '{{ data.slow_atoms_secondary_theme_color }}',
+            'slow_atoms_navbar_link_color'      => '{{ data.slow_atoms_navbar_link_color }}',
+            'slow_atoms_accent_color'           => '{{ data.slow_atoms_accent_color }}',
+            'footer_bg_color'                   => '{{ data.footer_bg_color }}',
+            'highlight_color'                   => '{{ data.highlight_color }}',
         );
         ?>
         <script type="text/html" id="tmpl-slow-atoms-color-scheme">
