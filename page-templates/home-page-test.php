@@ -107,7 +107,7 @@ get_header();
 
 			$output_html = '<div class="sa__collage--card sa__collage--card-publication" >' ;
 				$output_html .= '<div class="sa__collage-background-img" style="background-image: url(' . wp_get_attachment_image_url( $pub_thumb ) . ') "></div>';
-				$output_html .= '<h5 class="sa__collage-header sa__collage--publication-title" data-aos="fade-up" data-aos-delay="350">New Paper</h5>';
+				$output_html .= '<h5 class="sa__collage-header sa__collage--publication-title" data-aos="fade-up" data-aos-delay="200">New Paper</h5>';
 				$output_html .= $pub_meta ;
 			$output_html .= '</div>' ;
 
@@ -135,7 +135,7 @@ get_header();
 
 			$output_html = '<div class="sa__collage--card sa__collage--card-news" >' ;
 				$output_html .= '<div class="sa__collage-background-img" style="' . $thumb_url . '"></div>';
-				$output_html .= '<h5 class="sa__collage-header sa__collage--news-title" data-aos="fade-up" data-aos-delay="700">Latest News</h5>';
+				$output_html .= '<h5 class="sa__collage-header sa__collage--news-title" data-aos="fade-up" data-aos-delay="400">Latest News</h5>';
 				$output_html .= '<p class="sa__collage--popup sa--hover-up">';
 					$output_html .= the_title( sprintf('<span class="sa__collage--news-name"><a class="sa__link sa__collage--news-link" href="%s" rel="bookmark">' , esc_url( get_permalink() ) ), '</a></span>' , false) ;
 				$output_html .= '</p>' ;
