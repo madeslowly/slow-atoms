@@ -52,5 +52,5 @@ get_header('' , array( 'append_site-header_class' => 'is__light-background' )); 
 
 
 <?php
-get_sidebar();
+
 get_footer();

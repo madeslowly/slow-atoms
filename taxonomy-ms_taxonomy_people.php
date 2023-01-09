@@ -56,5 +56,5 @@ $tax_name = $cat_terms[0]->name ;
 	</main><!-- #main -->
 
 <?php
-get_sidebar();
+
 get_footer();

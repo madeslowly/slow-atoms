@@ -7,13 +7,11 @@
  * @package slow_atoms
  */
 
-if ( !is_user_logged_in() ) {
-	auth_redirect();
-}
+if ( !is_user_logged_in() ) { auth_redirect(); }
 
- get_header('' , array( 'append_site-header_class' => 'is__light-background' ));
+get_header('' , array( 'append_site-header_class' => 'is__light-background' ));
 
- ?>
+?>
 
 <main id="primary" class="">
 
@@ -41,5 +39,5 @@ if ( !is_user_logged_in() ) {
 </main><!-- #main -->
 
 <?php
-get_sidebar();
+
 get_footer();

@@ -60,7 +60,7 @@ else : // Currently just wp native posts
 	</main><!-- #main -->
 
 	<?php
-	get_sidebar();
+	
 	get_footer();
 
 endif;
