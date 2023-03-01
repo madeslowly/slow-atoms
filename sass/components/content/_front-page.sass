@@ -23,15 +23,18 @@ $collage_card_height: 40vh
 // New front page template
 
 .sa__collage
+	display: flex
+	flex-direction: column
 	width: 100vw
 	
 .sa__collage--card
 	position: relative
 	margin: 0
-	transition: opacity .3s
+	min-height: 60vh
 
 .sa__collage-background-img
 	height: 100%
+	width: 100vw
 	position: absolute
 	z-index: 1
 	background-repeat: no-repeat
@@ -49,7 +52,14 @@ $collage_card_height: 40vh
 	overflow: visible
 
 .sa__collage--card-person
+	//display: flex
+
+
+.sa__collage--card-person > .sa__collage--popup > .sa__link
 	display: none
+
+.sa__collage--card-person > .sa__collage--popup > .sa__link:nth-child(1)
+	display: block
 
 .sa__collage--card-blurb
 	grid-area: blurb
@@ -69,21 +79,29 @@ $collage_card_height: 40vh
 	height: $collage_card_height
 
 .sa__collage--card-research
+	height: auto
+	min-height: auto
+	background: linear-gradient( -20deg, var(--theme-color-accent) 0%, var(--theme-color-primary) 50% ) 
+
+	& > .sa__collage--research-title,
 	& > .sa__collage-background-img
-		background-color: var(--theme-color-accent)
+		display: none
+		//background-color: var(--theme-color-accent)
 		
 .sa__collage--card-publication
+	display: none
 	& > .sa__collage-background-img
 		background-color: var(--theme-color-primary-alpha-040)
 
 .sa__collage--card-news
+	display: none
 	& > .sa__collage-background-img
 		background-color: var(--theme-color-secondary-alpha-040)
 
 .sa__collage-header
 	color: $pure-white
 	font-size: $collage_card_height / 10
-	word-spacing: $collage_card_height
+	//word-spacing: $collage_card_height
 	display: flex
 	text-transform: lowercase
 	font-weight: 600
@@ -93,29 +111,47 @@ $collage_card_height: 40vh
 
 .sa__collage--person-title
 	text-align: right
-	font-size: $collage_card_height / 1
+	//font-size: $collage_card_height / 1
 
 .sa__collage--person-name
-	font-size: 3.1vw
+	//color: var(--theme-color-accent)
+	font-size: 3rem
 	font-weight: 600
+
+.sa__collage--card-person
+	display: flex
+	grid-area: person
+	position: relative
+	justify-content: flex-end
+
+	& > .sa__collage-background-img
+		background-color: var(--theme-color-secondary)
+		filter: contrast(70%) saturate(120%) sepia(0%)
+		background-blend-mode: lighten
 
 .sa__collage--popup
 	display: flex
 	flex-wrap: wrap
 	flex-direction: column
-	justify-content: center
-	position: absolute
-	padding: 0 2vw
+	justify-content: flex-end
+	//position: absolute
+	padding: 10vh 6vw 20vh 6vw
 	margin: 0
 	color: $pure-white
 	z-index: 3
-	background-color: var(--theme-color-primary)
+	//background-color: var(--theme-color-primary)
 	transition: transform .6s
+
+.sa--hover-left
+	width: 100%
+	height: 100%
+	bottom: 0
+	//transform: translateX(100%)
 
 .sa--hover-up
 	height: 100%
-	width: 60%
-	transform: translateX(100%)
+	width: 100%
+	//transform: translateX(100%)
 
 	& > a
 		color: $pure-white
@@ -131,7 +167,7 @@ $collage_card_height: 40vh
 .sa__link,
 .sa__link:visited
 	color: $pure-white
-	font-size: 1.4vw
+	font-size: 2rem
 	padding-bottom: 2rem
 	
 	&:hover,
@@ -140,16 +176,10 @@ $collage_card_height: 40vh
 		color: var(--theme-color-accent)
 
 .sa__collage--research-desc
-	font-size: 2vw
+	font-size: 2.6rem
 
 .sa__collage--publication-link
 	font-size: 10vw
-
-.sa--hover-left
-	width: 100%
-	height: 100%
-	bottom: 0
-	transform: translateX(100%)
 
 .sa__collage:hover
 	& > .sa__collage--card
@@ -161,6 +191,10 @@ $collage_card_height: 40vh
 			transform: none
 
 @media screen and (min-width: 768px)
+
+	.sa__collage--card-person > .sa__collage--popup > .sa__link
+		display: block
+
 	.sa__collage
 		display: grid
 		width: 95vw
@@ -175,12 +209,38 @@ $collage_card_height: 40vh
 		width: 100%
 
 	.sa__collage--card
+		justify-content: center
+		height: 40vh
+		min-height: 40vh
 		overflow: hidden
+	
+	.sa__collage-header
+		font-size: $collage_card_height / 10
+		word-spacing: $collage_card_height
+		display: flex
+		padding: 1vh 2vw
+
+	.sa__collage--popup
+		display: flex
+		flex-wrap: wrap
+		flex-direction: column
+		justify-content: center
+		position: absolute
+		padding: 0 2vw
+		margin: 0
+		color: $pure-white
+		z-index: 3
+		background-color: var(--theme-color-primary)
+		transition: transform .6s
 
 	.sa--hover-up
-		height: 100%
-		width: 100%
 		transform: translateY(40vh)
+	
+	.sa--hover-left
+		transform: translateX(100%)
+	
+	.sa__collage--card-blurb
+		background-color: var(--theme-color-secondary)
 	
 	.sa__collage--card-research
 		grid-area: research
@@ -201,6 +261,17 @@ $collage_card_height: 40vh
 			background-color: var(--theme-color-secondary)
 			filter: contrast(120%) saturate(120%) //sepia(0%)
 			background-blend-mode: luminosity
+	
+	.sa__collage--person-name
+		font-size: 3.1vw
+		font-weight: 600
+
+	.sa__link,
+	.sa__link:visited
+		color: $pure-white
+		font-size: 1.4vw
+		padding-bottom: 2rem
+
 
 $break_min: calc($collage_max_width * $collage_width / 100vw )
 $break_card_width: $collage_max_width / 3
