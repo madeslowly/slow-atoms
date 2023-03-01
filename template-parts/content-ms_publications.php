@@ -103,7 +103,7 @@ else :
 
 	$ms_acf_pub_doi_name = sprintf( '<a href="%s" rel="bookmark">' , esc_url( get_permalink() ) ) . 'Abstract</a>' .  ' | ' . sprintf( '<a href="%s" rel="bookmark">' , esc_url( 'doi.org/' . get_field('ms_acf_pub_doi_name') ) ) . 'doi</a>' ;
 
-	$data_aos = 'data-aos="fade-in"' ;
+	$data_aos = 'data-aos="fade-up"' ;
 
 endif ;
 
