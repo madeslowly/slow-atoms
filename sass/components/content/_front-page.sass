@@ -81,17 +81,24 @@ $collage_card_height: 40vh
 .sa__collage--card-research
 	height: auto
 	min-height: auto
-	background: linear-gradient( -20deg, var(--theme-color-accent) 0%, var(--theme-color-primary) 50% ) 
+	overflow: hidden
+	//background: linear-gradient( -20deg, var(--theme-color-accent) 0%, var(--theme-color-primary) 50% ) 
+	background-color: var(--theme-color-primary-alpha-080)
 
-	& > .sa__collage--research-title,
-	& > .sa__collage-background-img
+	& > .sa__collage--research-title
 		display: none
-		//background-color: var(--theme-color-accent)
+	& > .sa__collage-background-img
+		
+		filter: blur(6px) opacity(.4) saturate(400%)//contrast(10%)
+		transform: scale(1.1)
+		background-blend-mode: darken
+
+		background-color: var(--theme-color-primary-alpha-080)
 		
 .sa__collage--card-publication
 	display: none
 	& > .sa__collage-background-img
-		background-color: var(--theme-color-primary-alpha-040)
+		background-color: var(--theme-color-primary-alpha-060)
 
 .sa__collage--card-news
 	display: none
@@ -122,7 +129,8 @@ $collage_card_height: 40vh
 	display: flex
 	grid-area: person
 	position: relative
-	justify-content: flex-end
+	justify-content: flex-start
+	flex-direction: column
 
 	& > .sa__collage-background-img
 		background-color: var(--theme-color-secondary)
@@ -135,7 +143,7 @@ $collage_card_height: 40vh
 	flex-direction: column
 	justify-content: flex-end
 	//position: absolute
-	padding: 10vh 6vw 20vh 6vw
+	padding: 4vh 6vw 4vh 6vw
 	margin: 0
 	color: $pure-white
 	z-index: 3
@@ -195,6 +203,8 @@ $collage_card_height: 40vh
 	.sa__collage--card-person > .sa__collage--popup > .sa__link
 		display: block
 
+	.sa__collage--card-publication, .sa__collage--card-news
+		display: grid
 	.sa__collage
 		display: grid
 		width: 95vw
@@ -207,6 +217,19 @@ $collage_card_height: 40vh
 
 	.sa__collage-background-img
 		width: 100%
+
+	.sa__collage--card-research
+
+		& > .sa__collage-background-img
+			background-blend-mode: darken
+			filter: contrast(120%) saturate(120%) //filter: none //blur(8px) opacity(.1) contrast(200%)
+			transform: scale(1)
+			background-color: var(--theme-color-primary-alpha-060)
+
+
+		& > .sa__collage--research-title
+			display: flex
+
 
 	.sa__collage--card
 		justify-content: center
@@ -255,7 +278,7 @@ $collage_card_height: 40vh
 		display: flex
 		grid-area: person
 		position: relative
-		justify-content: flex-end
+		justify-content: flex-start
 
 		& > .sa__collage-background-img
 			background-color: var(--theme-color-secondary)
