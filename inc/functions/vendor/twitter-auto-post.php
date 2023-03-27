@@ -9,6 +9,9 @@
  * @param       $post       (obj)
  * @param       $old_status (str)
  *
+ * When a post is updated the tweet_status == 200 stops re-tweeting. When a lab member has their role changed, a news posts is generated with
+ * a new posts title and ID (it's news after all that the person has changed roles). In this event this will tweet the new post. Any other
+ * changes to a lab members profile does not trigger this function.
  */ 
 
 add_action( 'publish_post', 'twitter_auto_post', 10, 3 );
@@ -56,10 +59,17 @@ function twitter_auto_post( $post_id, $post, $old_status ) {
 
     // Compose a $tweet using the gathered data:
     $post_title	= get_the_title( $post_id ) ;
+
+    $post_url   = get_post_permalink( $post_id ) ;
+    
     // TODO: better way to handle testing enviroemnts and production
     $post_image = str_replace( 'clients.local', 'com' , get_the_post_thumbnail_url( $post_id , 'full' )) ;
 
-    $tweet = $post_title ;
+    $tweet = $post_title . ' ' . $post_url ;
+    
+    // $fp = fopen('vardump.txt', 'w');
+    // fwrite($fp, serialize($tweet));
+    // fclose($fp);
 
     // Prepare for image upload
     $media_ids = array();
