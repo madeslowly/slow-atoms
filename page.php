@@ -19,8 +19,12 @@ get_header(); ?>
   
   while ( have_posts() ) :
     the_post();
-    get_template_part( 'template-parts/content', 'page' );
-
+    if ( is_front_page() ) :
+      get_template_part( 'template-parts/content', 'home' );
+    else :
+      get_template_part( 'template-parts/content', 'page' );
+    endif ;
+    
   endwhile; // End of the loop.
   ?>
 

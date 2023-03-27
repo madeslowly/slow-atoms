@@ -2,6 +2,8 @@
 /**
  * Create a news post ($post) whenever a new group member is added ($ms_people)
  * 
+ * This function is triggered by setup-new-group-member.php.
+ * 
  * @param $fields	(array)
  *	ms_people_role					(str)
  *	ms_people_name					(str)
@@ -23,9 +25,9 @@ function new_post_for_new_person( $fields ) {
 
 	// Create the title for the news post
 	if ( $fields['ms_people_role'] )  :
-		$title = 'New ' . $fields['ms_people_role'] . ' - ' . $fields['ms_people_name'] ;
+		$title = 'New ' . $fields['ms_people_role'] . ', ' . $fields['ms_people_name'] ;
 	else :
-		$title = 'New Group Member - ' . $fields['ms_people_name'] ;
+		$title = 'New Group Member, ' . $fields['ms_people_name'] ;
 	endif ;
 	
 	// Check to see if new member has a thumbnail
@@ -46,8 +48,21 @@ function new_post_for_new_person( $fields ) {
         'ping_status'		=> 'closed',
 		'post_category' 	=> array( get_category_by_slug('new-member') -> term_id ),
 	);
-	$news_post_id = wp_insert_post( $args );
+
+	// If the news post already exists, use wp_update_post() with the updated content
+	$existing_post_id = post_exists( $title, '', '', 'post', '' ) ;
+
+	if ( $existing_post_id ) :
+
+		$args = array('ID' => $existing_post_id ) + $args ;
+		$news_post_id = wp_update_post( $args ) ;
 	
+	else :
+
+		$news_post_id = wp_insert_post( $args ) ;
+	
+	endif ;
+
 	// Add the person thumbnail if it exists.
 	if ( $thumb_id ) :
 		set_post_thumbnail( $news_post_id, $thumb_id );

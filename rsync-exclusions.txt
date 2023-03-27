@@ -3,6 +3,7 @@ _scripts/
 .git/
 node_modules/
 sass/
+archive/
 .eslintrc
 .gitignore
 .stylelintrc.json

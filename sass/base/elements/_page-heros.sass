@@ -3,12 +3,13 @@
 	position: relative
 
 	.page-header
-		position: absolute
+		//position: absolute
 		bottom: 0
 		width: 100%
-		text-align: center
+		height: 70vh
+		//text-align: center
 		color: white
-		padding: 5vh 0
+		padding: 25vh 3rem
 		z-index: 1
 
 	.page-title
@@ -16,11 +17,12 @@
 		text-transform: uppercase
 
 	.page-description
-		display: none
-		visibility: hidden
+		//display: none
+		//visibility: hidden
 		text-transform: lowercase
 
 	.post-thumbnail
+		display: none
 		height: 70vh
 		overflow: hidden
 		position: relative
@@ -46,11 +48,16 @@
 
 	.slow-atoms__page-hero
 
+		.post-thumbnail
+			display: block
+
 		.page-header
+			position: absolute
 			bottom: 5vh
 			right: 5vh
 			padding: 5vh 100px
 			width: auto
+			height: auto
 			max-width: 800px
 			border-radius: 5vw 0 5vw
 

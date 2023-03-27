@@ -54,7 +54,7 @@ function slow_atoms_enqueue_inline_scripts(){
 
 	$pre_load_scrolled = 'function windowOnload(){ navBarScroll(); } window.onload = windowOnload;';
 
-	$aos_script_init = 'AOS.init({ duration: 700, easing: "ease-out-back", disable: "mobile"});';
+	$aos_script_init = 'AOS.init({ duration: 600, easing: "ease-out", disable: "mobile"});';
 
 	$css_anim_after_load = 'setTimeout(function(){document.querySelector("#masthead").classList.remove("no-anim");},600 );';
 

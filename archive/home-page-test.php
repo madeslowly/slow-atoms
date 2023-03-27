@@ -41,27 +41,21 @@ get_header();
 			
 			$output_html = '';
 			
-			$post_id = get_theme_mod( 'slow_atoms_front_page_featured') ;
-			$args = array(
-				'post_type'	=> 'ms_people',
-				'ID'		=>	$post_id,
-			);
-			$query	=	new WP_Query( $args );
-			$query	->	the_post( );
-			$tel	=	get_field('ms_acf_people_tel_name', $query->ID) ;
-			$email	=	get_field('ms_acf_people_email_name', $query->ID);
+			$person_id = get_theme_mod( 'slow_atoms_front_page_featured') ;
+
+			$tel	= get_field('ms_acf_people_tel_name', $person_id) ;
+			$email	= get_field('ms_acf_people_email_name', $person_id);
+			$name	= get_the_title( $person_id ) ;
+			$url	= get_permalink( $person_id ) ;
 			
 			$output_html = '<div class="sa__collage--card sa__collage--card-person">' ;
-				$output_html .= '<div class="sa__collage-background-img" style="background-image: url(' . get_the_post_thumbnail_url($post_id, 'full') . ') "></div>' ; 
+				$output_html .= '<div class="sa__collage-background-img" style="background-image: url(' . get_the_post_thumbnail_url( $person_id, 'full') . ') "></div>' ; 
 					$output_html .= '<h5 class="sa__collage-header sa__collage--person-title">Group Lead</h5>';
-					$output_html .= the_title( sprintf( '<div class="sa__collage--popup sa--hover-left"><a class="sa__link" href="%s" rel="bookmark"><h5 class="sa__collage--person-name">', esc_url( get_permalink() ) ), '</h5></a>' , false ) ; 
+					$output_html .= '<div class="sa__collage--popup sa--hover-left"><a class="sa__link" href="'. $url . '" rel="bookmark"><h5 class="sa__collage--person-name">' . $name . '</h5></a>' ; 
 					$output_html .= '<a class="sa__link" href="mailto:' . $email . '"><i class="fas fa-envelope"></i> ' . $email . '</a>' ;
 					$output_html .= '<a class="sa__link" href="tel:+31' .	$tel . '"><i class="fas fa-phone-square"></i> +31(0)' .	$tel . '</a>';
 					$output_html .= '</div>'; 
 			$output_html .= '</div>'; 
-
-			wp_reset_postdata();
-			unset($post_id);
 
 			echo $output_html ;		
 			

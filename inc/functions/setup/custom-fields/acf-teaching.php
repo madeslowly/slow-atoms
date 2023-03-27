@@ -44,7 +44,6 @@ acf_add_local_field_group( array(
                     'library'       => 'all',
                     'min_size'      => '',
                     'max_size'      => '',
-                    'mime_types'    => 'pdf',
                 ),
                 array(
                     'key'           => 'ms_acf_teach_title_key',
@@ -102,7 +101,6 @@ acf_add_local_field_group( array(
                     'library'           => 'all',
                     'min_size'          => '',
                     'max_size'          => '',
-                    'mime_types'        => 'pdf',
                 ),
                 array(
                     'key'               => 'ms_acf_teach_phide_key',
@@ -149,7 +147,6 @@ acf_add_local_field_group( array(
                     'library'           => 'all',
                     'min_size'          => '',
                     'max_size'          => '',
-                    'mime_types'        => 'pdf',
                 ),
                 array(
                     'key'               => 'ms_acf_teach_shide_key',
