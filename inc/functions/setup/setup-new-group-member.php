@@ -5,7 +5,7 @@
  * Setup up new members with a wp_user account 
  * Post to news about them.
  * 
- * We cant use publish_post hook as acf fields are saved after this and therofore not availible yet
+ * We cant use publish_post hook as acf fields are saved after this and therefore not availible yet
  * NOTE: acf/save_post only fires when a post with acf fields is saved/updated
  * 
  * @param $ms_people_id (int), id of the ms_people posts
