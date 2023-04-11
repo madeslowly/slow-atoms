@@ -36,7 +36,7 @@ function new_post_for_new_person( $fields ) {
 	endif ;
 	
 	$content	 =	'<p class="sa__new-member">' . $fields[ 'ms_acf_people_assignment_name' ] . '</p>' ;
-	$content	.=	'<p class="sa__new-member">' . $fields[ 'ms_acf_people_office_name' ] . ' can be found in ' . $person_office  . '</p>' ;
+	$content	.=	'<p class="sa__new-member">' . $fields['ms_people_name'] . ' can be found in ' . $fields[ 'ms_acf_people_office_name' ] . '</p>' ;
 	$content	.=	'<p class="sa__new-member"> <a href="' . $fields[ 'ms_people_url' ] . '">More details</a></p>' ;
 
 	// Note we set post_status to draft, so we can add the thumb before switching to publish
