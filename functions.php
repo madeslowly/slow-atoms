@@ -272,7 +272,8 @@ function custom_wp_new_user_notification_email( $wp_new_user_notification_email,
 		$user_private_profile	= network_site_url( "wp-admin/user-edit.php?user_id=" . rawurlencode( $user -> ID) ) ;
 
 		$greeting 				= $user -> first_name ;
-		$profile_edits			= 'After this you can login and edit your <a href="' . $user_public_profile . '">public</a> and <a href="' . $user_private_profile . '">private</a> profile pages.<br>' ;
+		$profile_edits			= 'After you create your password you can access your <a href="' . $user_public_profile . '">public</a> and <a href="' . $user_private_profile . '">private</a> profile pages.<br>' ;
+		$profile_edits		   .= 'Please add some information to your <a href="' . $user_public_profile . '">public profile page</a>.<br><br>' ;
 	
 	else :
 		$greeting 				= $user -> login_name ;
