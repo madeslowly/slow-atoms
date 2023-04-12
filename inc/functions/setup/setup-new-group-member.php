@@ -59,7 +59,7 @@ function setup_new_group_member( $ms_people_id ) {
     // Create a wp user account for the new user
     $wp_user_id = create_wp_user_for_ms_people( $fields ) ;
 
-    // Change ms_people author to to the newly created account, this means they can edit it
+    // Change ms_people author to the newly created account, this means they can edit it
     wp_update_post( array('ID' => $ms_people_id, 'post_author' => $wp_user_id) ) ;
     // TODO: if this post is updated later on by an admin, the author changes to them and the lower ranked user can no longer edit their own page
 
