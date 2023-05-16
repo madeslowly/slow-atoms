@@ -3,6 +3,7 @@
   width: 90vw
   height: 60vh
   border-radius: 5vw 0 5vw
+  border: solid 1px var(--theme-color-primary)
   overflow: hidden
   margin: 0 auto
 
@@ -11,7 +12,7 @@
   width: 100%
   object-fit: cover
   object-position: top
-  border: solid 1px var(--theme-color-primary)
+  
 
 .person__name-header
   display: flex
@@ -21,7 +22,7 @@
   padding: 2rem 0
   z-index: 3
   color: $pure-white
-  border-radius: 30px 0 0
+  border-radius: 30px 30px 0
 
 .is__single-person
   margin: 0 auto
@@ -77,8 +78,15 @@
     flex-wrap: wrap
     flex-direction: column
     justify-content: space-between
-    margin: 15vh auto
+    margin: 5vh auto
     row-gap: 15vh
+  
+  .role--header
+    width: 100vw
+    max-width: 1200px
+    margin: 5vh auto
+    margin-top: 10vh
+    padding-left: 5vw
 
   .is__people-archive-entry
     position: relative
@@ -94,9 +102,9 @@
   .person__name-header
     position: absolute
     bottom: -20px
-    left: 20px
-    background-color: var(--theme-color-primary-alpha-090)
-    width: 100%
+    left: 5%
+    background-color: var(--theme-color-primary-alpha-095)
+    width: 95%
     padding: 1rem 10px 0rem 2rem
     @include default-trans
     height: $font-size * 6
@@ -148,7 +156,8 @@
       z-index: 3
       box-shadow: 3px 3px 10px rgba(0,0,0,.2)
 
-    .person__name
+    .person__name,
+    .person__role
       color: var(--theme-color-primary)
 
     .person__meta
@@ -191,10 +200,10 @@
     .people__list
       display: flex
       flex-wrap: wrap
-      justify-content: space-around
+      justify-content: left
       flex-direction: row
       max-width: 1200px
-      margin: 15vh auto
+      margin: 5vh auto
       column-gap: 10px
       row-gap: 15vh
 
@@ -203,7 +212,7 @@
       overflow: hidden
       padding-right: 20px
       padding-bottom: 20px
-      margin: 0
+      margin-right: 20px
 
       &:hover
         .person__name-header
@@ -239,11 +248,7 @@
       //filter: grayscale(.8)
 
     .person__name-header
-      position: absolute
-      bottom: -20px
-      left: 20px
-      background-color: var(--theme-color-primary-alpha-090)
-      width: 100%
+      //width: 200%
       padding: 1rem 10px 0rem 2rem
       @include default-trans
       height: $font-size * 6

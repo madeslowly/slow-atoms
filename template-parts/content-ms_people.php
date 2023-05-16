@@ -46,8 +46,18 @@
 			echo "<div class='person__meta-entry'> " ;
 
 			foreach ( $post_roles as $post_role ) {
-				//NOTE: need to get taxonomy from post so its not hard coded here.
-				echo "<p class='person__role'>" . $post_role -> name . "</p>";
+
+				echo "<h4 class='person__role'>" ;
+				
+				if ( $post_role != $post_roles[0] ) {
+					echo " | " ;
+				}
+
+				echo $post_role -> name ;
+
+				echo "</h4> " ;
+
+
 			};
 
 			echo "</div>" ;
@@ -65,12 +75,11 @@
 			<?php
 
 			$bio				= get_field('ms_acf_people_bio_name', $post->ID);
+			$project			= get_field('ms_acf_people_assignment_name', $post->ID);
 			$email_address		= get_field('ms_acf_people_email_name', $post->ID);
 			$phone_number		= get_field('ms_acf_people_tel_name', $post->ID);
 			$office				= get_field('ms_acf_people_office_name', $post->ID);
 			$internal_postcode	= get_field('ms_acf_people_postcode_name', $post->ID);
-
-
 
 			while( have_rows('ms_acf_people_socials_group') ): the_row();
 
@@ -88,7 +97,6 @@
 			if ( ! empty( $phone_number ) ) :
 				echo "<li class='person__meta-item person__phone-number'><a class='person__meta-entry' href='tel:+31$phone_number'> <i class='fas fa-phone-square'></i><p>+31(0)$phone_number</p></a></li>"	;
 			endif ;
-
 
 			if ( ! empty( $twitter ) ) :
 				echo "<li class='person__meta-item person__twitter'><a class='person__meta-entry' href='$twitter'> <i class='fab fa-twitter'></i></a></li>" ;
@@ -118,7 +126,10 @@
 		if ( is_singular() ) : // single post ?>
 
 		<div class="person__bio-wrap">
-			<?php	echo "<p class='person__bio-entry'>" . $bio . "</p>" ; ?>
+			<?php	
+			echo "<p class='person__bio-entry'>" . $bio . "</p>" ; 
+			echo "<p class='person__bio-entry'>" . $project . "</p>" ;
+			?>
 		</div><!-- .person__bio -->
 
 		<?php	endif; ?>

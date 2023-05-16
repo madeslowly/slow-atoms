@@ -48,10 +48,10 @@ function setup_new_group_member( $ms_people_id ) {
     // Get wp core fields from post
     $fields = array(
         'ms_people_role'    => $person_roles[0] -> name,
-        'ms_people_name'    => the_title('' , '' , false),
+        'ms_people_name'    => the_title( '', '', false ),
         'ms_people_url'     => get_permalink( $ms_people_id ),
         'ms_people_thumb'   => get_post_thumbnail_id( $ms_people_id ),
-    );
+    ) ;
 
     // Add in the ACF fields
     $fields += get_fields( $ms_people_id ) ;
