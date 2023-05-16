@@ -50,7 +50,9 @@ require_once SLOW_ATOMS_CALLBACKS_DIR . 'structured-data.php' ;
 
 require_once SLOW_ATOMS_CALLBACKS_DIR . 'twitter-meta.php' ;
 
-require_once SLOW_ATOMS_CALLBACKS_DIR . 'create-wp-user-for-ms_people.php' ; 
+require_once SLOW_ATOMS_CALLBACKS_DIR . 'create-wp-user-for-ms_people.php' ;
+
+require_once SLOW_ATOMS_CALLBACKS_DIR . 'new-user-notification-email.php' ; 
 
 require_once SLOW_ATOMS_CALLBACKS_DIR . 'new-post-for-new-person.php' ;
 
@@ -95,7 +97,6 @@ require_once SLOW_ATOMS_THEME_DIR . '/inc/custom-header.php';
  */
 require_once SLOW_ATOMS_THEME_DIR . '/inc/customizer.php';
 
-
 require_once SLOW_ATOMS_THEME_DIR . '/inc/template-functions.php';
 
 require_once SLOW_ATOMS_THEME_DIR . '/inc/template-tags.php';
@@ -120,24 +121,6 @@ function slow_atoms_edit_post_link() {
 
 	endif ;
 }
-
-/**
- * 
- * Order selected archives alphabetically
- * NOTE: it would be better to have a func we can call from the archive template instead of a hard coded func here
- */
-
-//add_action( 'pre_get_posts', 'slow_atoms_change_sort_order'); 
-
-function slow_atoms_change_sort_order( $query ) {
-	if( is_post_type_archive( $post_types = ['ms_labwiki', 'ms_research', 'ms_people'])):
-		//If you wanted it for the archive of a custom post type use: is_post_type_archive( $post_type )
-		//Set the order ASC or DESC
-		$query->set( 'order', 'ASC' );
-		//Set the orderby
-		$query->set( 'orderby', 'date' );
-	endif;    
-};
 
 function slow_atoms_login_styles() { 
 	
@@ -249,48 +232,3 @@ function slow_atoms_disable_classic_editor() {
 add_action( 'admin_head', 'slow_atoms_disable_classic_editor' );
 
 
-
-add_filter( 'wp_new_user_notification_email', 'custom_wp_new_user_notification_email', 10, 3 );
-
-function custom_wp_new_user_notification_email( $wp_new_user_notification_email, $user, $blogname ) {
-	$key = get_password_reset_key( $user );
-	$pwd_reset_url	= network_site_url("wp-login.php?action=rp&key=$key&login=" . rawurlencode($user->user_login), 'login');
-	$domain = parse_url( get_site_url() , PHP_URL_HOST ) ;
-	
-	$headers = array(
-		'Content-Type: text/html; charset=UTF-8',
-		'From:' . get_bloginfo('name') . '<no-reply@' . $domain . '>',
-		'Reply-To: Site Admin<' . get_bloginfo('admin_email') . '>',
-	);
-
-	$subject  = 'Welcome to ' . $domain ;
-
-	// Check if user is a group member
-	if ( get_user_meta( $user -> ID , 'ms_user_status' , true ) == 'group_member' ) :
-		$lab_wiki_url			= network_site_url( "labwiki" ) ;
-		$user_public_profile	= network_site_url( "people/" . rawurlencode( $user -> user_nicename ) ) ;
-		$user_private_profile	= network_site_url( "wp-admin/user-edit.php?user_id=" . rawurlencode( $user -> ID) ) ;
-
-		$greeting 				= $user -> first_name ;
-		$profile_edits			= 'After you create your password you can access your <a href="' . $user_public_profile . '">public</a> and <a href="' . $user_private_profile . '">private</a> profile pages.<br>' ;
-		$profile_edits		   .= 'Please add some information to your <a href="' . $user_public_profile . '">public profile page</a>.<br><br>' ;
-	
-	else :
-		$greeting 				= $user -> login_name ;
-		$profile_edits			= '';
-
-	endif ;
-
-	$message  = 'Hello ' . $greeting . ',<br><br>' ;
-	$message .= 'To complete your registration create your password, <a href="' . $pwd_reset_url . '">here</a>' ;
-	$message .= '<br><br>' ;
-	$message .= $profile_edits ;
-	$message .= 'You will also be able to view our <a href="' . $lab_wiki_url . '">lab wiki</a>. If you would like to contribute to our lab wiki send an email to ' . get_bloginfo('admin_email') ;
-	$message .= '<br><br>' ;
-
-	$wp_new_user_notification_email[ 'headers' ] = $headers ;
-	$wp_new_user_notification_email[ 'subject' ] = $subject ;
-	$wp_new_user_notification_email[ 'message' ] = $message ;
-	
-    return $wp_new_user_notification_email;
-}
