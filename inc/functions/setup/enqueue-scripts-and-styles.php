@@ -52,11 +52,11 @@ add_action( 'wp_enqueue_scripts', 'slow_atoms_enqueue_inline_scripts' );
 
 function slow_atoms_enqueue_inline_scripts(){
 
-	$pre_load_scrolled = 'function windowOnload(){ navBarScroll(); } window.onload = windowOnload;';
+	$pre_load_scrolled		= 'function windowOnload(){ navBarScroll(); } window.onload = windowOnload;';
 
-	$aos_script_init = 'AOS.init({ duration: 600, easing: "ease-out", disable: "mobile"});';
+	$aos_script_init		= 'AOS.init({ duration: 600, easing: "ease-out", disable: "mobile"});';
 
-	$css_anim_after_load = 'setTimeout(function(){document.querySelector("#masthead").classList.remove("no-anim");},600 );';
+	$css_anim_after_load	= 'setTimeout(function(){document.querySelector("#masthead").classList.remove("no-anim");},600 );';
 
 	wp_add_inline_script( 'slow-atoms-nav-scrolled', $pre_load_scrolled, 'after' );
 

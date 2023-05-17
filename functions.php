@@ -229,6 +229,4 @@ function slow_atoms_disable_classic_editor() {
 	}
 
 }
-add_action( 'admin_head', 'slow_atoms_disable_classic_editor' );
-
-
+add_action( 'admin_head', 'slow_atoms_disable_classic_editor' ) ;
