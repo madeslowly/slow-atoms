@@ -14,7 +14,7 @@
  * 
  */
 
-if ( is_post_type_archive( array ( 'ms_labwiki' , 'ms_people' , 'ms_research' , 'ms_teaching' , 'ms_publications' ) ) ) :
+if ( is_post_type_archive( array ( 'ms_labwiki' , 'ms_people' , 'ms_research' , 'ms_teaching' , 'ms_publications', 'ms_equipment' ) ) ) :
 
 	get_template_part( 'ms-custom-archives/archive', get_post_type() );
 

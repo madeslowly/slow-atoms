@@ -13,7 +13,7 @@
  * 
  */
 
- if ( is_singular( array ( 'ms_labwiki' , 'ms_people' , 'ms_research' , 'ms_teaching' , 'ms_publications' ) ) ) :
+ if ( is_singular( array ( 'ms_labwiki' , 'ms_people' , 'ms_research' , 'ms_teaching' , 'ms_publications', 'ms_equipment' ) ) ) :
 
 	get_template_part( 'ms-custom-singles/single', get_post_type() );
 
