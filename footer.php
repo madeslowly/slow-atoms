@@ -8,7 +8,7 @@
 *
 * @package slow-atoms
 */
-
+if ( ! defined( 'ABSPATH' ) ) {	exit; }
 ?>
 
 <footer class="slow-atoms__footer">
