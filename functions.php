@@ -116,7 +116,7 @@ function slow_atoms_edit_post_link() {
 		edit_post_link(
 			sprintf( wp_kses(
 				/* translators: %s: Name of current post. Only visible to screen readers */
-				__( 'Edit <span class="screen-reader-text">%s</span>', 'slow-atoms' ),
+				__( 'Edit ' . get_post_type_object( get_post_type() ) -> labels -> singular_name . '<span class="screen-reader-text">%s</span>', 'slow-atoms' ),
 				
 				array( 'span' => array( 'class' => array(), ), ) ),
 
