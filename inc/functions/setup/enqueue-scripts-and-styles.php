@@ -31,6 +31,12 @@ function slow_atoms_stylesheets() {
 	wp_enqueue_style( 'slow-atoms-style', get_stylesheet_uri(), array(), SLOW_ATOMS_THEME_VERSION );
 
 	wp_style_add_data( 'slow-atoms-style-', 'rtl', 'replace' );
+
+	if ( is_singular( array ( 'ms_equipment' ) ) ) {
+		wp_enqueue_style( 'flatpickr', 'https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css' ) ;
+		wp_enqueue_style( 'flatpickr-dark-theme', 'https://npmcdn.com/flatpickr/dist/themes/dark.css' ) ;
+	}
+
 }	
 
 function slow_atoms_scripts() {
@@ -45,6 +51,10 @@ function slow_atoms_scripts() {
 	wp_enqueue_script( 'slow-atoms-nav-scrolled', get_template_directory_uri() . '/inc/js/navBarScroll.js', array(), SLOW_ATOMS_THEME_VERSION, true);
 
 	// TODO: do we need this wp_enqueue_script( 'slow-atoms-color-scheme-preview', get_template_directory_uri() . '/inc/js/color-scheme-preview.js', array( 'customize-preview' ), '', true );
+
+	if ( is_singular( array ( 'ms_equipment' ) ) ) {
+		wp_enqueue_script( 'flatpickr', 'https://cdn.jsdelivr.net/npm/flatpickr', array(), SLOW_ATOMS_THEME_VERSION, false) ;
+	}
 
 }
 

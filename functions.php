@@ -22,6 +22,7 @@ define( 'SLOW_ATOMS_FUNC_DIR', SLOW_ATOMS_THEME_DIR . '/inc/functions/' );
 define( 'SLOW_ATOMS_ACTIVATION_DIR', SLOW_ATOMS_FUNC_DIR . '/activation/' );
 define( 'SLOW_ATOMS_SETUP_DIR',	SLOW_ATOMS_FUNC_DIR	. '/setup/' );
 define( 'SLOW_ATOMS_CALLBACKS_DIR',	SLOW_ATOMS_FUNC_DIR	. '/callbacks/' );
+define( 'SLOW_ATOMS_HOOKS_DIR',	SLOW_ATOMS_FUNC_DIR	. '/hooks/' );
 define( 'SLOW_ATOMS_VENDOR_DIR', SLOW_ATOMS_FUNC_DIR	. '/vendor/' );
 
 
@@ -31,15 +32,19 @@ require_once SLOW_ATOMS_FUNC_DIR . 'wp-cleanup.php' ;
  * **************		ACTIVATION		**************
  */
 require_once SLOW_ATOMS_ACTIVATION_DIR . 'create-taxonomies.php';
+require_once SLOW_ATOMS_ACTIVATION_DIR . 'register-sabk-tables.php';
 
 /**
  * **************		HOOKS		**************
  */
 require_once SLOW_ATOMS_FUNC_DIR . 'theme-hooks.php' ;
+require_once SLOW_ATOMS_HOOKS_DIR . 'process-booking.php' ;
 
 /**
  * **************		CALLBACKS		**************
  */
+require_once SLOW_ATOMS_CALLBACKS_DIR . 'equipment-booking-form.php' ;
+
 require_once SLOW_ATOMS_CALLBACKS_DIR . 'og-meta.php' ;
 
 require_once SLOW_ATOMS_CALLBACKS_DIR . 'color-functions.php' ;
