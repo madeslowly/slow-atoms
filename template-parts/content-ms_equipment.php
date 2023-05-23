@@ -7,12 +7,26 @@
  * @package slow_atoms
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-    exit ; // Exit if accessed directly.
+
+$ms_acf_equip_images =  get_field('ms_acf_equip_images') ;
+
+for ( $i = 1 ; $i <= 4 ; $i++ ) {
+
+	$image = 'image_' . $i ;
+
+	if ( empty( $ms_acf_equip_images[ $image ] ) ) :
+		// if we have reached the last author, break
+		break ;
+	else :
+
+		$html_out .= '<img src="' . $ms_acf_equip_images[ $image ] . '" />' ;
+
+		endif ;
+
 }
 
-$post_id = $post -> ID ;
 
+$post_id = $post -> ID ;
 $service_post = $post ;
 
 
@@ -43,6 +57,8 @@ endif ;
 	if ( is_singular() ) :
 
 		the_title( '<h2 class="contact-form__header">', '</h2>' ) ;
+
+		echo $html_out ;
 
 		if ( is_user_logged_in( ) ) {
 			slow_atoms_equipment_booking_form( $service_post, wp_get_current_user(), ''  ) ;

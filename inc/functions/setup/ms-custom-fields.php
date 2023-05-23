@@ -20,4 +20,6 @@ if( function_exists('acf_add_local_field_group') ):
 
 	require_once SLOW_ATOMS_SETUP_DIR . 'custom-fields/acf-teaching.php' ;
 
+	require_once SLOW_ATOMS_SETUP_DIR . 'custom-fields/acf-equipment.php' ;
+
 endif ;
