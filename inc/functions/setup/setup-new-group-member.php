@@ -38,12 +38,12 @@ function setup_new_group_member( $ms_people_id ) {
     $conditions = array(
         get_post_type( $ms_people_id )      => 'ms_people',
         get_post_status( $ms_people_id )    => 'publish',
-        //get_the_time('U' , $ms_people_id )  => get_the_modified_time( 'U' , $ms_people_id )
+        get_the_time('U' , $ms_people_id )  => get_the_modified_time( 'U' , $ms_people_id )
     );
 
     foreach ( $conditions as $key => $label ) { if ( $key != $label ) return ; }
 
-    $person_roles	= get_the_terms( $ms_people_id, 'ms_taxonomy_people' );
+    $person_roles = get_the_terms( $ms_people_id, 'ms_taxonomy_people' );
 
     // Get wp core fields from post
     $fields = array(
@@ -67,7 +67,5 @@ function setup_new_group_member( $ms_people_id ) {
 
     // Create a news posts about the new group member
     $news_post_id = new_post_for_new_person( $fields ) ;
-
-    //file_put_contents( "vardump-userID.txt" ,  json_encode($fields) );
 
 }
