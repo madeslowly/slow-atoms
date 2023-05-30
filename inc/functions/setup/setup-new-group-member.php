@@ -39,6 +39,7 @@ function setup_new_group_member( $ms_people_id ) {
         get_post_type( $ms_people_id )      => 'ms_people',
         get_post_status( $ms_people_id )    => 'publish',
         get_the_time('U' , $ms_people_id )  => get_the_modified_time( 'U' , $ms_people_id )
+        // TODO: update the news post when the ms_people post is updated
     );
 
     foreach ( $conditions as $key => $label ) { if ( $key != $label ) return ; }
