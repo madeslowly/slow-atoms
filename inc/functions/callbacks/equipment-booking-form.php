@@ -1,7 +1,11 @@
 <?php
 /**
  * 
- * Get random image from homepage ACF image fields
+ * Booking form that reads and writes to db
+ * See; 
+ * inc/functions/activation/register-sabk-tables.php for tables
+ * inc/functions/hooks/process-booking.php for booking records
+ * 
  *
  * @package slow_atoms
  * @since 0.0.0
@@ -10,14 +14,8 @@
 
  function slow_atoms_equipment_booking_form( $service_post, $current_user ) {
 
-	global $notif ;
-
-	$notif = $_GET['notif'] ;
-
-	if ( $notif ) {
-		echo $notif ;
-	}
-
+	$booking_period	= 84 ; // 3 months
+	
 	$service_id		= $service_post -> ID ;
 	$service_name	= $service_post -> post_title ;
 
@@ -80,7 +78,13 @@
 	
 	?>
 	
-	<form class="sa__form" name="form" method="POST" action="<?php echo admin_url( 'admin-post.php' ); ?>">
+	<form class="sa__form" id="booking_form" name="form" method="POST" action="<?php echo admin_url( 'admin-post.php' ); ?>" >
+
+		<h3>Bookings for <?php echo $service_name ; ?></h3>
+
+		<p>Bookings can be made for the period starting from today up to a maximum of <?php echo $booking_period ; ?> days. Current bookings from other users are greyed out in the calender below.<p>
+
+		<p>Hi <?php echo $current_user_name ?>, check your <code>@ru.nl</code> email then select the date(s) you want to book.</p>
 
 		<input type="hidden" name="action" value="process_booking" />
 
@@ -88,8 +92,6 @@
 
 		<input type="hidden" name="sabk-service-name" value="<?php echo $service_name ; ?>" />
 
-		<p>Hi <?php echo $current_user_name ?>, check your <code>@ru.nl</code> email then select the date(s) you want to book.</p>
-		
 		<input type="email" id="email" name="sabk-email" pattern=".+@ru\.nl" value="<?php echo $current_user_email ?>" required>
 
 		<input type="text" id="sabk-dates" name="sabk-dates" placeholder="Select dates">
@@ -100,38 +102,40 @@
 	<script>
 		flatpickr("#sabk-dates", {
 			minDate: "today",
-			maxDate: new Date().fp_incr(84), // 
+			maxDate: new Date().fp_incr(<?php echo $booking_period ; ?>),
 			mode: "multiple",
 			enableTime: false,
 			altInput: true,
 			altFormat: "D j F, Y",
 			dateFormat: "U",
-			theme: "dark",
-			disable: [<?php echo $sa_booked_dates ?>],
+			theme: "default",
+			disable: [<?php echo $sa_booked_dates ; ?>],
 			// onChange: function( selectedDates, dateStr, instance ) {
 			//     console.log( dateStr ) ;
 			// },
 		});
 	</script>
 
-	
 	<?php
 	if ( $sabk_user_bk_ids ) {
-	echo '<h4>Your Bookings</h4>' ;
-	foreach ( $sabk_user_bk_ids as $sabk_id ) {
+		$current_bookings_title	= 'Your Bookings' ;
+		$current_bookings_inst	= 'Your current bookings are listed below. You can select a booking and add or remove dates for that booking then click "Update" to complete the change.' ;
+		echo '<h4>' . $current_bookings_title . '</h4>' ;
+		echo '<p>' . $current_bookings_inst . '</p>' ;
+		foreach ( $sabk_user_bk_ids as $sabk_id ) {
 
-		// Get dates of current booking
-		$dbquery     = $wpdb -> prepare( "SELECT `booked_date` FROM `sa_booked_dates` WHERE `booking_id` = %d ", $sabk_id ) ;
-		$sabk_booked = $wpdb -> get_col( $dbquery ) ;
-		
-		$sabk_booked = '"' . implode ( '", "', $sabk_booked ) . '"' ;
-		
-		$sabk_bk_other = str_replace($sabk_booked , "",  $sa_booked_dates);
+			// Get dates of current booking
+			$dbquery     = $wpdb -> prepare( "SELECT `booked_date` FROM `sa_booked_dates` WHERE `booking_id` = %d ", $sabk_id ) ;
+			$sabk_booked = $wpdb -> get_col( $dbquery ) ;
+			
+			$sabk_booked = '"' . implode ( '", "', $sabk_booked ) . '"' ;
+			
+			$sabk_bk_other = str_replace($sabk_booked , "",  $sa_booked_dates);
 
-		?>
-		<div class="booking_accordion" value="<?php echo $sabk_id ?>" >
-			<p><?php echo $service_name . ' booking #' . $sabk_id ; ?></p>
-	</div>
+	?>
+			<div class="booking_accordion" value="<?php echo $sabk_id ?>" >
+				<p><?php echo $service_name . ' booking #' . $sabk_id ; ?></p>
+			</div>
 			<div class="booking_wrap" id="div-<?php echo $sabk_id ?>" >
 				<form class="sa__form booking_update" name="form-<?php echo $sabk_id ?>" method="POST" action="<?php echo admin_url( 'admin-post.php' ); ?>">
 					<input type="hidden" name="action" value="process_booking" />
@@ -143,51 +147,58 @@
 					<input type="submit" value="Update" class="slow-atoms__button">
 				</form>
 			</div>
-		<script>
-			flatpickr("#sabk-dates-<?php echo $sabk_id ?>", {
-				minDate: "today",
-				maxDate: new Date().fp_incr(84),
-				mode: "multiple",
-				enableTime: false,
-				inline: true,
-				altInput: true,
-				altFormat: "D j F, Y",
-				dateFormat: "U",
-				theme: "dark",
-				disable: [<?php echo $sabk_bk_other ?>],
-				defaultDate: [<?php echo $sabk_booked ?>]
-			});
-		</script>
-
+			<script>
+				flatpickr("#sabk-dates-<?php echo $sabk_id ?>", {
+					minDate: "today",
+					maxDate: new Date().fp_incr(84),
+					mode: "multiple",
+					enableTime: false,
+					inline: true,
+					altInput: true,
+					altFormat: "D j F, Y",
+					dateFormat: "U",
+					theme: "dark",
+					disable: [<?php echo $sabk_bk_other ?>],
+					defaultDate: [<?php echo $sabk_booked ?>]
+				});
+			</script>
 	<?php
-	}
-	?>
-	<script>
-		var acc = document.getElementsByClassName( "booking_accordion" ) ;
-		var i ;
-
-		for ( i = 0; i < acc.length; i++ ) {
-			acc[ i ].addEventListener( "click", function() {
-				/* Toggle between adding and removing the "active" class,
-				to highlight the button that controls the panel */
-				
-				this.classList.toggle("active");
-
-				var divs = document.getElementsByClassName('booking_wrap');
-				for(var i=0; i < divs.length; i++) { 
-				divs[i].style.maxHeight = '0';
-				}
-				/* Toggle between hiding and showing the active panel */
-				var booking_wrap = this.nextElementSibling;
-				if (booking_wrap.style.maxHeight === "1000px") {
-					booking_wrap.style.maxHeight = "0";
-				} else {
-					booking_wrap.style.maxHeight = "1000px";
-				}
-			});
 		}
-	</script>
+	?>
+		<script>
+			var acc = document.getElementsByClassName( "booking_accordion" ) ;
+			var i ;
+
+			for ( i = 0; i < acc.length; i++ ) {
+				acc[ i ].addEventListener( "click", function() {
+					/* Toggle between adding and removing the "active" class,
+					to highlight the button that controls the panel */
+					
+					this.classList.toggle("active");
+
+					var divs = document.getElementsByClassName('booking_wrap');
+					for(var i=0; i < divs.length; i++) { 
+					divs[i].style.maxHeight = '0';
+					}
+					/* Toggle between hiding and showing the active panel */
+					var booking_wrap = this.nextElementSibling;
+					if ( booking_wrap.style.maxHeight === "1000px" ) {
+						booking_wrap.style.maxHeight = "0";
+					} else {
+						booking_wrap.style.maxHeight = "1000px";
+					}
+				});
+			}
+		</script>
 	<?php
 	}
+
+	$notif = $_GET['notif'] ;
+
+	if ( $notif ) {
+		$notif_popup = '<div class="notif__wrap"><h4 class="notif__text">' . $notif . '</h4></div>' ;
+		echo $notif_popup ;
+	}
+
 }
 
