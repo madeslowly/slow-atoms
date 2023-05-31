@@ -45,8 +45,9 @@ function process_equipment_booking() {
 
   if ( $booking_id ) {
 
-    // We are updating an existing booking
+    // A booking ID already exists so we are updating an existing booking
 
+    // Get currently booked dates for given booking ID
     $dbquery      = $wpdb -> prepare( "SELECT `booked_date` FROM `sa_booked_dates` WHERE `booking_id` = %d ", $booking_id ) ;
 		$sabk_booked  = $wpdb -> get_col( $dbquery ) ;
 
@@ -64,27 +65,43 @@ function process_equipment_booking() {
       }
     }
 
+    $notif = 'Your Booking Has Been Updated' ;
+
     // All dates removed and no new ones added so delete the actual booking entry
     if ( $removals == $sabk_booked && count( $additions ) == 0 ) {
       $wpdb -> delete( $sa_bookings, array( 'booking_id' => $booking_id ) );
-    }
 
-    $notif = 'Booking Updated' ;
+      $notif = 'Your Booking Has Been Removed' ;
+    }
 
   } else {
-
+    
     // Its a new booking
-    $wpdb -> insert( $sa_bookings, array( 'booking_id' => NULL, 'service_id' => $service_id, 'service_name' => $service_name, 'email' => $email ) ) ;
 
-    $lastid = $wpdb -> insert_id ;
+    // Get all currently booked dates
+    $query_booked       = $wpdb -> prepare( "SELECT booked_date FROM sa_booked_dates" ) ;
+    $sa_booked_dates    = $wpdb -> get_col( $query_booked ) ; // Array of booked times in unix format
 
-    foreach ( $dates_arr as $date ) {
+    if ( array_intersect( $dates_arr, $sa_booked_dates ) ) {
+      // One or more of the requested dates has been booked since the booking form first loaded at the user end
+      $notif = 'Some selected dates are no longer available. Please try again.' ;
 
-      $wpdb -> insert( $sa_dates, array( 'booking_id' => $lastid, 'service_id' => $service_id, 'service_name' => $service_name, 'booked_date' => $date ) ) ;
+    } else {
+
+    
+      $wpdb -> insert( $sa_bookings, array( 'booking_id' => NULL, 'service_id' => $service_id, 'service_name' => $service_name, 'email' => $email ) ) ;
+
+      $lastid = $wpdb -> insert_id ;
+
+      foreach ( $dates_arr as $date ) {
+
+        $wpdb -> insert( $sa_dates, array( 'booking_id' => $lastid, 'service_id' => $service_id, 'service_name' => $service_name, 'booked_date' => $date ) ) ;
+
+      }
+
+      $notif = 'Your Booking Has Been Created' ;
 
     }
-
-    $notif = 'Booking Created' ;
    
   } ;
 
