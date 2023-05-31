@@ -39,8 +39,6 @@ if ( is_singular() ) :
 
 	echo '<section class="slow-atoms__page-content">' ;
 
-	get_template_part( 'template-parts/sidebar', get_post_type() );
-
 endif ; 
 
 ?>

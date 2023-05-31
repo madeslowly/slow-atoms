@@ -19,9 +19,7 @@ get_header('' , array( 'append_site-header_class' => 'is__light-background' ));
 
 <main id="primary" class="site-main is__booking-page">
 
-  <section class="wiki__content is__wiki_archive">
-
-    <?php get_template_part( 'template-parts/sidebar', get_post_type() ); ?>
+  <section class="wiki__content is__wiki_archive wiki__content-nosidebar">
 
     <section class="wiki__list"><?php
 
