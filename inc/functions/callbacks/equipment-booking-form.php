@@ -82,7 +82,7 @@
 
 		<h3>Bookings for <?php echo $service_name ; ?></h3>
 
-		<p>Bookings can be made for the period starting from today up to a maximum of <?php echo $booking_period ; ?> days. Current bookings from other users are greyed out in the calender below.<p>
+		<p>Greyed out dates are already booked or fall outside of the maximum advanced booking period (<?php echo $booking_period ; ?> days from now). If another user books a date you intent to book during the time it takes to complete your booking you will be returned to this page with a refreshed list of greyed out dates.<p>
 
 		<p>Hi <?php echo $current_user_name ?>, check your <code>@ru.nl</code> email then select the date(s) you want to book.</p>
 
@@ -196,7 +196,17 @@
 	$notif = $_GET['notif'] ;
 
 	if ( $notif ) {
-		$notif_popup = '<div class="notif__wrap"><h4 class="notif__text">' . $notif . '</h4></div>' ;
+		$notif_popup = '
+		<input id="modal-toggle" type="checkbox">
+		
+		<div class="notif__screen">
+			
+			<div class="notif__wrap">
+				<h4 class="notif__text">' . $notif . '</h4>
+				<label class="modal-close" for="modal-toggle">&#x2715;</label>
+				<label class="modal-content-btn" for="modal-toggle">OK</label>
+			</div>
+		</div>' ;
 		echo $notif_popup ;
 	}
 
