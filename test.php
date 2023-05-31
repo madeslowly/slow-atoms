@@ -1,6 +1,29 @@
 <?php
-$arr = [1=>""];
-$arr = array_diff($arr,[""]);
-var_dump( $arr);
-var_dump( count($arr));
+$arr = Array(
+    3, 20, 'hello',
+) ;
+
+$want = Array
+(
+2,
+4,
+8,
+11,
+12,
+13,
+14,
+15,
+16,
+18,
+'hello',
+) ;
+
+$res = empty(array_intersect($arr, $want));
+
+if ( !$res ) {
+    echo 'Date already booked';
+var_dump(array_intersect($arr, $want) );
+echo $res ;
+};
+
 ?>
