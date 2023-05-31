@@ -21,35 +21,91 @@
     .booking_update > .form-control.input
         display: none
 
-    .notif__wrap
+    .notif__screen
         display: flex
         align-items: center
         justify-content: center
         width: 100vw
         height: 100vh
-        background-color: var(--theme-color-secondary-alpha-005)
-        backdrop-filter: blur( 3px )
+        background-color: var(--theme-color-primary-alpha-095)
+        backdrop-filter: blur( 6px )
         position: absolute
         top: 0
         left: 0
-        animation: fade-out .5s linear 1.4s
+        //animation: fade-out .5s linear 1.4s
         animation-fill-mode: forwards
+        z-index: 1
 
-        & > .notif__text
-            display: flex
-            justify-content: center
-            align-items: center
-            width: 80vh
-            height: 60vh
-            max-width: 400px
-            max-height: 300px
-            background-color: rgba( 255, 255, 255, .96) //var(--theme-color-secondary)
-            color: var(--theme-color-primary)
-            border-radius:24px
-            border: solid 1px var(--theme-color-primary)
+    .notif__wrap
+        display: flex
+        position: relative
+        justify-content: center
+        align-items: center
+        text-align: center
+        padding: 2rem
+        width: 80vh
+        height: 60vh
+        max-width: 400px
+        max-height: 300px
+        background-color: rgba( 255, 255, 255, .96) //var(--theme-color-secondary)
+        color: var(--theme-color-primary)
+        border-radius:6px
+        border: solid 0px var(--theme-color-accent)
+    
+    .modal-content-btn
+        position: absolute
+        text-align: center
+        cursor: pointer
+        bottom: 20px
+        right: 30px
+        background: var(--theme-color-primary)
+        color: #fff
+        width: 50px
+        border-radius: 4px
+        //font-size: 14px
+        //height: 32px
+        padding: .6rem
+        font-weight: normal
+        transition: .3s
         
-    @keyframes fade-out
-        0%
-            opacity: 1
-        100%
+        &:hover
+            color: var(--theme-color-accent)
+            background: white
+
+    .modal-close
+        color: #aaa
+        position: absolute
+        right: 5px
+        top: 5px
+        padding-top: 3px
+        background: #fff
+        font-size: 16px
+        width: 25px
+        height: 25px
+        font-weight: bold
+        text-align: center
+        cursor: pointer
+        transition: .3s
+        
+        &:hover
+            color: var(--theme-color-accent)
+    
+    #modal-toggle
+        display: none
+        
+        &.active ~ .notif__screen,
+        &:checked ~ .notif__screen
+            visibility: hidden
             opacity: 0
+            transition-delay: .2s
+            transition: .6s ease-in
+
+        &.active ~ .notif__screen > .notif__wrap,
+        &:checked ~ .notif__screen > .notif__wrap
+            visibility: hidden
+            opacity: 0
+            transition: .2s ease-in
+
+
+
+    
