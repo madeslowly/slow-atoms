@@ -10,6 +10,8 @@
 
 if( function_exists('acf_add_local_field_group') ):
 
+	require_once SLOW_ATOMS_SETUP_DIR . 'custom-fields/acf-footer-affiliates.php' ;
+
 	require_once SLOW_ATOMS_SETUP_DIR . 'custom-fields/acf-contacts.php' ;
 
 	require_once SLOW_ATOMS_SETUP_DIR . 'custom-fields/acf-hero-images.php' ;

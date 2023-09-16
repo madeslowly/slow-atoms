@@ -19,3 +19,21 @@
 
 .gallery-caption
 	display: block
+
+
+.affiliate_image_gallery
+	display: flex
+	//justify-content: center
+	
+
+.affiliate_image
+	object-fit: contain
+	width: auto
+	height: 140px
+	padding: 2rem
+	filter: grayscale(1) brightness(.7)
+	@include default-link-trans
+
+	&:hover
+		filter: grayscale(0) brightness(1)
+	

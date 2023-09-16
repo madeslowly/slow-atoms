@@ -65,6 +65,8 @@ require_once SLOW_ATOMS_CALLBACKS_DIR . 'randomise-hero-images.php' ;
 
 require_once SLOW_ATOMS_CALLBACKS_DIR . 'post-navigation.php' ; 
 
+// require_once SLOW_ATOMS_CALLBACKS_DIR . 'affiliate_image_gallery.php' ;
+
 /**
  * **************		SETUP			**************
  */
@@ -235,3 +237,11 @@ function slow_atoms_disable_classic_editor() {
 
 }
 add_action( 'admin_head', 'slow_atoms_disable_classic_editor' ) ;
+
+add_action( 'after_setup_theme', 'remove_admin_bar' ) ;
+
+function remove_admin_bar() {
+	if ( ! current_user_can( 'administrator' ) && ! is_admin() || wp_is_mobile() ) {
+		show_admin_bar( false ) ;
+	}
+}
