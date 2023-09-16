@@ -1,29 +1,27 @@
 <?php
 /**
  * The template for displaying all single posts
+ * 
+ * unlike archives, this has to serve for posts and custom posts
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/#single-post
  *
  * @package slow_atoms
  */
 
-/**
- * 
- * redirect known singles else, fallback template
- * 
- */
 
- if ( is_singular( array ( 'ms_labwiki' , 'ms_people' , 'ms_research' , 'ms_teaching' , 'ms_publications', 'ms_equipment' ) ) ) :
+ if ( is_singular( array( 'post' ) ) ) :
 
-	get_template_part( 'ms-custom-singles/single', get_post_type() );
+	// Wordpress system post
 
-else : // Currently just wp native posts
+	get_header(); 
+	
+	?>
 
-	get_header(); ?>
-
-	<main id="primary" class="site-main">
+	<main id="primary" class="site-main single">
 
 		<?php
+	
 		while ( have_posts() ) :
 			the_post();
 
@@ -44,5 +42,11 @@ else : // Currently just wp native posts
 <?php
 
 get_footer();
+
+	
+
+else : //redirect known singles else
+
+	get_template_part( 'ms-custom-singles/single', get_post_type() );
 
 endif ;
