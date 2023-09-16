@@ -1,6 +1,6 @@
 <?php
 /**
- * The template for displaying all pages
+ * The template for displaying the home page and generic pages
  *
  * This is the template that displays all pages by default.
  * Please note that this is the WordPress construct of pages
@@ -12,24 +12,14 @@
  * @package slow_atoms
  */
 
-get_header(); ?>
+get_header() ;
 
-<main id="primary" class="site-main">
-  <?php
-  
-  while ( have_posts() ) :
-    the_post();
-    if ( is_front_page() ) :
-      get_template_part( 'template-parts/content', 'home' );
-    else :
-      get_template_part( 'template-parts/content', 'page' );
-    endif ;
-    
-  endwhile; // End of the loop.
-  ?>
+if ( is_front_page() ) { $page = 'home' ; } else { $page = 'page' ; }
 
-</main><!-- #main -->
+echo '<main id="primary" class="site-main page">' ;
 
-<?php
+get_template_part( 'template-parts/content', $page ) ;
+
+echo '</main><!-- #main -->' ;
 
 get_footer();
