@@ -272,7 +272,7 @@ function slow_atoms_customize_register( $wp_customize ) {
 	/****************	Setting	Blurb	**************/
 	$wp_customize	-> add_setting( 'slow_atoms_front_page_blurb', array(
 		//'default'      		=> __( 'Overview of the research .', 'slow-atoms' ),
-		'sanitize_callback' => 'sanitize_text',
+		'sanitize_callback' => 'wp_kses_post',
 		'transport' 		=> 'postMessage',
 	) ) ;
 	/****************	Control	Blurb	**************/
@@ -380,3 +380,34 @@ function hide_customizer_sections( $wp_customize ) {
     $wp_customize->remove_control( 'custom_css' ); // Custom CSS 
 }
 add_action( 'customize_register', 'hide_customizer_sections', 30);
+
+
+
+// Load custom image gallery selector
+
+// function affiliate_image_gallery_customize_register( $wp_customize ) {
+ 
+//     if ( ! class_exists( 'CustomizeImageGalleryControl\Control' ) ) {
+//         return;
+//     }
+ 
+//     $wp_customize	-> add_section( 'affiliate_image_gallery_section', array(
+//         'title'     => __( 'Footer Affiliates' ),
+//         'priority'  => 25,
+//     ) );
+//     $wp_customize	-> add_setting( 'affiliate_image_gallery', array(
+//         'default'	=> array(),
+//         'sanitize_callback' => 'wp_parse_id_list',
+//     ) );
+//     $wp_customize	-> add_control( new CustomizeImageGalleryControl\Control(
+//         $wp_customize,
+//         'affiliate_image_gallery',
+//         array(
+//             'label'    => __( 'Image Gallery of Affiliates' ),
+//             'section'  => 'affiliate_image_gallery_section',
+//             'settings' => 'affiliate_image_gallery',
+//             'type'     => 'image_gallery',
+//         )
+//     ) );
+// }
+// add_action( 'customize_register', 'affiliate_image_gallery_customize_register' );

@@ -38,7 +38,7 @@
     $pub_thumb = get_field( 'ms_acf_pub_thumb_name', $query -> ID ) ;
 
     $pub_meta = '<p class="sa__collage--popup sa--hover-up">';
-    $pub_meta .= the_title( sprintf('<span class="sa__collage--publication-name"><a class="sa__link sa__collage--publication-link" href="%s" rel="bookmark">' , esc_url( get_permalink() ) ), '</a></span>' , false) ;
+    $pub_meta .= the_title( sprintf('<span class="sa__collage--publication-name"><a class="sa__link link_on_dark sa__collage--publication-link" href="%s" rel="bookmark">' , esc_url( get_permalink() ) ), '</a></span>' , false) ;
     $pub_meta .= '</p>' ;
 
     // $collage_settings = array( 
@@ -68,7 +68,7 @@
             <div class="sa__collage--popup sa--hover-up sa__collage--<?php echo $content[0] ?>-desc">
                 <p><?php echo $content[2] ?></p>
                 <?php if ( $content[3] ) : ?>
-                <a class="sa__link" href="<?php echo get_post_type_archive_link( $type ) ?>"><?php echo $content[3] ?> <i class="fas fa-arrow-right"></i></a>
+                <a class="sa__link link_on_dark" href="<?php echo get_post_type_archive_link( $type ) ?>"><?php echo $content[3] ?> <i class="fas fa-arrow-right"></i></a>
                 <?php endif ; ?>
             </div>
         </div> -->
@@ -86,9 +86,9 @@
         $person_html = '<div class="sa__collage--card sa__collage--card-person">' ;
             $person_html .= '<div class="sa__collage-background-img" style="background-image: url(' . get_the_post_thumbnail_url( $person_id, 'full') . ') "></div>' ; 
                 $person_html .= '<h5 class="sa__collage-header sa__collage--person-title">Group Lead</h5>';
-                $person_html .= '<div class="sa__collage--popup sa--hover-left"><a class="sa__link" href="'. $url . '" rel="bookmark"><h5 class="sa__collage--person-name">' . $name . '</h5></a>' ; 
-                $person_html .= '<a class="sa__link" href="mailto:' . $email . '"><i class="fas fa-envelope"></i> ' . $email . '</a>' ;
-                $person_html .= '<a class="sa__link" href="tel:+31' .	$tel . '"><i class="fas fa-phone-square"></i> +31(0)' .	$tel . '</a>';
+                $person_html .= '<div class="sa__collage--popup sa--hover-left"><a class="sa__link link_on_dark" href="'. $url . '" rel="bookmark"><h5 class="sa__collage--person-name">' . $name . '</h5></a>' ; 
+                $person_html .= '<a class="sa__link link_on_dark" href="mailto:' . $email . '"><i class="fas fa-envelope"></i> ' . $email . '</a>' ;
+                $person_html .= '<a class="sa__link link_on_dark" href="tel:+31' .	$tel . '"><i class="fas fa-phone-square"></i> +31(0)' .	$tel . '</a>';
             $person_html .= '</div>'; 
         $person_html .= '</div>'; 
 
@@ -99,7 +99,9 @@
             if ( $front_page_title ) {
                 $blurb_html .= '<h5 class="sa__collage-header sa__collage--blurb-title">' . $front_page_title . '</h5>' ;
             }
-            $blurb_html .= '<p class="sa__collage--blurb-text" data-aos="fade-up">' . get_theme_mod( 'slow_atoms_front_page_blurb') . '</p>';
+            $blurb = ( get_theme_mod( 'slow_atoms_front_page_blurb') ) ;
+
+            $blurb_html .= '<p class="sa__collage--blurb-text" data-aos="fade-up">' . $blurb . '</p>';
         $blurb_html .= '</div>';
         
         echo $blurb_html ;
@@ -116,7 +118,7 @@
             $research_html .= '<div class="sa__collage-background-img" style="background-image: url(' . get_the_post_thumbnail_url($post_id, 'medium') . ') "></div>';
                 $research_html .= '<h5 class="sa__collage-header sa__collage--research-title"	data-aos="fade-up" data-aos-delay="0">Our Research</h5>';
                 $research_html .= '<div class="sa__collage--popup sa--hover-up sa__collage--research-desc"><p>' . get_theme_mod( 'slow_atoms_front_page_desc') . '</p>' ;
-                $research_html .= '<a class="sa__link" href="' . get_post_type_archive_link('ms_research') . '">Active Projects <i class="fas fa-arrow-right"></i></a>';
+                $research_html .= '<a class="sa__link link_on_dark" href="' . get_post_type_archive_link('ms_research') . '">Active Projects <i class="fas fa-arrow-right"></i></a>';
             $research_html .= '</div>';
         $research_html .= '</div>';
 
@@ -136,7 +138,7 @@
         $first_author_lname =	$ms_acf_pub_alist[ 'author_1' ]['ms_acf_alist_lname'] ;
 
         $pub_meta = '<p class="sa__collage--popup sa--hover-up">';
-            $pub_meta .= the_title( sprintf('<span class="sa__collage--publication-name"><a class="sa__link sa__collage--publication-link" href="%s" rel="bookmark">' , esc_url( get_permalink() ) ), '</a></span>' , false) ;
+            $pub_meta .= the_title( sprintf('<span class="sa__collage--publication-name"><a class="sa__link link_on_dark sa__collage--publication-link" href="%s" rel="bookmark">' , esc_url( get_permalink() ) ), '</a></span>' , false) ;
         $pub_meta .= '</p>' ;
         
         $pub_thumb = get_field( 'ms_acf_pub_thumb_name', $query -> ID ) ;
@@ -172,7 +174,7 @@
             $output_html .= '<div class="sa__collage-background-img" style="' . $thumb_url . '"></div>';
             $output_html .= '<h5 class="sa__collage-header sa__collage--news-title" data-aos="fade-up" data-aos-delay="400">Latest News</h5>';
             $output_html .= '<p class="sa__collage--popup sa--hover-up">';
-                $output_html .= the_title( sprintf('<span class="sa__collage--news-name"><a class="sa__link sa__collage--news-link" href="%s" rel="bookmark">' , esc_url( get_permalink() ) ), '</a></span>' , false) ;
+            $output_html .= the_title( sprintf('<span class="sa__collage--news-name"><a class="sa__link link_on_dark sa__collage--news-link" href="%s" rel="bookmark">' , esc_url( get_permalink() ) ), '</a></span>' , false) ;
             $output_html .= '</p>' ;
         $output_html .= '</div>' ;
     
