@@ -7,7 +7,9 @@
  * @package slow_atoms
  */
 
-get_header() ; ?>
+get_header() ; 
+
+?>
 
 <main id="primary" class="site-main is__teaching-archive">
 
@@ -16,24 +18,32 @@ get_header() ; ?>
 		<header class="page-header is__theme-background-transparent"> 
 		<h2 style="word-wrap: normal" class="page-title">This website obeys the laws of thermodynamics</h2>
 			<!--<?php the_archive_title( '<h1 class="page-title">', '</h1>' );	?> -->
-		</header><!-- .page-header --> <?php
+		</header><!-- .page-header --> 
+		
+		<?php
 
 		if ( get_theme_mod('slow_atoms_theme_teaching_hero') ) :
 
 			$image_url		= get_theme_mod('slow_atoms_theme_teaching_hero') ;
 			$image_ID       = attachment_url_to_postid( $image_url );
-			$image_srcset   = wp_get_attachment_image_srcset( $image_ID, 'full' ); ?>
+			$image_srcset   = wp_get_attachment_image_srcset( $image_ID, 'full' );
+		
+		?>
 
 			<div class="post-thumbnail">
 				<img class="attachment-post-thumbnail size-post-thumbnail wp-post-image"
 				src="<?php echo $image_url ; ?>" srcset="<?php echo esc_attr( $image_srcset ); ?>" />
-			</div><!-- .post-thumbnail --> <?php
+			</div><!-- .post-thumbnail -->
+		
+		<?php
 
 		else :
 
 			slow_atoms_get_random_hero('post-thumbnail' ,'attachment-post-thumbnail size-post-thumbnail wp-post-image');
 
-		endif ; ?>
+		endif ;
+		
+		?>
 
 	</section><!-- .slow-atoms__page-hero -->
 
@@ -86,17 +96,28 @@ get_header() ; ?>
 
 				endif ;
 				
+				if ( get_field('ms_acf_teach_sup_name_ms_acf_teach_sup_title_name', $post->ID) ) :
+					// User has given a unique name so use it.
+					$sup_name =  get_field('ms_acf_teach_sup_name_ms_acf_teach_sup_title_name', $post->ID) ;
+					
+				else :
+					// No unique name so get post title and append with "Notes"
+					$sup_name =  the_title( '' , ' Supplementary Slides' , false ) ;
+
+				endif ;
+
 				// get URLs for teaching material
-				// Get sub field directly get_field('GROUP FIELD NAME_SUB FIELD NAME');
+				// Get sub field directly get_field('[GROUP_FIELD]_[NAME_SUB]_[FIELD_NAME]');
 				$ms_acf_teach_slide_URL_name	= get_field('ms_acf_teach_slides_name_ms_acf_teach_slide_URL_name', $post->ID);
+				$ms_acf_teach_sup_URL_name		= get_field('ms_acf_teach_sup_name_ms_acf_teach_sup_URL_name', $post->ID);
 				$problems_url		= get_field('ms_acf_teach_prob_group_name_ms_acf_teach_prob_name', $post->ID);
 				$solutions_url		= get_field('ms_acf_teach_prob_group_name_ms_acf_teach_sol_name', $post->ID); 
 				
 				// Array of urls to loop through
-				$urls = array($ms_acf_teach_slide_URL_name , $problems_url , $solutions_url); 
+				$urls = array( $ms_acf_teach_slide_URL_name , $ms_acf_teach_sup_URL_name , $problems_url , $solutions_url ) ; 
 				
 				// Array of file names
-				$names = array( $lecture_name , the_title( '' , ' Problems' , false ) , the_title( '' , ' Solutions' , false ) )?>
+				$names = array( $lecture_name , $sup_name , the_title( '' , ' Problems' , false ) , the_title( '' , ' Solutions' , false ) )?>
 
 				<div class="teaching__content-row">
 				
