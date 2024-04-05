@@ -76,11 +76,32 @@
               $postal_address += ['department'  => get_sub_field('ms_acf_contact_department_name')] ;
             else :
               $postal_address += ['department'  => get_bloginfo( 'description', 'display' ) ];
-            endif ; 
-            $postal_address += ['building'  => get_sub_field('ms_acf_contact_building_name')  ] ;
-            $postal_address += ['street'    => get_sub_field('ms_acf_contact_street_name') . ' ' . get_sub_field('ms_acf_contact_street_number_name') ] ;
-            $postal_address += ['city'      => get_sub_field('ms_acf_contact_postcode_name') . ' ' . get_sub_field('ms_acf_contact_city_name') ] ;
-            $postal_address += ['country'   => get_sub_field('ms_acf_contact_country_name')   ] ;
+            endif ;
+            
+            $dept_name  = get_sub_field('ms_acf_contact_building_name') ;
+            $dept_url   = get_sub_field('ms_acf_contact_dept_url_key' ) ;
+            if ( $dept_url ) :
+              $dept_markup = '<a href="' . $dept_url . '" title="' . $dept_name . '" >' . $dept_name . '</a>' ;
+            else :
+              $dept_markup = $dept_name ;
+            endif ;
+
+            $postal_address += ['building'    => $dept_markup  ] ;
+
+            $univ_name  = get_sub_field('ms_acf_contact_univ_name') ;
+            $univ_url   = get_sub_field('ms_acf_contact_univ_url_key' ) ;
+            if ( $univ_url ) :
+              $univ_markup = '<a href="' . $univ_url . '" title="' . $univ_name . '" >' . $univ_name . '</a>' ;
+            else :
+              $univ_markup = $univ_name ;
+            endif ;
+
+
+            $postal_address += ['university'  => $univ_markup ] ;
+            $postal_address += ['street'      => get_sub_field('ms_acf_contact_street_name') . ' ' . get_sub_field('ms_acf_contact_street_number_name') ] ;
+            $postal_address += ['city'        => get_sub_field('ms_acf_contact_postcode_name') . ' ' . get_sub_field('ms_acf_contact_city_name') ] ;
+            $postal_address += ['country'     => get_sub_field('ms_acf_contact_country_name')   ] ;
+            
           endwhile ;
           $output_list = '' ;
           foreach( $postal_address as $key => $value ) {
