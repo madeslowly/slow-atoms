@@ -52,7 +52,7 @@ for ( $i = 1 ; $i <= $ms_acf_pub_max_affiliates ; $i++ ) {
     
     endif ;
 
-    if ( $i != $ms_acf_pub_max_auhtors ) :
+    if ( $i != $ms_acf_pub_max_affiliates ) :
 
         $add_affiliate = array(
             'key'           => 'ms_acf_affiliate_list_' . $i . '_add_key',
