@@ -11,8 +11,9 @@ if ( !is_user_logged_in() ) {
 	auth_redirect();
 }
 
+get_header('' , array( 'append_site-header_class' => 'is__light-background' )); 
 
-get_header('' , array( 'append_site-header_class' => 'is__light-background' )); ?>
+?>
 
 
 <main id="primary" class="is__wiki-archive">
@@ -21,7 +22,9 @@ get_header('' , array( 'append_site-header_class' => 'is__light-background' )); 
 
     <?php get_template_part( 'template-parts/sidebar', get_post_type() ); ?>
 
-    <section class="wiki__list"><?php
+    <section class="wiki__list">
+
+<?php
 
       if ( have_posts() ) :
       /* Start the Loop */
@@ -43,13 +46,12 @@ get_header('' , array( 'append_site-header_class' => 'is__light-background' )); 
 
         get_template_part( 'template-parts/content', 'none' );
 
-      endif; ?>
+      endif; 
+?>
 
-
+    </section>
   </section>
-</section>
 </main><!-- #main -->
-
 
 <?php
 
