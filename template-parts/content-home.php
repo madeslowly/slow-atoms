@@ -9,7 +9,6 @@
  * 
  */
 
-
  ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class('is__front-page'); ?> >
@@ -35,50 +34,10 @@
     $name	= get_the_title( $person_id ) ;
     $url	= get_permalink( $person_id ) ;
 
-    $pub_thumb = get_field( 'ms_acf_pub_thumb_name', $query -> ID ) ;
-
     $pub_meta = '<p class="sa__collage--popup sa--hover-up">';
     $pub_meta .= the_title( sprintf('<span class="sa__collage--publication-name"><a class="sa__link link_on_dark sa__collage--publication-link" href="%s" rel="bookmark">' , esc_url( get_permalink() ) ), '</a></span>' , false) ;
     $pub_meta .= '</p>' ;
-
-    // $collage_settings = array( 
-    //     'ms_research'       => array( 'research', 'Our Research' , get_theme_mod( 'slow_atoms_front_page_desc'), 'Active Projects', ),
-    //     'ms_publications'   => array( 'publication', 'New Paper' , wp_get_attachment_image_url( $pub_thumb ),),
-    //     'post'              => array( 'news', 'Latest News' , wp_get_attachment_image_url( $pub_thumb ),),
-    // ) ;
-
-    // foreach ( $collage_settings as $type => $content ) { 
-        
-    //     $args = array(
-    //         'post_type'			=> $type,
-    //         'orderby'			=> 'rand',
-    //         'posts_per_page'	=> '1',
-    //     );
-    //     $query = new WP_Query( $args );
-    //     $query -> the_post( );
-        
-    //     $thumb = get_the_post_thumbnail_url( $post_id, 'medium' ) ;
-        
-    //     
     ?>
-
-        <!-- <div class="sa__collage--card sa__collage--card-<?php echo $content[0] ?>">
-            <div class="sa__collage-background-img" style="background-image: url('<?php echo $thumb ?>')"></div>
-            <h5 class="sa__collage-header sa__collage--<?php echo $content[0] ?>-title"	data-aos="fade-up" data-aos-delay="0"><?php echo $content[1] ?></h5>
-            <div class="sa__collage--popup sa--hover-up sa__collage--<?php echo $content[0] ?>-desc">
-                <p><?php echo $content[2] ?></p>
-                <?php if ( $content[3] ) : ?>
-                <a class="sa__link link_on_dark" href="<?php echo get_post_type_archive_link( $type ) ?>"><?php echo $content[3] ?> <i class="fas fa-arrow-right"></i></a>
-                <?php endif ; ?>
-            </div>
-        </div> -->
-
-    <?php 
-// } ?>
-<!-- 
-    </div>
- -->
-
     
     <div class="sa__collage">
         <?php
@@ -115,7 +74,7 @@
         $query -> the_post( ); 
 
         $research_html = '<div class="sa__collage--card sa__collage--card-research">';
-            $research_html .= '<div class="sa__collage-background-img" style="background-image: url(' . get_the_post_thumbnail_url($post_id, 'medium') . ') "></div>';
+            $research_html .= '<div class="sa__collage-background-img" style="background-image: url(' . get_the_post_thumbnail_url($query -> ID, 'medium') . ') "></div>';
                 $research_html .= '<h5 class="sa__collage-header sa__collage--research-title"	data-aos="fade-up" data-aos-delay="0">Our Research</h5>';
                 $research_html .= '<div class="sa__collage--popup sa--hover-up sa__collage--research-desc"><p>' . get_theme_mod( 'slow_atoms_front_page_desc') . '</p>' ;
                 $research_html .= '<a class="sa__link link_on_dark" href="' . get_post_type_archive_link('ms_research') . '">Active Projects <i class="fas fa-arrow-right"></i></a>';
