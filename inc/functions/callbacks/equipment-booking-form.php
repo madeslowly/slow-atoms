@@ -203,7 +203,6 @@
 			
 			<div class="notif__wrap">
 				<h4 class="notif__text">' . $notif . '</h4>
-				<label class="modal-close" for="modal-toggle">&#x2715;</label>
 				<label class="modal-content-btn" for="modal-toggle">OK</label>
 			</div>
 		</div>' ;
