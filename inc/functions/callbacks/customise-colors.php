@@ -36,7 +36,7 @@ function slow_atoms_customise_colors() {
 		$alpha_str			= str_replace('.', '',sprintf("%' .2f", $alpha) );
 		$css_root_colors_alphas .= '--theme-color-primary-alpha-' 		. $alpha_str . ' : ' . $primary_alpha . ' ;' . "\r\n";
 		$css_root_colors_alphas .= '--theme-color-secondary-alpha-' 	. $alpha_str . ' : ' . $secondary_alpha . ' ;' . "\r\n";
-		$i ++ ;
+		// $i ++ ;
 	}
 
 	$css_root_colors = ':root {' . "\r\n"	.
