@@ -7,21 +7,18 @@
  * @package slow_atoms
  */
 
-// if ( !is_user_logged_in() ) {
-// 	auth_redirect();
-// }
-
 
 get_header('' , array( 'append_site-header_class' => 'is__light-background' )); 
 
 ?>
 
-
-<main id="primary" class="site-main is__booking-page">
+<main id="primary" class="site-main is__booking-page eq">
 
   <section class="wiki__content is__wiki_archive wiki__content-nosidebar">
 
-    <section class="wiki__list"><?php
+    <section class="wiki__list">
+
+<?php
 
       if ( have_posts() ) :
       /* Start the Loop */
@@ -43,7 +40,8 @@ get_header('' , array( 'append_site-header_class' => 'is__light-background' ));
 
         get_template_part( 'template-parts/content', 'none' );
 
-      endif; ?>
+      endif; 
+?>
 
 
   </section>
