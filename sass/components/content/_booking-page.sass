@@ -32,8 +32,6 @@
         position: absolute
         top: 0
         left: 0
-        //animation: fade-out .5s linear 1.4s
-        animation-fill-mode: forwards
         z-index: 1
 
     .notif__wrap
@@ -42,9 +40,9 @@
         justify-content: center
         align-items: center
         text-align: center
-        padding: 2rem
-        width: 80vh
-        height: 60vh
+        padding: 8rem 0
+        width: 90vw
+        //height: 60vh
         max-width: 400px
         max-height: 300px
         background-color: rgba( 255, 255, 255, .96) //var(--theme-color-secondary)
@@ -71,36 +69,17 @@
         &:hover
             color: var(--theme-color-accent)
             background: white
-
-    .modal-close
-        color: #aaa
-        position: absolute
-        right: 5px
-        top: 5px
-        padding-top: 3px
-        background: #fff
-        font-size: 16px
-        width: 25px
-        height: 25px
-        font-weight: bold
-        text-align: center
-        cursor: pointer
-        transition: .3s
-        
-        &:hover
-            color: var(--theme-color-accent)
+            
     
     #modal-toggle
         display: none
         
-        &.active ~ .notif__screen,
         &:checked ~ .notif__screen
             visibility: hidden
             opacity: 0
             transition-delay: .2s
             transition: .6s ease-in
 
-        &.active ~ .notif__screen > .notif__wrap,
         &:checked ~ .notif__screen > .notif__wrap
             visibility: hidden
             opacity: 0
