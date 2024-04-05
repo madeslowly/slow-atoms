@@ -24,5 +24,7 @@ function slow_atoms_custom_posts(){
 	require_once SLOW_ATOMS_SETUP_DIR . 'custom-posts/ms-teaching-posts.php' ;
 
 	require_once SLOW_ATOMS_SETUP_DIR . 'custom-posts/ms-equipment-posts.php' ;
+
+	// require_once SLOW_ATOMS_SETUP_DIR . 'custom-posts/ms-particles-posts.php' ;
 	
 }
