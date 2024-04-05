@@ -123,7 +123,7 @@ get_header() ;
 				
 					<ul class="teaching__content-list"><?php
 						
-						for ( $i = 0; $i <= count($urls); $i ++) {
+						for ( $i = 0; $i < count($urls); $i ++) {
 
 							if( $urls[ $i ] ) :
 						
