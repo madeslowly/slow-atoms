@@ -15,50 +15,56 @@ $cat_terms = get_terms(
     'hide_empty'    => false,
     'orderby'       => 'name',
     'order'         => 'ASC',
-    'number'        => 6 )
+    'number'        => 'all' 
+    )
 ) ;
 
 if( $cat_terms ) :
 
   foreach( $cat_terms as $term ) :
 
-    $term_url = get_term_link( $term );
+    // var_dump(get_category_parents($post->ID) );
+    // Dont include cats with a parent
+    if( !  $term -> parent ) :
 
-    // Wiki subject header and link
-    echo '<h5 class="wiki__sidebar-header"><a href="' . $term_url . '" class="wiki__sidebar-link">' . $term -> name . '</a></h5>';
+      $term_url = get_term_link( $term );
 
-    $args = array(
-    
-      // Wiki post type 
-      'post_type'             => 'ms_labwiki',
-      'posts_per_page'        => 10,
-      'post_status'           => 'publish',
-      'orderby'               => 'title' ,
-      'order'                 => 'DESC' ,
-      'tax_query'             =>  array(
-                                    array(
-                                      'taxonomy'            => 'ms_taxonomy_labwiki',
-                                      'field'               => 'slug',
-                                      'terms'               => $term -> slug, 
-                                    ), 
-                                  ),
-      'ignore_sticky_posts' => true //caller_get_posts is deprecated since 3.1
-    );
+      // Wiki subject header and link
+      echo '<h5 class="wiki__sidebar-header"><a href="' . $term_url . '" class="wiki__sidebar-link">' . $term -> name . '</a></h5>';
 
-    $_posts = new WP_Query( $args );
-    //var_dump($_posts);
-    if( $_posts -> have_posts( ) ) :
-
-      echo '<nav class="wiki-subject-list">';
+      // $args = array(
       
-      while( $_posts -> have_posts( ) ) : 
-        $_posts -> the_post( );
-        echo '<h5>'. get_the_title() .'</h5>';
+      //   // Wiki post type 
+      //   'post_type'             => 'ms_labwiki',
+      //   'posts_per_page'        => 10,
+      //   'post_status'           => 'publish',
+      //   'orderby'               => 'title' ,
+      //   'order'                 => 'DESC' ,
+      //   'tax_query'             =>  array(
+      //                                 array(
+      //                                   'taxonomy'            => 'ms_taxonomy_labwiki',
+      //                                   'field'               => 'slug',
+      //                                   'terms'               => $term -> slug, 
+      //                                 ), 
+      //                               ),
+      //   'ignore_sticky_posts' => true //caller_get_posts is deprecated since 3.1
+      // );
 
-      endwhile;
-    
-      echo '</nav>' ;
-    
+      // $_posts = new WP_Query( $args );
+      // //var_dump($_posts);
+      // if( $_posts -> have_posts( ) ) :
+
+      //   echo '<nav class="wiki-subject-list">';
+        
+      //   while( $_posts -> have_posts( ) ) : 
+      //     $_posts -> the_post( );
+      //     echo '<h5>'. get_the_title() .'</h5>';
+
+      //   endwhile;
+      
+      //   echo '</nav>' ;
+      
+      // endif;
     endif;
 
     wp_reset_postdata(); // Restore original Post Data
