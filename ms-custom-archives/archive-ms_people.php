@@ -26,8 +26,8 @@ foreach	( $people_roles as $role ) {
 		'post_type'      => 'ms_people',
 		'orderby'        => 'title',
 		'order'          => 'ASC',
-		'tax_query'      => 
-		array(
+		'tax_query'      => array(
+			
 			array(
 				'taxonomy'         => 'ms_taxonomy_people',
 				'field'            => 'slug',
