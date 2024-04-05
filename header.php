@@ -20,7 +20,11 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
  * 
  * get_header('' , array( 'append_site-header_class' => 'new-class' ));
  */
-if ( $args['append_site-header_class'] ) {
+
+ $new_classes = '' ;
+
+ // If we have passed an argument to have the class modified
+if ( $args ) {
 
 	$new_classes_args = $args['append_site-header_class'];
 
