@@ -35,8 +35,9 @@ function slow_atoms_og() {
     else : 
         $og_title = $site_title .  $current_page_title ;
     endif ;
-
-    if ( is_single() ) :
+    
+    // If its a single post and has assigned taxonomies then set the og_type to the tax
+    if ( is_single() && !empty( get_post_taxonomies() ) ) :
 
         $og_type            = 'article' ;
         // Retrieve all taxonomy names for the given post.
