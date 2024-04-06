@@ -193,9 +193,10 @@
 	<?php
 	}
 
-	$notif = $_GET['notif'] ;
+	// $notif = $_GET['notif'] ;
 
-	if ( $notif ) {
+	if (isset($_GET['notif']) && !empty($_GET['notif'])) {
+		$notif = $_GET['notif'] ;
 		$notif_popup = '
 		<input id="modal-toggle" type="checkbox">
 		
