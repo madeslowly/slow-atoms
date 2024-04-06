@@ -11,6 +11,11 @@
 $ms_acf_equip_images =  get_field('ms_acf_equip_images') ;
 $ms_acf_equip_desc	 =  get_field('ms_acf_equip_description_key') ;
 
+$wrapper_class		 = '' ; // Placeholder in case we want to add a class
+$image_class		 = '' ; // Placeholder in case we want to add a class
+
+$image_markup		 = '' ;
+
 for ( $i = 1 ; $i <= 4 ; $i++ ) {
 
 	$image = 'image_' . $i ;
@@ -81,7 +86,4 @@ endif ;
 <?php if ( is_singular() ) :
 echo "</section>" ;
 
-endif ; 
-
-
-
+endif ;
