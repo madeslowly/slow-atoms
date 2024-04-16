@@ -33,9 +33,11 @@ function slow_atoms_customise_colors() {
 	foreach ( $alphas as $alpha ) {
 		$primary_alpha		= hex2rgba( $slow_atoms_primary_theme_color		, $alpha ) ;
 		$secondary_alpha	= hex2rgba( $slow_atoms_secondary_theme_color	, $alpha ) ;
+		$accent_alpha		= hex2rgba( $slow_atoms_accent_color	, $alpha ) ;
 		$alpha_str			= str_replace('.', '',sprintf("%' .2f", $alpha) );
 		$css_root_colors_alphas .= '--theme-color-primary-alpha-' 		. $alpha_str . ' : ' . $primary_alpha . ' ;' . "\r\n";
 		$css_root_colors_alphas .= '--theme-color-secondary-alpha-' 	. $alpha_str . ' : ' . $secondary_alpha . ' ;' . "\r\n";
+		$css_root_colors_alphas .= '--theme-color-accent-alpha-' 		. $alpha_str . ' : ' . $accent_alpha . ' ;' . "\r\n";
 		// $i ++ ;
 	}
 
