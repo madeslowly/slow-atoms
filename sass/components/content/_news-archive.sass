@@ -1,71 +1,83 @@
+
 .news
-    padding-top: 20vh
+    padding-top: 15vh
     width: 100vw
     display: flex
     flex-direction: column
     background-color: white//var(--theme-color-primary-alpha-010)
 
-    .is__news-content-entry
-        display: flex
-        position: relative
-        width: 80vw
-        height: 20vh
-        min-height: 180px
-        max-height: 220px
-        max-width: 1200px
-        margin: 40px auto
-        border-radius: 20px
-        overflow: hidden
-        background: var(--theme-color-secondary-alpha-040)
-        background: linear-gradient(-45deg, var(--theme-color-secondary-alpha-010) 0%, white 100%)
-        box-shadow: var(--theme-color-secondary-alpha-020) 0px 3px 8px
-        border: solid 1px var(--theme-color-secondary-alpha-020)
+    .news-body
+        margin: 0 3rem
+        margin-bottom: 4rem
+        border-bottom: solid 1px var(--theme-color-secondary-alpha-040)
+    
+    .news-title
+        font-size: 1.8rem
+        font-weight: 400
+        margin: 0
 
-        .news-title
-            font-size: 2rem
-            font-weight: 400
-        
-        .entry-content
+    .entry-content
+        margin: 0
+
+@media only screen and (min-width: 768px)
+
+    .news
+
+        .is__news-content-entry
+            display: flex
+            position: relative
+            width: 80vw
             height: 20vh
             min-height: 180px
             max-height: 220px
-
-
-        &:hover
-            .news-thumbnail > img
-                transform: scale(1.02)
-
-            
-
-        .news-thumbnail
-            object-fit: cover
-            object-position: bottom
-            width: 33%
-            margin-right: 2rem
+            max-width: 1200px
+            margin: 40px auto
+            border-radius: 20px
             overflow: hidden
+            background: var(--theme-color-secondary-alpha-040)
+            background: linear-gradient(-45deg, var(--theme-color-secondary-alpha-010) 0%, white 100%)
+            box-shadow: var(--theme-color-secondary-alpha-020) 0px 3px 8px
+            border: solid 1px var(--theme-color-secondary-alpha-020)
 
-            & > img
-                transition: transform .6s
-            
-            .post-thumbnail
+            .entry-content
                 height: 20vh
                 min-height: 180px
                 max-height: 220px
+
+
+            &:hover
+                .news-thumbnail > img
+                    transform: scale(1.02)
+
+            .news-thumbnail
+                object-fit: cover
+                object-position: bottom
+                width: 33%
+                margin-right: 2rem
+                overflow: hidden
+
+                & > img
+                    transition: transform .6s
                 
+                .post-thumbnail
+                    height: 20vh
+                    min-height: 180px
+                    max-height: 220px
+                    
+
+            .news-body
+                width: 66%
+                padding-top: 2rem
+                padding-right: 2rem
+                border: none
+                // box-shadow: inset gray 0px -10px 60px 0px
             
-        
-        .news-body
-            width: 66%
-            padding-top: 2rem
-            padding-right: 2rem
-            // box-shadow: inset gray 0px -10px 60px 0px
-        
-        .blur
-            display: block
-            position: absolute
-            bottom: 0
-            width: 100%
-            height: 80px
-            background: red
-            background: var(--theme-color-secondary-alpha-040)
-            background: linear-gradient(0deg, var(--theme-color-secondary-alpha-010) 0%, white 100%)            
+            .blur
+                display: block
+                position: absolute
+                bottom: 0
+                width: 100%
+                height: 80px
+                background: red
+                background: var(--theme-color-secondary-alpha-040)
+                background: linear-gradient(0deg, var(--theme-color-secondary-alpha-010) 0%, white 100%)            
