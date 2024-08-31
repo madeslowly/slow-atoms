@@ -124,27 +124,27 @@ class slow_atoms_Color_Scheme {
             }
         }
         return $colors;
-        //var_dump($colors);
+        // var_dump($colors);
     }
 
 
     public function get_css( $colors ) {
         $css = "
-        a { color: }
+        a { color: %1\$s}
         
         button, input[type=submit], .button {
-            background: %2$s;
+            background: %2\$s;
         }
         .section h2 span,
         .number {
-            color: %6$s;
+            color: %6\$s;
         }
         .section--dark,
         .services-1 {
-            background-color: %4$s;
+            background-color: %4\$s;
         }
         .footer {
-            background: %5$s;
+            background: %5\$s;
         }";
         // More CSS
         return vsprintf( $css, $colors );
