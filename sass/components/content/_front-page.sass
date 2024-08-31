@@ -107,7 +107,9 @@ $collage_card_height: 40vh
 
 .sa__collage-header
 	color: $pure-white
-	font-size: $collage_card_height / 10
+
+	
+	font-size: calc($collage_card_height / 10 )
 	//word-spacing: $collage_card_height
 	display: flex
 	text-transform: lowercase
@@ -238,7 +240,6 @@ $collage_card_height: 40vh
 		overflow: hidden
 	
 	.sa__collage-header
-		font-size: $collage_card_height / 10
 		word-spacing: $collage_card_height
 		display: flex
 		padding: 1vh 2vw
@@ -295,10 +296,10 @@ $collage_card_height: 40vh
 		font-size: 1.4vw
 		padding-bottom: 2rem
 
-
+ 
 $break_min: calc($collage_max_width * $collage_width / 100vw )
-$break_card_width: $collage_max_width / 3
-$break_header_font: $break_card_width / 10
+$break_card_width: calc( $collage_max_width / 3 )
+$break_header_font: calc( $break_card_width / 10 )
 @media screen and (min-width: $break_min )//1425px)
 
 	.sa__collage-header
@@ -311,11 +312,11 @@ $break_header_font: $break_card_width / 10
 		
 	
 	.sa__collage--research-desc
-		font-size: $break_header_font / 2
+		font-size: calc( $break_header_font / 2 )
 
 	.sa__collage--publication-link,
 	.sa__collage--news-link
-		font-size: $break_header_font / 1.5
+		font-size: calc( $break_header_font / 1.5 )
 
 	
 	.sa__collage--popup,
