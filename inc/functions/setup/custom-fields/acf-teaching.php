@@ -11,6 +11,25 @@ acf_add_local_field_group( array(
     'title'     => 'Teaching Material',
     'fields'    => array(
         array(
+			'key' => 'ms_acf_teach_type_key',
+			'label' => 'Teaching Material Type',
+			'name' => 'ms_acf_teach_type_name',
+			'type' => 'true_false',
+			'instructions' => 'Is this Teaching material for a specific lecture or is it a course overview?',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '100',
+				'class' => '',
+				'id' => '',
+			),
+			'message' => '',
+			'default_value' => 1,
+			'ui' => 1,
+			'ui_on_text' => 'Lecture Slides',
+			'ui_off_text' => 'Course Material',
+		),
+        array(
             'key'           => 'ms_acf_teach_slides_key',
             'label'         => 'Lecture Slides',
             'name'          => 'ms_acf_teach_slides_name',
@@ -75,7 +94,11 @@ acf_add_local_field_group( array(
             'type'          => 'group',
             'instructions'  => 'PDF files only. Displayed title defaults to "[Post Title] Supplementary Slides". For a unique title add it in the above "Supplementary Title" field.',
             'required'      => 0,
-            'conditional_logic' => 0,
+            'conditional_logic' => array(
+                'field' => 'ms_acf_teach_type_key',
+                'operator' => '==',
+                'value' => '1',
+            ),
             'wrapper'       => array(
                 'width' => '50',
                 'class' => '',
@@ -132,7 +155,11 @@ acf_add_local_field_group( array(
             'type'              => 'group',
             'instructions'      => '',
             'required'          => 0,
-            'conditional_logic' => 0,
+            'conditional_logic' => array(
+                'field' => 'ms_acf_teach_type_key',
+                'operator' => '==',
+                'value' => '1',
+            ),
             'wrapper'           => array(
                 'width' => '',
                 'class' => '',
