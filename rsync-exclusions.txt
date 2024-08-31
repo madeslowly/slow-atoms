@@ -17,3 +17,4 @@ readme.txt
 README.md
 functions-removed.php
 LICENSE
+*.code-workspace
