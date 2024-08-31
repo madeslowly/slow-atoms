@@ -2,6 +2,15 @@
     width: 100vw
     max-width: 1000px
     margin: 10vh auto
+    min-height: 10vh
+
+.teaching__courses-list
+    display: flex
+    flex-direction: column
+
+.teaching_courses-item
+    margin: 0 auto
+    padding: 2rem 0
 
 .teaching__content-list
     display: flex
@@ -49,6 +58,36 @@
     border-bottom: solid 2px $soft-grey 
 
 @media only screen and (min-width: 1024px)
+
+    .teaching__content
+        width: 100vw
+        max-width: 1200px
+        margin: 10vh auto
+        min-height: 10vh
+
+    .teaching__courses-list
+        justify-content: center
+        flex-direction: row
+        
+    .teaching_courses-item
+        font-size: 2rem
+        display: flex
+        align-items: center
+        justify-content: center
+        width: 40%
+        padding: 5rem
+        background-color: var(--theme-color-primary)
+        border-radius: 16px
+        text-align: center
+        color: white
+    
+    .teaching_courses-item-link, .teaching_courses-item-link:visited
+        color: white
+        text-decoration: none
+        text-transform: uppercase
+
+        &:hover
+            color: var( --theme-color-accent )
 
     .teaching__content-row
         border: none
