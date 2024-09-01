@@ -91,7 +91,21 @@
 			endwhile ;
 
 			if ( ! empty( $email_address ) ) :
-				echo "<li class='person__meta-item person__email'><a class='person__meta-entry' href='mailto:$email_address'> <i class='fas fa-envelope'></i><p>$email_address</p></a></li>" ;
+				// To mask email address we can use JavaScript to write the email address to the page. If the user has disabled JS we show a message to use the contact form.
+				?>
+				<li class='person__meta-item person__email'>
+					<script type='text/javascript'>
+						document.write('<a class="person__meta-entry" href="mailto:<?php echo $email_address; ?>"> <i class="fas fa-envelope"></i><p><?php echo $email_address; ?></p></a>')
+			  		</script>
+					<?php 
+					if ( is_singular() ) : 
+					$contact_page = get_permalink( get_page_by_path( 'contact' ) -> ID ) ; 
+					?>
+					<noscript>JavaScript is required to view email addresses on this page. Use the <a href="<?php echo $contact_page ; ?>">contact form</a> or enable JavaScript.</noscript>
+					<?php endif; ?>
+				</li>
+			  	<?php
+				// echo "<li class='person__meta-item person__email'><a class='person__meta-entry' href='mailto:$email_address'> <i class='fas fa-envelope'></i><p>$email_address</p></a></li>" ;
 			endif ;
 
 			if ( ! empty( $phone_number ) ) :
