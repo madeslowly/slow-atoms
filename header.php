@@ -62,6 +62,10 @@ $nav_menu = wp_nav_menu( array(
 <link rel="profile" href="https://gmpg.org/xfn/11">
 <?php wp_head(); ?>
 <?php slow_atoms_head_bottom(); ?>
+<!-- Disable AOS if JS is disabled -->
+<!-- TODO: Move this to a function -->
+<noscript><style>[data-aos] { opacity: 1 !important; transform: none !important; }</style></noscript>
+
 </head>
 
 <body <?php body_class(); ?> >
