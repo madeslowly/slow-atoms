@@ -326,6 +326,7 @@ function slow_atoms_customize_register( $wp_customize ) {
 	$wp_customize	-> add_section('slow_atoms_theme_archives', array(
 		'title' 			=> __('Archive Pages', 'slow-atoms'),
 		'priority' 			=> 121, // After Homepage Settings
+		'description'		=> 'Customize the copy displayed at the top of your archive pages.'
 	) ) ;
 	/**************** Setting Research	**************/
 	$wp_customize	-> add_setting( 'slow_atoms_archives_research', array(
@@ -335,8 +336,8 @@ function slow_atoms_customize_register( $wp_customize ) {
 	) ) ;
 	/**************** Control Research	**************/
 	$wp_customize	-> add_control( new WP_Customize_Control( $wp_customize , 'slow_atoms_archives_research_control', array(
-		'label'    			=> __( 'Research Description', 'slow-atoms' ),
-		'description' 		=> __( 'A technical description of your research. This will be displayed at the top of the research page.' ),
+		'label'    			=> __( 'Research', 'slow-atoms' ),
+		'description' 		=> __( 'An overview of your research.' ),
 		'section' 			=> 'slow_atoms_theme_archives',
 		'settings' 			=> 'slow_atoms_archives_research',
 		'type'     			=> 'textarea'
@@ -345,17 +346,20 @@ function slow_atoms_customize_register( $wp_customize ) {
  	* **************	TEACHING GUIDE	**************
  	*/
 	/****************		Section		**************/
-	// Added to archive pages section
+	// Added to archive pages section, slow_atoms_theme_archives
+	// This was origanally slow_atoms_theme_pdf_upload_settings but we got ride of the pdf upload and replaced it with a text area
+	// For teaching guides, create a post in Teaching and mark it as Course Material.
 	/****************		Setting		**************/
-	$wp_customize		-> add_setting( 'slow_atoms_theme_pdf_upload_settings', array(
+	$wp_customize		-> add_setting( 'slow_atoms_archives_teaching', array(
         'transport'         => 'refresh'
     ));
 	/****************		Control		**************/
-	$wp_customize		-> add_control( new WP_Customize_Upload_Control( $wp_customize, 'slow_atoms_theme_pdf_upload_settings', array(
-        'label'             => __('Teaching Guide', 'name-theme'),
-		'description' 		=> __('Optional pdf upload of an overview of the teaching found on the Teaching Archive page.'),
+	$wp_customize		-> add_control( new WP_Customize_Control( $wp_customize , 'slow_atoms_archives_teaching_control', array(
+        'label'             => __('Teaching', 'slow-atoms'),
+		'description' 		=> __('A description of your teaching activities.'),
         'section'           => 'slow_atoms_theme_archives',
-        'settings'          => 'slow_atoms_theme_pdf_upload_settings',    
+        'settings'          => 'slow_atoms_archives_teaching',  
+		'type'     			=> 'textarea'  
     )));
 	// Sanitize text
 	function sanitize_text( $text ) {

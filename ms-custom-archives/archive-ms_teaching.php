@@ -16,9 +16,12 @@ get_header() ;
 	<section class="slow-atoms__page-hero">
 
 		<header class="page-header is__theme-background-transparent"> 
-			<h2 style="word-wrap: normal" class="page-title">
-				<?php echo the_archive_title() . ' at the department of ' . get_bloginfo( 'description' ); ?>
-			</h2>
+			<h1 style="word-wrap: normal" class="page-title">
+				<?php echo the_archive_title(); ?>
+			</h1>
+			<h2 class="page-description" data-aos="fade-in" data-aos-duration="600">
+                <?php echo 'at the department of ' . get_bloginfo( 'description', 'display' ); ?>
+            </h2>
 		</header><!-- .page-header --> 
 		
 		<?php
@@ -45,6 +48,16 @@ get_header() ;
 	</section><!-- .slow-atoms__page-hero -->
 
 	<section class="teaching__content">
+		
+		<?php
+		if (get_theme_mod('slow_atoms_archives_teaching')) :
+			$blurb	= '<div class="sa__archive-blurb-wrap"><h4 class="sa__archive-blurb-text blurb-accent">';
+			$blurb .= get_theme_mod('slow_atoms_archives_teaching');
+			$blurb .= '</h4></div>';
+			
+			echo $blurb ;
+		endif ;
+		?>
 
 		<ul class="teaching__courses-list">
 			<?php
