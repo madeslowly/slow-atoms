@@ -19,9 +19,15 @@
 	$service_id		= $service_post -> ID ;
 	$service_name	= $service_post -> post_title ;
 
-	// TODO: db queries here need to be moved to backend functions
 	global $wpdb ;
-
+	
+	$all_bookings_sql = $wpdb -> prepare(
+		"SELECT booked_date, email 
+		FROM sa_booked_dates 
+		JOIN sa_bookings ON sa_booked_dates.booking_id = sa_bookings.booking_id
+		WHERE sa_bookings.service_id = $service_id");
+	$all_bookings = $wpdb -> get_results( $all_bookings_sql ) ;
+	
 	// Get user email and name
 	$current_user_email = $current_user -> user_email ;
 	$current_user_name  = get_user_meta( $current_user -> ID, 'first_name', true ) ;
@@ -41,7 +47,7 @@
 	
 	/**
 	 * 
-	 * Check for old bookings and cleaanup db
+	 * Check for old bookings and cleanup db
 	 * 
 	 */
 
@@ -79,12 +85,39 @@
 	?>
 	
 	<form class="sa__form" id="booking_form" name="form" method="POST" action="<?php echo admin_url( 'admin-post.php' ); ?>" >
+	
+		<h2>Bookings for <?php echo $service_name ; ?></h2>
 
-		<h3>Bookings for <?php echo $service_name ; ?></h3>
+		<?php
+		if (!empty($all_bookings)) {
+		
+			$markup = '<h4>Booked Dates</h4>';
+			$markup .= '<div class="table-container">' ;
+			$markup .= '<table><tr><th>Date</th><th>User</th></tr>';
 
-		<p>Greyed out dates are already booked or fall outside of the maximum advanced booking period (<?php echo $booking_period ; ?> days from now). If another user books a date you intent to book during the time it takes to complete your booking you will be returned to this page with a refreshed list of greyed out dates.<p>
+			echo $markup ;
+					
+			// Sort the result array by booked_date in ascending order
+			usort($all_bookings, function($a, $b) {
+				return $a->booked_date - $b->booked_date;
+			});
 
-		<p>Hi <?php echo $current_user_name ?>, check your <code>@ru.nl</code> email then select the date(s) you want to book.</p>
+			// Output data of each row
+			foreach ($all_bookings as $row) {
+				$date = date("D d-M", esc_html($row->booked_date));
+				$email = esc_html($row->email);
+				$user = get_user_by('email', $email);
+				$full_name = $user ? $user->first_name . ' ' . $user->last_name : '';
+				echo "<tr><td>$date</td><td><a href='mailto:$email?subject=Your $service_name Booking - $date'>$full_name</a></td></tr>";
+			}
+					
+			echo '</table></div>' ;
+		}
+		?>
+		<h4>New Booking</h4>
+
+		<p>Hi <?php echo $current_user_name ?>, select the date(s) you want to book.</p>
+		<p class="small">Greyed out dates are already booked or fall outside of the maximum booking period (<?php echo $booking_period ; ?> days from today). If another user books your chosen date before you finish, you will be returned here with an updated list of available dates.</p>
 
 		<input type="hidden" name="action" value="process_booking" />
 
@@ -92,11 +125,12 @@
 
 		<input type="hidden" name="sabk-service-name" value="<?php echo $service_name ; ?>" />
 
-		<input type="email" id="email" name="sabk-email" pattern=".+@ru\.nl" value="<?php echo $current_user_email ?>" required>
+		<input type="hidden" id="email" name="sabk-email" pattern=".+@ru\.nl" value="<?php echo $current_user_email ?>" required>
 
 		<input type="text" id="sabk-dates" name="sabk-dates" placeholder="Select dates">
 
 		<input type="submit" value="Submit" class="slow-atoms__button">
+
 	</form>
 
 	<script>
@@ -118,8 +152,8 @@
 
 	<?php
 	if ( $sabk_user_bk_ids ) {
-		$current_bookings_title	= 'Your Bookings' ;
-		$current_bookings_inst	= 'Your current bookings are listed below. You can select a booking and add or remove dates for that booking then click "Update" to complete the change.' ;
+		$current_bookings_title	= 'Your Current Bookings' ;
+		$current_bookings_inst	= 'Your bookings are listed below. You can select an existing booking and add or remove dates for that booking then click "Update" to complete the change.' ;
 		echo '<h4>' . $current_bookings_title . '</h4>' ;
 		echo '<p>' . $current_bookings_inst . '</p>' ;
 		foreach ( $sabk_user_bk_ids as $sabk_id ) {
@@ -131,8 +165,7 @@
 			$sabk_booked = '"' . implode ( '", "', $sabk_booked ) . '"' ;
 			
 			$sabk_bk_other = str_replace($sabk_booked , "",  $sa_booked_dates);
-
-	?>
+			?>
 			<div class="booking_accordion" value="<?php echo $sabk_id ?>" >
 				<p><?php echo $service_name . ' booking #' . $sabk_id ; ?></p>
 			</div>
@@ -190,6 +223,7 @@
 				});
 			}
 		</script>
+
 	<?php
 	}
 
@@ -211,4 +245,3 @@
 	}
 
 }
-
