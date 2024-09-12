@@ -2,7 +2,7 @@
 /**
  * Process _POST from equipment bookings
  * 
- * This function is triggered by from submissions from booking forms
+ * This function is triggered by form submissions from booking forms on equipment-booking-form.php
  * 
  * @param 
  * 
@@ -33,7 +33,28 @@ function process_equipment_booking() {
   $service_name = $_REQUEST['sabk-service-name'] ;
   $booking_id   = $_REQUEST['sabk-booking-id'] ;
 
-  if ( ! $email ) { return ; }
+  // Check if email is empty and if so return with error message
+  if ( ! $email ) { 
+    // Get admin user data
+    $admin_email = get_option('admin_email');
+    $admin_user = get_user_by('email', $admin_email);
+    $admin_name = $admin_user->display_name;
+
+    // Debug: Output admin name and email
+    error_log('Admin Name: ' . $admin_name);
+    error_log('Admin Email: ' . $admin_email);
+    // Update notification message
+    $notif = 'Error: No email address was found. Contact ' . $admin_name . ' for assistance.';
+    
+    $refer  = wp_get_referer() ;
+    $refer  = strtok( $refer, '?' ) ;
+    if ( $refer ) {
+      wp_safe_redirect( $refer . '?notif='.$notif  );
+    } else {
+      wp_safe_redirect( get_home_url() );
+    }
+    return ; 
+ }
 
   global $wpdb ;
 
@@ -54,7 +75,7 @@ function process_equipment_booking() {
     $removals     = array_diff( $sabk_booked, $dates_arr ) ;
     // A date has been added so we need to reverse the array_diff args
     $additions    = array_diff( $dates_arr, $sabk_booked, [""] ) ;
-    var_dump( ($additions));
+    // var_dump( ($additions));
     foreach ( $removals as $date ) {
       $wpdb -> delete( $sa_dates, array( 'booking_id' => $booking_id, 'booked_date' => $date ) );
     }
@@ -79,7 +100,7 @@ function process_equipment_booking() {
     // Its a new booking
 
     // Get all currently booked dates
-    $query_booked       = $wpdb -> prepare( "SELECT booked_date FROM sa_booked_dates" ) ;
+    $query_booked       = $wpdb -> prepare( "SELECT booked_date FROM sa_booked_dates WHERE service_id = %d", $service_id  ) ;
     $sa_booked_dates    = $wpdb -> get_col( $query_booked ) ; // Array of booked times in unix format
 
     if ( array_intersect( $dates_arr, $sa_booked_dates ) ) {
@@ -88,7 +109,6 @@ function process_equipment_booking() {
 
     } else {
 
-    
       $wpdb -> insert( $sa_bookings, array( 'booking_id' => NULL, 'service_id' => $service_id, 'service_name' => $service_name, 'email' => $email ) ) ;
 
       $lastid = $wpdb -> insert_id ;
